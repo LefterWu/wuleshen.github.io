@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=6.7.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.7.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.7.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.7.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.7.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '6.7.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="当面付预下单支付流程接入指引 官方文档提供了接入的详细指引，调用流程和注意事项的介绍 这里放一张支付流程  加载alipay SDK jar包首先，需要在项目中添加123456789101112131415161718192021![](http://ww1.sinaimg.cn/large/3e03c521gy1fzqx5cxedxj20b905f74c.jpg)将本地jar包通过maven发布">
+<meta name="keywords" content="Java,支付宝,当面付">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java对接支付宝功能（二）">
+<meta property="og:url" content="http://www.wuleshen.com/2019/02/01/Java对接支付宝支付功能（二）/index.html">
+<meta property="og:site_name" content="wuleshen&#39;s blog">
+<meta property="og:description" content="当面付预下单支付流程接入指引 官方文档提供了接入的详细指引，调用流程和注意事项的介绍 这里放一张支付流程  加载alipay SDK jar包首先，需要在项目中添加123456789101112131415161718192021![](http://ww1.sinaimg.cn/large/3e03c521gy1fzqx5cxedxj20b905f74c.jpg)将本地jar包通过maven发布">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/3e03c521gy1fzqyx2pof6j20n90ppac3.jpg">
+<meta property="og:updated_time" content="2019-02-01T08:10:50.423Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java对接支付宝功能（二）">
+<meta name="twitter:description" content="当面付预下单支付流程接入指引 官方文档提供了接入的详细指引，调用流程和注意事项的介绍 这里放一张支付流程  加载alipay SDK jar包首先，需要在项目中添加123456789101112131415161718192021![](http://ww1.sinaimg.cn/large/3e03c521gy1fzqx5cxedxj20b905f74c.jpg)将本地jar包通过maven发布">
+<meta name="twitter:image" content="https://ws1.sinaimg.cn/large/3e03c521gy1fzqyx2pof6j20n90ppac3.jpg">
+
+
+
+
+
+
+  <link rel="canonical" href="http://www.wuleshen.com/2019/02/01/Java对接支付宝支付功能（二）/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Java对接支付宝功能（二） | wuleshen's blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">wuleshen's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">Done is better than perfect</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>About</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.wuleshen.com/2019/02/01/Java对接支付宝支付功能（二）/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="wuleshen">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="wuleshen's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Java对接支付宝功能（二）
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-02-01 13:30:30 / Modified: 16:10:50" itemprop="dateCreated datePublished" datetime="2019-02-01T13:30:30+08:00">2019-02-01</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/技术/" itemprop="url" rel="index"><span itemprop="name">技术</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="当面付预下单"><a href="#当面付预下单" class="headerlink" title="当面付预下单"></a>当面付预下单</h3><h4 id="支付流程"><a href="#支付流程" class="headerlink" title="支付流程"></a>支付流程</h4><p><a href="https://docs.open.alipay.com/194/106078/" target="_blank" rel="noopener">接入指引</a></p>
+<p>官方文档提供了接入的详细指引，调用流程和注意事项的介绍</p>
+<p>这里放一张支付流程</p>
+<p><img src="https://ws1.sinaimg.cn/large/3e03c521gy1fzqyx2pof6j20n90ppac3.jpg" alt=""></p>
+<h4 id="加载alipay-SDK-jar包"><a href="#加载alipay-SDK-jar包" class="headerlink" title="加载alipay SDK jar包"></a>加载alipay SDK jar包</h4><p>首先，需要在项目中添加<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">![](http://ww1.sinaimg.cn/large/3e03c521gy1fzqx5cxedxj20b905f74c.jpg)</span><br><span class="line"></span><br><span class="line">将本地jar包通过maven发布到服务器上</span><br><span class="line"></span><br><span class="line">为了读取在“/src/main/webapp/WEB-INF/lib”路径下的jar包，在pom文件中添加maven插件的配置</span><br><span class="line"></span><br><span class="line">```xml</span><br><span class="line">&lt;plugin&gt;</span><br><span class="line">    &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;</span><br><span class="line">    &lt;configuration&gt;</span><br><span class="line">      &lt;source&gt;1.8&lt;/source&gt;</span><br><span class="line">      &lt;target&gt;1.8&lt;/target&gt;</span><br><span class="line">      &lt;encoding&gt;UTF-8&lt;/encoding&gt;</span><br><span class="line">      &lt;compilerArguments&gt;</span><br><span class="line">        &lt;extdirs&gt;$&#123;project.basedir&#125;/src/main/webapp/WEB-INF/lib&lt;/extdirs&gt;</span><br><span class="line">      &lt;/compilerArguments&gt;</span><br><span class="line">    &lt;/configuration&gt;</span><br><span class="line">  &lt;/plugin&gt;</span><br><span class="line">&lt;/plugins&gt;</span><br></pre></td></tr></table></figure></p>
+<h4 id="支付宝生成二维码核心代码"><a href="#支付宝生成二维码核心代码" class="headerlink" title="支付宝生成二维码核心代码"></a>支付宝生成二维码核心代码</h4><p>修改自com.alipay.demo.trade.Main支付宝官方demo</p>
+<p><strong>1. 设置支付相关参数</strong></p>
+<p>外部订单号，订单标题，总金额，不可打折金额，卖家支付宝账号ID，订单描述，商户操作员编号，商户门店编号，业务扩展参数，支付超时，商品明细列表等参数</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">outTradeNo, subject, totalAmount, undiscountableAmount, sellerId, body, operatorId, storeId, extendParams, timeoutExpress, goodsDetailList</span><br></pre></td></tr></table></figure>
+<p><strong>2. 创建扫码支付请求builder，将上述参数通过调用链进行设置</strong></p>
+<p>​    这里需要注意notifyUrl字段，支付宝服务器主动通知商户服务器里指定的页面http路径,根据需要设置</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">AlipayTradePrecreateRequestBuilder builder = <span class="keyword">new</span> AlipayTradePrecreateRequestBuilder().setXXX(aaa).setYYY(bbb)</span><br><span class="line">                      .setNotifyUrl(PropertiesUtil.getProperty(<span class="string">"alipay.callback.url"</span>))</span><br><span class="line"><span class="comment">// alipay.callback.url=希望回调通知的地址</span></span><br></pre></td></tr></table></figure>
+<p><strong>3. 初始化tradeService</strong></p>
+<p>从配置文件读取支付宝网关名，appId，商户私钥，格式（json），字符集（utf-8），支付宝公钥，签名类型等信息</p>
+<p>这里用到了com.alipay.demo.trade包中的Configs和AlipayTradeServiceImpl来生成tradeService</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> AlipayTradeServiceImpl <span class="title">init_tradeService</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">/** 一定要在创建AlipayTradeService之前调用Configs.init()设置默认参数</span></span><br><span class="line"><span class="comment">     *  Configs会读取classpath下的zfbinfo.properties文件配置信息，如果找不到该文件则确认该文件是	  *  否在classpath目录</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    Configs.init(<span class="string">"alipayinfo.properties"</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">/** 使用Configs提供的默认参数</span></span><br><span class="line"><span class="comment">     *  AlipayTradeService可以使用单例或者为静态成员对象，不需要反复new</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    tradeService = <span class="keyword">new</span> AlipayTradeServiceImpl.ClientBuilder().build();</span><br><span class="line">    <span class="keyword">return</span> tradeService;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>4. 当面付预下单</strong></p>
+<p>调用预下单方法，传入之前生成的builder对象，tradePrecreate内部会调用AlipayClient的execute方法，进行远程调用，返回一个response对象</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AlipayF2FPrecreateResult result = tradeService.tradePrecreate(builder);</span><br></pre></td></tr></table></figure>
+<p><strong>5.判断下单是否成功</strong></p>
+<p><strong>5.1 预下单成功，生成二维码到指定路径</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">trade_precreate_success</span><span class="params">(AlipayF2FPrecreateResult result, String path)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 简单打印应答</span></span><br><span class="line">    AlipayTradePrecreateResponse response = result.getResponse();</span><br><span class="line">    dumpResponse(response);</span><br><span class="line">    <span class="comment">// 本地生成二维码存放文件夹</span></span><br><span class="line">    File folder = <span class="keyword">new</span> File(path);</span><br><span class="line">    <span class="keyword">if</span> (!folder.exists()) &#123;</span><br><span class="line">        folder.setWritable(<span class="keyword">true</span>);</span><br><span class="line">        folder.mkdirs();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">        生成二维码流程</span></span><br><span class="line"><span class="comment">        1. 根据外部订单号（outTradeNo）生成二维码存放路径（qrPath）</span></span><br><span class="line"><span class="comment">        2. 生成二维码到qrPath</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    String qrPath = String.format(path + <span class="string">"/qr-%s.png"</span>, response.getOutTradeNo());</span><br><span class="line">    String qrFileName = String.format(<span class="string">"qr-%s.png"</span>, response.getOutTradeNo());</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 生成二维码图片到本地指定路径</span></span><br><span class="line">    File imageFile = ZxingUtils.getQRCodeImge(response.getQrCode(), <span class="number">256</span>, qrPath);</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="comment">// 将本地路径的二维码图片上传到ftp服务器</span></span><br><span class="line">        FTPUtil.uploadFile(Lists.newArrayList(imageFile));</span><br><span class="line">    &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">        logger.error(<span class="string">"上传二维码异常"</span>, e);</span><br><span class="line">    &#125;</span><br><span class="line">    logger.info(<span class="string">"qrPath:"</span> + qrPath);</span><br><span class="line">    <span class="comment">// 生成二维码的ftp Url</span></span><br><span class="line">    String qrUrl = PropertiesUtil.getProperty(<span class="string">"ftp.server.http.prefix"</span>) + imageFile.getName();</span><br><span class="line">    resultMap.put(<span class="string">"qrUrl"</span>, qrUrl);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>流程总结整理</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="comment">// 1. 设置支付相关参数，具体可以参考demo中的说明</span></span><br><span class="line">    outTradeNo, subject, totalAmount, undiscountableAmount, sellerId, body, operatorId, storeId, extendParams, timeoutExpress, goodsDetailList</span><br><span class="line">   </span><br><span class="line">     <span class="comment">// 2. 创建扫码支付请求builder，设置请求参数</span></span><br><span class="line">    AlipayTradePrecreateRequestBuilder builder = <span class="keyword">new</span> AlipayTradePrecreateRequestBuilder()</span><br><span class="line">            .setSubject(subject).setTotalAmount(totalAmount).setOutTradeNo(outTradeNo) 		.setUndiscountableAmount(undiscountableAmount).setSellerId(sellerId).setBody(body)</span><br><span class="line">           .setOperatorId(operatorId).setStoreId(storeId).setExtendParams(extendParams)</span><br><span class="line">            .setTimeoutExpress(timeoutExpress)</span><br><span class="line">            .setNotifyUrl(PropertiesUtil.getProperty(<span class="string">"alipay.callback.url"</span>))<span class="comment">//支付宝服务器主动通知商户服务器里指定的页面http路径,根据需要设置</span></span><br><span class="line">            .setGoodsDetailList(goodsDetailList);</span><br><span class="line">   </span><br><span class="line">     <span class="comment">// 3. 初始化tradeService</span></span><br><span class="line">    tradeService = init_tradeService();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 4. 当面付预下单</span></span><br><span class="line">    AlipayF2FPrecreateResult result = tradeService.tradePrecreate(builder);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 5. 根据下单返回结果进行后续处理</span></span><br><span class="line">    <span class="keyword">switch</span> (result.getTradeStatus()) &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">case</span> SUCCESS:</span><br><span class="line">            logger.info(<span class="string">"支付宝预下单成功: )"</span>);</span><br><span class="line">    </span><br><span class="line">            <span class="comment">// 5.1 预下单成功，生成二维码到指定路径</span></span><br><span class="line">            trade_precreate_success(result, path);</span><br><span class="line">            <span class="keyword">return</span> ServerResponse.createBySuccess(resultMap);</span><br><span class="line">    </span><br><span class="line">        <span class="keyword">case</span> FAILED:</span><br><span class="line">            logger.error(<span class="string">"支付宝预下单失败!!!"</span>);</span><br><span class="line">            <span class="keyword">return</span> ServerResponse.createByErrorMessage(<span class="string">"支付宝预下单失败!!!"</span>);</span><br><span class="line">    </span><br><span class="line">        <span class="keyword">case</span> UNKNOWN:</span><br><span class="line">            logger.error(<span class="string">"系统异常，预下单状态未知!!!"</span>);</span><br><span class="line">            <span class="keyword">return</span> ServerResponse.createByErrorMessage(<span class="string">"系统异常，预下单状态未知!!!"</span>);</span><br><span class="line">    </span><br><span class="line">        <span class="keyword">default</span>:</span><br><span class="line">            logger.error(<span class="string">"不支持的交易状态，交易返回异常!!!"</span>);</span><br><span class="line">            <span class="keyword">return</span> ServerResponse.createByErrorMessage(<span class="string">"不支持的交易状态，交易返回异常!!!"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag"># Java</a>
+          
+            <a href="/tags/支付宝/" rel="tag"># 支付宝</a>
+          
+            <a href="/tags/当面付/" rel="tag"># 当面付</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/01/22/Java对接支付宝支付功能（一）/" rel="next" title="Java对接支付宝支付功能（一）官方Demo调试">
+                <i class="fa fa-chevron-left"></i> Java对接支付宝支付功能（一）官方Demo调试
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">wuleshen</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">2</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/LefterWu" title="GitHub &rarr; https://github.com/LefterWu" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:wuleshen@163.com" title="E-Mail &rarr; mailto:wuleshen@163.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#当面付预下单"><span class="nav-number">1.</span> <span class="nav-text">当面付预下单</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#支付流程"><span class="nav-number">1.1.</span> <span class="nav-text">支付流程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#加载alipay-SDK-jar包"><span class="nav-number">1.2.</span> <span class="nav-text">加载alipay SDK jar包</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#支付宝生成二维码核心代码"><span class="nav-number">1.3.</span> <span class="nav-text">支付宝生成二维码核心代码</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018 – <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">wuleshen</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v6.7.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=6.7.0"></script>
+
+  <script src="/js/src/motion.js?v=6.7.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=6.7.0"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=6.7.0"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=6.7.0"></script>
+<script src="/js/src/post-details.js?v=6.7.0"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=6.7.0"></script>
+
+
+
+  
+
+
+  
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

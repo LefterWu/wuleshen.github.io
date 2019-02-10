@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=6.7.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.7.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.7.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.7.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.7.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '6.7.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="这是一个面试中常会遇到的问题，其中涉及的问题很多，接下来会试着一一分析一下。 具体过程主要分为浏览器处理URL、DNS解析、获取TCP连接、发送HTTP请求、服务器处理请求、服务器返回响应、浏览器渲染页面这几大步骤。 本文以输入www.google.com 为例进行分析，浏览器以chrome为例。  浏览器处理URL1. 校验URL格式首先，浏览器会校验用户输入的URL格式是否正确，如果不是URL">
+<meta name="keywords" content="Web,计算机网络,面试">
+<meta property="og:type" content="article">
+<meta property="og:title" content="从浏览器输入URL到页面加载展示，中间发生了什么">
+<meta property="og:url" content="http://www.wuleshen.com/2019/02/09/urlToWebpage/index.html">
+<meta property="og:site_name" content="wuleshen&#39;s blog">
+<meta property="og:description" content="这是一个面试中常会遇到的问题，其中涉及的问题很多，接下来会试着一一分析一下。 具体过程主要分为浏览器处理URL、DNS解析、获取TCP连接、发送HTTP请求、服务器处理请求、服务器返回响应、浏览器渲染页面这几大步骤。 本文以输入www.google.com 为例进行分析，浏览器以chrome为例。  浏览器处理URL1. 校验URL格式首先，浏览器会校验用户输入的URL格式是否正确，如果不是URL">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://www.wuleshen.com/2019/02/09/urlToWebpage/1549786677960.png">
+<meta property="og:image" content="http://www.wuleshen.com/2019/02/09/urlToWebpage/1549802306452.png">
+<meta property="og:image" content="http://s3.51cto.com/wyfs02/M02/7D/4B/wKioL1blODLw1L4FAAc0gVp1C6Q046.jpg">
+<meta property="og:image" content="http://www.wuleshen.com/2019/02/09/urlToWebpage/1549789979776.png">
+<meta property="og:image" content="http://www.wuleshen.com/2019/02/09/urlToWebpage/1549791850506.png">
+<meta property="og:image" content="http://www.wuleshen.com/2019/02/09/urlToWebpage/1549791947646.png">
+<meta property="og:image" content="http://www.wuleshen.com/2019/02/09/urlToWebpage/1549794267158.png">
+<meta property="og:image" content="http://www.wuleshen.com/2019/02/09/urlToWebpage/1549807179453.png">
+<meta property="og:updated_time" content="2019-02-10T14:10:03.929Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="从浏览器输入URL到页面加载展示，中间发生了什么">
+<meta name="twitter:description" content="这是一个面试中常会遇到的问题，其中涉及的问题很多，接下来会试着一一分析一下。 具体过程主要分为浏览器处理URL、DNS解析、获取TCP连接、发送HTTP请求、服务器处理请求、服务器返回响应、浏览器渲染页面这几大步骤。 本文以输入www.google.com 为例进行分析，浏览器以chrome为例。  浏览器处理URL1. 校验URL格式首先，浏览器会校验用户输入的URL格式是否正确，如果不是URL">
+<meta name="twitter:image" content="http://www.wuleshen.com/2019/02/09/urlToWebpage/1549786677960.png">
+
+
+
+
+
+
+  <link rel="canonical" href="http://www.wuleshen.com/2019/02/09/urlToWebpage/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>从浏览器输入URL到页面加载展示，中间发生了什么 | wuleshen's blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">wuleshen's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">Done is better than perfect</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>About</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.wuleshen.com/2019/02/09/urlToWebpage/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="LeShen Wu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="wuleshen's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">从浏览器输入URL到页面加载展示，中间发生了什么
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-02-09 18:02:57" itemprop="dateCreated datePublished" datetime="2019-02-09T18:02:57+08:00">2019-02-09</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-02-10 22:10:03" itemprop="dateModified" datetime="2019-02-10T22:10:03+08:00">2019-02-10</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/技术/" itemprop="url" rel="index"><span itemprop="name">技术</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon">
+            <i class="fa fa-eye"></i>
+             Views:  
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>这是一个面试中常会遇到的问题，其中涉及的问题很多，接下来会试着一一分析一下。</p>
+<p>具体过程主要分为浏览器处理URL、DNS解析、获取TCP连接、发送HTTP请求、服务器处理请求、服务器返回响应、浏览器渲染页面这几大步骤。</p>
+<p>本文以输入<a href="http://www.google.com" target="_blank" rel="noopener">www.google.com</a> 为例进行分析，浏览器以chrome为例。</p>
+<hr>
+<h3 id="浏览器处理URL"><a href="#浏览器处理URL" class="headerlink" title="浏览器处理URL"></a>浏览器处理URL</h3><h4 id="1-校验URL格式"><a href="#1-校验URL格式" class="headerlink" title="1. 校验URL格式"></a>1. 校验URL格式</h4><p>首先，浏览器会校验用户输入的URL格式是否正确，如果不是URL地址，那么浏览器会自动调用默认的搜索引擎进行搜索。</p>
+<p>合法的URL地址如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;scheme&gt;://&lt;user&gt;:&lt;password&gt;@&lt;host&gt;:&lt;port&gt;/&lt;path&gt;;&lt;params&gt;?&lt;query&gt;#&lt;frag&gt;</span><br></pre></td></tr></table></figure>
+<p>URL 为了在不同协议不同传输机制都可以安全的运送信息，采用的字符都是符合 ASCII 集的。这其中还包含一些保留字符，比如上面的 URL 协议中的分割字符，等特殊含义的字符。<br>而不安全的字符，非 ASCII 的 Unicode（中文等）字符，就会通过转义去处理，使用% 。</p>
+<p>此部分就是检查 url 的合法性，并对不合法的进行转义。浏览器还会检查 HSTS 列表。</p>
+<h4 id="2-检查HSTS-列表"><a href="#2-检查HSTS-列表" class="headerlink" title="2. 检查HSTS 列表"></a>2. 检查HSTS 列表</h4><p>HSTS 就是一种安全策略的机制，是为了让浏览器强制使用 HTTPS 访问的，详细可以去这篇<a href="http://www.jianshu.com/p/caa80c7ad45c" target="_blank" rel="noopener">文章</a>看，介绍的比较清楚。当你的网站均采用 HTTPS，并符合它的安全规范，就可以申请加入 HSTS 列表，之后用户不加 HTTPS 协议再去访问你的网站，浏览器都会定向到 HTTPS。</p>
+<p>例如用户输入<code>google.com</code> ，最终会定向到<code>https://www.google.com/</code>。</p>
+<p><img src="/2019/02/09/urlToWebpage/1549786677960.png" alt="1549786677960"></p>
+<h3 id="DNS解析"><a href="#DNS解析" class="headerlink" title="DNS解析"></a>DNS解析</h3><p>我们浏览器中输入的地址只是一个代号，服务器是不认识这个名称的，服务器需要IP地址来进行定位。</p>
+<p>通过DNS（Domain Name System）域名系统解析，我们可以把url转换为IP地址</p>
+<h4 id="1-查询缓存"><a href="#1-查询缓存" class="headerlink" title="1. 查询缓存"></a>1. 查询缓存</h4><h5 id="1-1-查看浏览器内部缓存"><a href="#1-1-查看浏览器内部缓存" class="headerlink" title="1.1 查看浏览器内部缓存"></a>1.1 查看浏览器内部缓存</h5><p>检测域名是否存在于浏览器缓存中，如果有缓存直接使用，没有则下一步。打开 <code>chrome://net-internals/#dns</code> 即可查看本机浏览器的 dns 缓存。（chrome中有效期为1分钟）</p>
+<h5 id="1-2-系统缓存"><a href="#1-2-系统缓存" class="headerlink" title="1.2 系统缓存"></a>1.2 系统缓存</h5><p>浏览器会调用一个库函数，此函数会先去检测本地 hosts文件，查看是否有对应ip。</p>
+<h5 id="1-3-路由器缓存、ISP-缓存"><a href="#1-3-路由器缓存、ISP-缓存" class="headerlink" title="1.3. 路由器缓存、ISP 缓存"></a>1.3. 路由器缓存、ISP 缓存</h5><p>如果浏览器和系统缓存都没有，系统的库函数就会像 DNS 服务器发送请求。而网络服务一般都会先经过路由器以及网络服务商（电信），所以会先查询路由器缓存，然后再查询 ISP 的 DNS 缓存。</p>
+<h4 id="2-本地-DNS-服务器"><a href="#2-本地-DNS-服务器" class="headerlink" title="2. 本地 DNS 服务器"></a>2. 本地 DNS 服务器</h4><p>windows下利用<code>ipconfig</code>命令可以查看本机DNS服务器地址</p>
+<p><img src="/2019/02/09/urlToWebpage/1549802306452.png" alt="1549802306452"></p>
+<h4 id="3-域名服务器"><a href="#3-域名服务器" class="headerlink" title="3. 域名服务器"></a>3. 域名服务器</h4><p>如果本机DNS没有找到的情况下，本地域名服务器会向根域名服务器发送一个请求，如果根域名服务器也不存在该域名时，本地域名会向com顶级域名服务器发送一个请求，依次类推下去。直到最后本地域名服务器得到google的IP地址并把它缓存到本地，供下次查询使用。</p>
+<p>关于根域名服务器的介绍以及为什么是13台，可以去这篇<a href="https://jaminzhang.github.io/dns/The-Reason-of-There-Is-Only-13-DNS-Root-Servers/" target="_blank" rel="noopener">文章</a> 看，讲的很明白。</p>
+<p>到此处的过程为：根域服务器（.） -&gt; 顶级域名服务器（.com）-&gt; 主域名服务器（google.com）</p>
+<p><img src="http://s3.51cto.com/wyfs02/M02/7D/4B/wKioL1blODLw1L4FAAc0gVp1C6Q046.jpg" alt=""></p>
+<p>上图对DNS解析过程画的非常清晰。</p>
+<p>经过以上这些查询，如果域名正常，在某一步骤应该就会返回 IP 地址，如果直到最后一步都没有查询到，浏览器就会提示找不到服务器地址。</p>
+<p><strong>得到目标服务器地址后，可以进行TCP连接了。</strong></p>
+<h3 id="TCP连接"><a href="#TCP连接" class="headerlink" title="TCP连接"></a>TCP连接</h3><p>TCP协议（Transmission Control Protocol，传输控制协议）是一种面向连接，确保数据在端到端之间可靠传输的协议。</p>
+<p>根据TCP/IP协议，需要本机和目标服务器的<code>ip</code>和<code>port</code>才能进行传输。</p>
+<p>本机ip：由运营商分配                本机port：由操作系统分配</p>
+<p>目标服务器ip：通过DNS解析            目标服务器port：http协议默认80，https协议默认443</p>
+<p>关于建立和断开TCP连接，详细展开有太多内容，这里仅做简单说明。</p>
+<h4 id="建立TCP连接"><a href="#建立TCP连接" class="headerlink" title="建立TCP连接"></a>建立TCP连接</h4><p>TCP有6个标志位，分别为SYN, ACK, FIN, URG, PSH, RST。置一有效。</p>
+<p>这里介绍SYN，ACK， FIN这3个标志位。</p>
+<p>SYN（Synchronize Sequence Number）: 建立连接的同步信号</p>
+<p>ACK（Acknowledgement）: 对收到的数据进行确认</p>
+<p>FIN（Finish）: 表示后面没有数据要发送，连接需要关闭</p>
+<p>还需要用到两个序号，序列号seq和确认序号ack</p>
+<p>seq（sequence number）：表示要发送的数据的第一个字节的序号，后面按这个逻辑递增</p>
+<p>ack（Acknowledgement number）：期望收到的下一个报文段数据的第一个字节的序号</p>
+<p>3次握手的过程如下图所示</p>
+<p><img src="/2019/02/09/urlToWebpage/1549789979776.png" alt="1549789979776"></p>
+<p>关于为什么要进行3次握手，主要有两个目的：<strong>信息对等</strong>和<strong>防止超时</strong>。</p>
+<p><strong>信息对等</strong>：如果只进行2次握手，B机器无法确认A收到了自己的信息，只有通过第3次握手，才能确认自己的发报能力和收报能力都是正常的</p>
+<p><img src="/2019/02/09/urlToWebpage/1549791850506.png" alt="1549791850506"></p>
+<p><strong>防止超时</strong>：TTL网络报文的生存时间往往都会超过TCP请求超时时间，如果只用2次握手建立连接，那么当A机器发送第一个请求超时，第二个请求才和B机器建立连接，当A发送的第一个超时请求这个时候才到达B时，B机器会建立一个新的连接，然而，由于A的状态不是SYN_SENT，会直接丢弃B的确认数据，导致B单方面创建连接完毕。</p>
+<p><img src="/2019/02/09/urlToWebpage/1549791947646.png" alt="1549791947646"></p>
+<h4 id="断开TCP连接"><a href="#断开TCP连接" class="headerlink" title="断开TCP连接"></a>断开TCP连接</h4><p>建立连接需要3次，而断开连接需要4次挥手。主要过程见下图。</p>
+<p><img src="/2019/02/09/urlToWebpage/1549794267158.png" alt="1549794267158"></p>
+<p>这里主要介绍一下<code>CLOSE_WAIT</code>和<code>TIME_WAIT</code>这两个状态。</p>
+<ul>
+<li><p><code>CLOSE_WAIT</code>: 该状态表示等待关闭，并通知应用程序发送剩余数据，处理现场信息，关闭相关资源。</p>
+</li>
+<li><p><code>TIME_WAIT</code>:  主动要求关闭的机器在收到对方的FIN报文后，发送ACK报文，并进入TIME_WAIT状态，等待<code>2MSL</code>后即可进入<code>CLOSED</code>关闭状态。</p>
+</li>
+</ul>
+<p>MSL(Maximum Segment Lifetime)，等待<code>2MSL</code>是报文在网络上生存的最长时间，超过阈值报文则被丢弃，一般来说<code>MSL</code>大于TTL衰减至0的时间。在RFC793中规定<code>MSL</code>为2分钟，然而在当前告诉网络中，2分钟等待时间会造成极大的资源浪费，在高并发服务器上通常会使用更小的值。</p>
+<p>既然<code>TIME_WAIT</code>这个状态看起很鸡肋，为何不直接进入<code>CLOSED</code>状态呢？</p>
+<p>主要有两点原因：</p>
+<p><strong>第一，确认被动关闭方能够顺利进入CLOSED状态。</strong>如果最后一个ACK没有到达B机器，B机器会重发FIN+ACK报文，当A机器收到了第二次FIN+ACK报文，会重发一次ACK，并重新计时。如果A没有等待时间而是发送完ACK后直接关闭，可能会导致B机器无法确保收到最后的ACK指令。</p>
+<p><strong>第二，防止失效请求。</strong>防止已失效连接的请求数据包与正常连接的请求数据包混淆而发生异常。</p>
+<p>高并发服务器上，<code>TIME_WAIT</code>超时时间建议小于30秒为宜，在服务器上通过变更/etc/sysctl.conf文件修改</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net.ipv4.tcp_fin_timeout = 30</span><br></pre></td></tr></table></figure>
+<p><code>TIME_WAIT</code>是断开连接的尾声，如果此状态过多，可通过优化服务器参数得到解决（如上文调小TIME_OUT超时时间）。出现该状况也可能是程序自身问题，比如没有释放流操作等。</p>
+<h3 id="发送HTTPS请求"><a href="#发送HTTPS请求" class="headerlink" title="发送HTTPS请求"></a>发送HTTPS请求</h3><p><strong>TCP连接建立后，客户端向浏览器发送HTTP请求。</strong></p>
+<p>现在很多网站都使用https协议替代了http协议。</p>
+<p>HTTPS全称为HTTP over SSL。其中，SSL（Secure Socket Layer）安全套接字层，是一个工作于应用层和传输层之间，为应用提供加密传输的协议。顾名思义，HTTPS就是在HTTP上增加了SSL协议的加密能力。</p>
+<h4 id="关于数字加密"><a href="#关于数字加密" class="headerlink" title="关于数字加密"></a>关于数字加密</h4><p>这里需要补充一点数字加密的相关知识，在另一篇文章中提及。</p>
+<p><em>更新中（这里放文章网址）</em></p>
+<h4 id="HTTPS建立连接"><a href="#HTTPS建立连接" class="headerlink" title="HTTPS建立连接"></a>HTTPS建立连接</h4><p>HTTPS建立连接步骤大致如下：</p>
+<ol>
+<li>客户端向服务端发送请求，客户端会告诉服务端自己支持哪些加密套件</li>
+<li>服务端收到请求后，会返回一系列协议数据，并以一个没有数据内容的Server Hello Done 作为结束。</li>
+<li>客户端在收到服务端的握手信息后，也会发送一系列协议。</li>
+<li>服务端在接收客户端的确认信息和验证信息后，会对客户端发送的数据进行确认。</li>
+<li>最后，如果双方都确认加密无误后，各自按照之前约定的Session Secret对应用数据进行加密传输。</li>
+</ol>
+<p>具体的协议数据等，可以通过抓包工具进行查看，这里就不做展开了。</p>
+<p><img src="/2019/02/09/urlToWebpage/1549807179453.png" alt="1549807179453"></p>
+<h3 id="服务器处理请求"><a href="#服务器处理请求" class="headerlink" title="服务器处理请求"></a>服务器处理请求</h3><p><em>更新中</em></p>
+<h3 id="服务器返回响应"><a href="#服务器返回响应" class="headerlink" title="服务器返回响应"></a>服务器返回响应</h3><p><em>更新中</em></p>
+<h3 id="浏览器渲染页面"><a href="#浏览器渲染页面" class="headerlink" title="浏览器渲染页面"></a>浏览器渲染页面</h3><p><em>更新中</em></p>
+<hr>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
+<li><a href="https://github.com/sunyongjian/blog/issues/34" target="_blank" rel="noopener">https://github.com/sunyongjian/blog/issues/34</a></li>
+<li><a href="https://segmentfault.com/a/1190000006879700" target="_blank" rel="noopener">https://segmentfault.com/a/1190000006879700</a></li>
+<li><a href="https://www.cnblogs.com/crazylqy/p/7110357.html" target="_blank" rel="noopener">https://www.cnblogs.com/crazylqy/p/7110357.html</a></li>
+<li>《码出高效 Java开发手册》</li>
+</ul>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Web/" rel="tag"># Web</a>
+          
+            <a href="/tags/计算机网络/" rel="tag"># 计算机网络</a>
+          
+            <a href="/tags/面试/" rel="tag"># 面试</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/03/Java对接支付宝支付功能（三）/" rel="next" title="Java对接支付宝支付功能（三）异步通知">
+                <i class="fa fa-chevron-left"></i> Java对接支付宝支付功能（三）异步通知
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80MjQ4MC8xOTAyNw=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">LeShen Wu</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">5</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">2</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">6</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/LefterWu" title="GitHub &rarr; https://github.com/LefterWu" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:wuleshen@163.com" title="E-Mail &rarr; mailto:wuleshen@163.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#浏览器处理URL"><span class="nav-number">1.</span> <span class="nav-text">浏览器处理URL</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-校验URL格式"><span class="nav-number">1.1.</span> <span class="nav-text">1. 校验URL格式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-检查HSTS-列表"><span class="nav-number">1.2.</span> <span class="nav-text">2. 检查HSTS 列表</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DNS解析"><span class="nav-number">2.</span> <span class="nav-text">DNS解析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-查询缓存"><span class="nav-number">2.1.</span> <span class="nav-text">1. 查询缓存</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-1-查看浏览器内部缓存"><span class="nav-number">2.1.1.</span> <span class="nav-text">1.1 查看浏览器内部缓存</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-2-系统缓存"><span class="nav-number">2.1.2.</span> <span class="nav-text">1.2 系统缓存</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-3-路由器缓存、ISP-缓存"><span class="nav-number">2.1.3.</span> <span class="nav-text">1.3. 路由器缓存、ISP 缓存</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-本地-DNS-服务器"><span class="nav-number">2.2.</span> <span class="nav-text">2. 本地 DNS 服务器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-域名服务器"><span class="nav-number">2.3.</span> <span class="nav-text">3. 域名服务器</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP连接"><span class="nav-number">3.</span> <span class="nav-text">TCP连接</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#建立TCP连接"><span class="nav-number">3.1.</span> <span class="nav-text">建立TCP连接</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#断开TCP连接"><span class="nav-number">3.2.</span> <span class="nav-text">断开TCP连接</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#发送HTTPS请求"><span class="nav-number">4.</span> <span class="nav-text">发送HTTPS请求</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#关于数字加密"><span class="nav-number">4.1.</span> <span class="nav-text">关于数字加密</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HTTPS建立连接"><span class="nav-number">4.2.</span> <span class="nav-text">HTTPS建立连接</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#服务器处理请求"><span class="nav-number">5.</span> <span class="nav-text">服务器处理请求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#服务器返回响应"><span class="nav-number">6.</span> <span class="nav-text">服务器返回响应</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#浏览器渲染页面"><span class="nav-number">7.</span> <span class="nav-text">浏览器渲染页面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考"><span class="nav-number">8.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018 – <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LeShen Wu</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v6.7.0</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="Total Visitors">
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+  
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="Total Views">
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=6.7.0"></script>
+
+  <script src="/js/src/motion.js?v=6.7.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=6.7.0"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=6.7.0"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=6.7.0"></script>
+<script src="/js/src/post-details.js?v=6.7.0"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=6.7.0"></script>
+
+
+
+  
+
+
+  
+    <script>
+  window.livereOptions = {
+    refer: '2019/02/09/urlToWebpage/'
+  };
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+    if (typeof LivereTower === 'function') { return; }
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+</script>
+
+  
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

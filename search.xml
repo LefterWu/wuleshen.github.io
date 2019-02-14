@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[Hexo博客SEO优化]]></title>
+    <url>%2F2019%2F02%2F14%2Fhexo-blog-seo-optimization%2F</url>
+    <content type="text"><![CDATA[为了让我们的博客被搜索引擎爬取和收录，我们需要对博客进行SEO优化。 搜索引擎优化（英语：search engine optimization，缩写为SEO），是一种透过了解搜索引擎的运作规则来调整网站，以及提高目的网站在有关搜索引擎内排名的方式。 站点地图站点地图描述了一个网站的架构 它可以是一个任意形式的文档，用作网页设计的设计工具，也可以是列出网站中所有页面的一个网页，通常采用分级形式。这有助于访问者以及搜索引擎的机器人找到网站中的页面。 站点地图的作用 为搜索引擎爬虫提供可以浏览整个网站的链接； 为搜索引擎爬虫提供一些链接，指向动态页面或者采用其他方法比较难以到达的页面； 如果访问者试图访问网站所在域内并不存在的URL，那么这个访问者就会被转到“无法找到文件”的错误页面，而网站地图可以作为该页面的“准”内容。 生成步骤： 在hexo根目录下，运行以下指令安装站点地图生成的插件 Google 1npm install hexo-generator-sitemap --save Baidu 1npm install hexo-generator-baidu-sitemap --save 插件安装完毕后，每次运行hexo g会自动生成站点地图，位置在${hexo}\public文件夹下。 Google和Baidu分别生成sitemap.xml，baidusitemap.xml 在hexo配置文件_config.yml中，添加如下配置： 1234sitemap: path: sitemap.xmlbaidusitemap: path: baidusitemap.xml 运行hexo d进行部署，然后在浏览器访问你的域名/sitemap.xml，如果看到xml文件，那么就说明站点地图部署成功了。 创建robots.txtrobots.txt（统一小写）是一种存放于网站根目录下的ASCII编码的文本文件，它通常告诉网络搜索引擎的漫游器（又称网络蜘蛛），此网站中的哪些内容是不应被搜索引擎的漫游器获取的，哪些是可以被漫游器获取的。因为一些系统中的URL是大小写敏感的，所以robots.txt的文件名应统一为小写。robots.txt应放置于网站的根目录下。如果想单独定义搜索引擎的漫游器访问子目录时的行为，那么可以将自定的设置合并到根目录下的robots.txt，或者使用robots元数据（Metadata，又称元数据）。具体实例可见这里。 在${hexo根目录}\source添加robots.txt，内容如下，可以根据需要自行修改拦截和允许通过等 12345678910111213# hexo robots.txtUser-agent: *Allow: /Allow: /archives/ Disallow: /js/Disallow: /css/Disallow: /fonts/Disallow: /vendors/Disallow: /fancybox/Sitemap: yourwebsiteurl/sitemap.xmlSitemap: yourwebsiteurl/baidusitemap.xml 当运行hexo d部署后，该文件就会在网站的根目录下，搜索引擎就可以根据该文件进行爬取。 数据统计与分析使用搜索网站提供的数据分析服务可以直观的了解网站的各种运行数据，这里介绍两种常用的分析工具。 Google Analysis 登录 Google Analysis，获得Google跟踪ID。 编辑 主题配置文件， 修改字段 google_analytics， 值设置成你的 Google 跟踪 ID。跟踪 ID 通常是以 UA- 开头。 百度统计 登录 百度统计，定位到站点的代码获取页面 复制 hm.js? 后面那串统计脚本 id，如下图所示： 123456789&lt;script&gt;var _hmt = _hmt || [];(function() &#123; var hm = document.createElement(&quot;script&quot;); hm.src = &quot;https://hm.baidu.com/hm.js?你的统计id&quot;; var s = document.getElementsByTagName(&quot;script&quot;)[0]; s.parentNode.insertBefore(hm, s);&#125;)();&lt;/script&gt; 编辑 主题配置文件， 修改字段 baidu_analytics，值设置成你的百度统计脚本 id。 参考 https://theme-next.iissnan.com/third-party-services.html#analytics-system]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
+        <tag>SEO</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[数字签名和数字证书]]></title>
     <url>%2F2019%2F02%2F13%2FdigitalSignature%2F</url>
     <content type="text"><![CDATA[密钥加密 A有一对成对的钥匙，一把为公钥，一把为私钥 公钥可以发送给别人，私钥只能自己保存 公钥私钥加密原理基于大质数分解 加密流程 A将自己的公钥发送给B 这时，B要发送信息给A，B利用A的公钥加密要发送的内容然后发给A A收到加密信息后利用自己的私钥解密 只要A的私钥不泄露，信息就是安全的，即使落在别人手里，也无法解密。 数字签名步骤1：生成摘要（MD5） A对信息使用hash函数（常用的MD5等）生成一个摘要（Digest） 步骤2：非对称加密（RSA1/2） A对这个摘要用私钥加密，生成数字签名（signature） A将数字签名附在要发送的信息后发送给B B对数字签名用公钥解密，得到信息的摘要 B对信息本身使用hash函数，将得到的结果和上一步的摘要进行比对，如果两者一致，则说明信息未被改动 如果这时，C用自己的公钥替换了A的公钥，那么C就可以冒充A，让B用C的公钥解密C发送的信息 因此，这里需要一个具有公信力的机构（证书中心 certificate authority，简称CA）为公钥进行认证，这时就引出数字证书 RSA加密算法区别 开放平台签名算法名称 标准签名算法名称 备注 RSA2 SHA256WithRSA 强制要求RSA密钥的长度至少为2048 RSA SHA1WithRSA 对RSA密钥的长度不限制，推荐使用2048位以上 数字证书 证书中心用自己的私钥，对A的公钥和一些相关信息一起加密，生成”数字证书”（Digital Certificate） 简而言之，数字证书就是对公钥进行加密的 A今后发送加密信息时，除了附上数字签名外，再附上一个数字证书就可以保证自己的公钥不被冒充替换 实例：https协议 请求： 客户端向服务端发送加密请求 响应：服务器用自己的私钥加密网页以后，连同本身的数字证书，一起发送给客户端。 客户端（浏览器）的”证书管理器”，有”受信任的根证书颁发机构”列表。客户端会根据这张列表，查看解开数字证书的公钥是否在列表之内。 如果数字证书记载的网址，与你正在浏览的网址不一致，就说明这张证书可能被冒用，浏览器会发出警告。 如果这张数字证书不是由受信任的机构颁发的，浏览器会发出另一种警告。 如果数字证书是可靠的，客户端就可以使用证书中的服务器公钥，对信息进行加密，然后与服务器交换加密信息。 参考 阮一峰的数字签名是什么]]></content>

@@ -1269,14 +1269,6 @@ pre .javascript .function {
 .use-motion .menu-item {
   opacity: 0;
 }
-.post-body p a {
-  color: #0593d3;
-  border-bottom: none;
-}
-.post-body p a:hover {
-  color: #0477ab;
-  text-decoration: underline;
-}
 .post-body {
   overflow-wrap: break-word;
   word-wrap: break-word;
@@ -1903,7 +1895,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #62ff13;
+  background: #40f72f;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -3005,4 +2997,12 @@ ul.breadcrumb li+li:last-child {
   .post-body {
     text-align: justify;
   }
+}
+.post-body a:not(.btn) {
+  color: #0593d3;
+  border-bottom: none;
+}
+.post-body a:not(.btn):hover {
+  color: #0477ab;
+  text-decoration: underline;
 }

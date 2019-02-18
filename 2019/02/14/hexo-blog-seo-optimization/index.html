@@ -107,7 +107,13 @@
 <meta property="og:description" content="为了让我们的博客被搜索引擎爬取和收录，我们需要对博客进行SEO优化。 搜索引擎优化（英语：search engine optimization，缩写为SEO），是一种透过了解搜索引擎的运作规则来调整网站，以及提高目的网站在有关搜索引擎内排名的方式。 站点地图站点地图描述了一个网站的架构 它可以是一个任意形式的文档，用作网页设计的设计工具，也可以是列出网站中所有页面的一个网页，通常采用分级形式。这有">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://www.wuleshen.com/2019/02/14/hexo-blog-seo-optimization/1550123640721.png">
-<meta property="og:updated_time" content="2019-02-14T05:58:42.423Z">
+<meta property="og:image" content="http://www.wuleshen.com/2019/02/14/hexo-blog-seo-optimization/1550453191650.png">
+<meta property="og:image" content="http://www.wuleshen.com/2019/02/14/hexo-blog-seo-optimization/1550454986495.png">
+<meta property="og:image" content="http://www.wuleshen.com/2019/02/14/hexo-blog-seo-optimization/1550455204080.png">
+<meta property="og:image" content="http://www.wuleshen.com/2019/02/14/hexo-blog-seo-optimization/1550453144169.png">
+<meta property="og:image" content="http://www.wuleshen.com/2019/02/14/hexo-blog-seo-optimization/1550456001693.png">
+<meta property="og:image" content="http://www.wuleshen.com/2019/02/14/hexo-blog-seo-optimization/1550457188872.png">
+<meta property="og:updated_time" content="2019-02-18T02:46:29.945Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hexo博客SEO优化">
 <meta name="twitter:description" content="为了让我们的博客被搜索引擎爬取和收录，我们需要对博客进行SEO优化。 搜索引擎优化（英语：search engine optimization，缩写为SEO），是一种透过了解搜索引擎的运作规则来调整网站，以及提高目的网站在有关搜索引擎内排名的方式。 站点地图站点地图描述了一个网站的架构 它可以是一个任意形式的文档，用作网页设计的设计工具，也可以是列出网站中所有页面的一个网页，通常采用分级形式。这有">
@@ -439,12 +445,24 @@
                 
               
 
-              <time title="创建时间：2019-02-14 11:59:43 / 修改时间：13:58:42" itemprop="dateCreated datePublished" datetime="2019-02-14T11:59:43+08:00">2019-02-14</time>
+              <time title="创建时间：2019-02-14 11:59:43" itemprop="dateCreated datePublished" datetime="2019-02-14T11:59:43+08:00">2019-02-14</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-02-18 10:46:29" itemprop="dateModified" datetime="2019-02-18T10:46:29+08:00">2019-02-18</time>
               
             
           </span>
@@ -559,9 +577,38 @@
 <ol start="3">
 <li>编辑 <strong>主题配置文件</strong>， 修改字段 <code>baidu_analytics</code>，值设置成你的百度统计脚本 id。</li>
 </ol>
+<h3 id="使用CloudFlare"><a href="#使用CloudFlare" class="headerlink" title="使用CloudFlare"></a>使用CloudFlare</h3><p>在百度进行HTTPS认证时，出现如下提示：</p>
+<p><img src="/2019/02/14/hexo-blog-seo-optimization/1550453191650.png" alt="1550453191650"></p>
+<p>解决方法：在<a href="http://www.cloudflare.com中注册账号，根据官网提示进行相关配置" target="_blank" rel="noopener">www.cloudflare.com中注册账号，根据官网提示进行相关配置</a></p>
+<h4 id="1-更改域名服务商的Name-Servers"><a href="#1-更改域名服务商的Name-Servers" class="headerlink" title="1. 更改域名服务商的Name Servers"></a>1. 更改域名服务商的Name Servers</h4><p>将你的域名服务商的域名服务器改为cloudflare提供的两个，如下图</p>
+<p><img src="/2019/02/14/hexo-blog-seo-optimization/1550454986495.png" alt="1550454986495"></p>
+<h4 id="2-page-rules设置"><a href="#2-page-rules设置" class="headerlink" title="2. page rules设置"></a>2. page rules设置</h4><p>等待域名服务商的域名服务器更新生效，dashboard的overview出现下图所示表示应用成功</p>
+<p><img src="/2019/02/14/hexo-blog-seo-optimization/1550455204080.png" alt="1550455204080"></p>
+<p>然后在dashboard的page rules选项卡中进行如下配置</p>
+<p><img src="/2019/02/14/hexo-blog-seo-optimization/1550453144169.png" alt="1550453144169"></p>
+<h4 id="3-HSTS设置"><a href="#3-HSTS设置" class="headerlink" title="3. HSTS设置"></a>3. HSTS设置</h4><blockquote>
+<p>该段转自<a href="https://molunerfinn.com/hexo-travisci-https" target="_blank" rel="noopener">https://molunerfinn.com/hexo-travisci-https</a></p>
+</blockquote>
+<p>我们访问自己的网站是走HTTP-&gt;301/307重定向-&gt;HTTPS。这个是浏览器跟服务器进行了一次通信之后才发生的跳转。那有没有可能做到，访问的是HTTP，但是浏览器识别之后自动转成HTTPS访问，而不经过重定向那一层操作呢？答案是有的。通过HSTS的Preload List。</p>
+<p>可以参考这篇文章对<a href="https://www.jianshu.com/p/caa80c7ad45c" target="_blank" rel="noopener">HSTS</a>进行更深入的了解。简单来说，HSTS能够使我们的网站安全性更上一层楼。</p>
+<p><code>CloudFare</code>自带HSTS功能，开启之后就能很好的满足我们的需要。</p>
+<p>在<code>Crypto</code>选项下，开启<code>HSTS</code>，配置如下：</p>
+<p><img src="/2019/02/14/hexo-blog-seo-optimization/1550456001693.png" alt="1550456001693"></p>
+<p>然后可以去<a href="https://hstspreload.org/" target="_blank" rel="noopener">HSTS Preload List</a>的网站把我们的域名进行检查并收录（不能是子域名，必须是一级域名），如果没通过会给出修改建议，按照建议修改就行。如果通过了，就会放入审核列表。之后可以时不时回来看看自己的网站被收录了没有。网上的说法普遍是几周内。所以耐心等待收录。一旦被收录就会应用到主流浏览器上，这样你的网站就更加安全。</p>
+<p>我在第一次提交时出现如下问题，大意是<code>http://wuleshen.com</code>需要直接定向到<code>https://wuleshen.com</code>,而现在是先到<code>https://www.wuleshen.com</code></p>
+<p><img src="/2019/02/14/hexo-blog-seo-optimization/1550457188872.png" alt="1550457188872"></p>
+<p><a href="https://ws1.sinaimg.cn/large/8700af19gy1fi45hvxt3oj21fu0f8gn5.jpg" target="_blank" rel="noopener">HSTS Preload List</a></p>
+<h3 id="配置-htaccess"><a href="#配置-htaccess" class="headerlink" title="配置 .htaccess"></a>配置 .htaccess</h3><p>概述来说，htaccess文件是<a href="https://baike.baidu.com/item/Apache" target="_blank" rel="noopener">Apache</a>服务器中的一个配置文件，它负责相关目录下的网页配置。通过htaccess文件，可以帮我们实现：网页<a href="https://baike.baidu.com/item/301%E9%87%8D%E5%AE%9A%E5%90%91" target="_blank" rel="noopener">301重定向</a>、自定义404错误页面、改变文件扩展名、允许/阻止特定的用户或者目录的访问、禁止目录列表、配置默认文档等功能。当然最多的还是rewrite功能，即URL重写，PHP中实现伪静态的一个重要途径，也是被公认为SEO中搜索引擎友好的极为有效的一个手段。</p>
+<p>首先，在<code>${hexo根目录}\source</code>下生成.htaccess，可以用<code>touch .htaccess</code>命令</p>
+<p>然后，可以通过<a href="http://htaccess.linuxnote.org" target="_blank" rel="noopener">这个网站</a>进行快速生成.htaccess，将内容复制到.htaccess文件中</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;Files ~ &quot;^.(htaccess|htpasswd)$&quot;&gt;</span><br><span class="line">deny from all</span><br><span class="line">&lt;/Files&gt;</span><br><span class="line">Redirect permanent http://wuleshen.com https://wuleshen.com</span><br><span class="line">Redirect permanent http://www.wuleshen.com https://www.wuleshen.com</span><br><span class="line">order deny,allow</span><br></pre></td></tr></table></figure>
+<p>此外，要让该文件生效，需要在hexo配置文件<code>_config.yml</code>中添加以下内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">include:</span><br><span class="line">  - .htaccess</span><br></pre></td></tr></table></figure>
+<p>最后，<code>hexo d</code>将文件部署。</p>
 <hr>
 <h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
 <li><a href="https://theme-next.iissnan.com/third-party-services.html#analytics-system" target="_blank" rel="noopener">https://theme-next.iissnan.com/third-party-services.html#analytics-system</a></li>
+<li><a href="https://molunerfinn.com/hexo-travisci-https" target="_blank" rel="noopener">https://molunerfinn.com/hexo-travisci-https</a></li>
 </ul>
 
       
@@ -738,6 +785,12 @@
                     
                       
                     
+                      
+                    
+                      
+                    
+                      
+                    
                     <span class="site-state-item-count">11</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
@@ -800,7 +853,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#站点地图"><span class="nav-number">1.</span> <span class="nav-text">站点地图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建robots-txt"><span class="nav-number">2.</span> <span class="nav-text">创建robots.txt</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据统计与分析"><span class="nav-number">3.</span> <span class="nav-text">数据统计与分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考"><span class="nav-number">4.</span> <span class="nav-text">参考</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#站点地图"><span class="nav-number">1.</span> <span class="nav-text">站点地图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建robots-txt"><span class="nav-number">2.</span> <span class="nav-text">创建robots.txt</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据统计与分析"><span class="nav-number">3.</span> <span class="nav-text">数据统计与分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用CloudFlare"><span class="nav-number">4.</span> <span class="nav-text">使用CloudFlare</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-更改域名服务商的Name-Servers"><span class="nav-number">4.1.</span> <span class="nav-text">1. 更改域名服务商的Name Servers</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-page-rules设置"><span class="nav-number">4.2.</span> <span class="nav-text">2. page rules设置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-HSTS设置"><span class="nav-number">4.3.</span> <span class="nav-text">3. HSTS设置</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置-htaccess"><span class="nav-number">5.</span> <span class="nav-text">配置 .htaccess</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考"><span class="nav-number">6.</span> <span class="nav-text">参考</span></a></li></ol></div>
             
 
           </div>

@@ -1,22 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://www.wuleshen.com/2019/02/27/volatile-and-synchronized/</loc>
+    <lastmod>2019-02-27</lastmod>
+  </url>  <url>
     <loc>http://www.wuleshen.com/2019/02/14/hexo-blog-seo-optimization/</loc>
     <lastmod>2019-02-18</lastmod>
   </url>  <url>
     <loc>http://www.wuleshen.com/2019/02/13/digitalSignature/</loc>
     <lastmod>2019-02-13</lastmod>
   </url>  <url>
-    <loc>http://www.wuleshen.com/2019/02/09/urlToWebpage/</loc>
+    <loc>http://www.wuleshen.com/2019/02/09/url-to-webpage/</loc>
     <lastmod>2019-02-13</lastmod>
   </url>  <url>
-    <loc>http://www.wuleshen.com/2019/02/03/Java%E5%AF%B9%E6%8E%A5%E6%94%AF%E4%BB%98%E5%AE%9D%E6%94%AF%E4%BB%98%E5%8A%9F%E8%83%BD%EF%BC%88%E4%B8%89%EF%BC%89/</loc>
+    <loc>http://www.wuleshen.com/2019/02/03/java-alipay-1/</loc>
     <lastmod>2019-02-03</lastmod>
   </url>  <url>
-    <loc>http://www.wuleshen.com/2019/02/01/Java%E5%AF%B9%E6%8E%A5%E6%94%AF%E4%BB%98%E5%AE%9D%E6%94%AF%E4%BB%98%E5%8A%9F%E8%83%BD%EF%BC%88%E4%BA%8C%EF%BC%89/</loc>
+    <loc>http://www.wuleshen.com/2019/02/01/java-alipay-2/</loc>
     <lastmod>2019-02-03</lastmod>
   </url>  <url>
-    <loc>http://www.wuleshen.com/2019/01/22/java%E5%AF%B9%E6%8E%A5%E6%94%AF%E4%BB%98%E5%AE%9D%E6%94%AF%E4%BB%98%E5%8A%9F%E8%83%BD%EF%BC%88%E4%B8%80%EF%BC%89/</loc>
+    <loc>http://www.wuleshen.com/2019/01/22/java-alipay-3/</loc>
     <lastmod>2019-02-01</lastmod>
   </url>  <url>
     <loc>http://www.wuleshen.com/2019/01/18/First-Blog-Post/</loc>

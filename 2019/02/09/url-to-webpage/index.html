@@ -98,33 +98,36 @@
 
 
 
-  <meta name="description" content="为了让我们的博客被搜索引擎爬取和收录，我们需要对博客进行SEO优化。 搜索引擎优化（英语：search engine optimization，缩写为SEO），是一种透过了解搜索引擎的运作规则来调整网站，以及提高目的网站在有关搜索引擎内排名的方式。 站点地图站点地图描述了一个网站的架构 它可以是一个任意形式的文档，用作网页设计的设计工具，也可以是列出网站中所有页面的一个网页，通常采用分级形式。这有">
-<meta name="keywords" content="hexo,SEO">
+  <meta name="description" content="这是一个面试中常会遇到的问题，其中涉及的问题很多，接下来会试着一一分析一下。 具体过程主要分为浏览器处理URL、DNS解析、获取TCP连接、发送HTTP请求、服务器处理请求、服务器返回响应、浏览器渲染页面这几大步骤。 本文以输入www.google.com 为例进行分析，浏览器以chrome为例。  浏览器处理URL1. 校验URL格式首先，浏览器会校验用户输入的URL格式是否正确，如果不是URL">
+<meta name="keywords" content="Web,计算机网络,面试">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hexo博客SEO优化">
-<meta property="og:url" content="http://www.wuleshen.com/2019/02/14/hexo-blog-seo-optimization/index.html">
+<meta property="og:title" content="从浏览器输入URL到页面加载展示，中间发生了什么">
+<meta property="og:url" content="http://www.wuleshen.com/2019/02/09/url-to-webpage/index.html">
 <meta property="og:site_name" content="吴乐申的个人博客">
-<meta property="og:description" content="为了让我们的博客被搜索引擎爬取和收录，我们需要对博客进行SEO优化。 搜索引擎优化（英语：search engine optimization，缩写为SEO），是一种透过了解搜索引擎的运作规则来调整网站，以及提高目的网站在有关搜索引擎内排名的方式。 站点地图站点地图描述了一个网站的架构 它可以是一个任意形式的文档，用作网页设计的设计工具，也可以是列出网站中所有页面的一个网页，通常采用分级形式。这有">
+<meta property="og:description" content="这是一个面试中常会遇到的问题，其中涉及的问题很多，接下来会试着一一分析一下。 具体过程主要分为浏览器处理URL、DNS解析、获取TCP连接、发送HTTP请求、服务器处理请求、服务器返回响应、浏览器渲染页面这几大步骤。 本文以输入www.google.com 为例进行分析，浏览器以chrome为例。  浏览器处理URL1. 校验URL格式首先，浏览器会校验用户输入的URL格式是否正确，如果不是URL">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://www.wuleshen.com/2019/02/14/hexo-blog-seo-optimization/1550123640721.png">
-<meta property="og:image" content="http://www.wuleshen.com/2019/02/14/hexo-blog-seo-optimization/1550453191650.png">
-<meta property="og:image" content="http://www.wuleshen.com/2019/02/14/hexo-blog-seo-optimization/1550454986495.png">
-<meta property="og:image" content="http://www.wuleshen.com/2019/02/14/hexo-blog-seo-optimization/1550455204080.png">
-<meta property="og:image" content="http://www.wuleshen.com/2019/02/14/hexo-blog-seo-optimization/1550453144169.png">
-<meta property="og:image" content="http://www.wuleshen.com/2019/02/14/hexo-blog-seo-optimization/1550456001693.png">
-<meta property="og:image" content="http://www.wuleshen.com/2019/02/14/hexo-blog-seo-optimization/1550457188872.png">
-<meta property="og:updated_time" content="2019-02-18T03:00:58.725Z">
+<meta property="og:image" content="http://www.wuleshen.com/2019/02/09/url-to-webpage/1549786677960.png">
+<meta property="og:image" content="http://www.wuleshen.com/2019/02/09/url-to-webpage/1549802306452.png">
+<meta property="og:image" content="https://nmap.org/book/images/hdr/MJB-TCP-Header-800x564.png">
+<meta property="og:image" content="http://www.wuleshen.com/2019/02/09/url-to-webpage/1549789979776.png">
+<meta property="og:image" content="http://www.wuleshen.com/2019/02/09/url-to-webpage/1549791850506.png">
+<meta property="og:image" content="http://www.wuleshen.com/2019/02/09/url-to-webpage/1549791947646.png">
+<meta property="og:image" content="http://www.wuleshen.com/2019/02/09/url-to-webpage/1549794267158.png">
+<meta property="og:image" content="http://www.tcpipguide.com/free/diagrams/tcpswwindows.png">
+<meta property="og:image" content="http://www.tcpipguide.com/free/diagrams/tcpswslide.png">
+<meta property="og:image" content="http://www.wuleshen.com/2019/02/09/url-to-webpage/1549807179453.png">
+<meta property="og:updated_time" content="2019-02-13T12:22:02.884Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo博客SEO优化">
-<meta name="twitter:description" content="为了让我们的博客被搜索引擎爬取和收录，我们需要对博客进行SEO优化。 搜索引擎优化（英语：search engine optimization，缩写为SEO），是一种透过了解搜索引擎的运作规则来调整网站，以及提高目的网站在有关搜索引擎内排名的方式。 站点地图站点地图描述了一个网站的架构 它可以是一个任意形式的文档，用作网页设计的设计工具，也可以是列出网站中所有页面的一个网页，通常采用分级形式。这有">
-<meta name="twitter:image" content="http://www.wuleshen.com/2019/02/14/hexo-blog-seo-optimization/1550123640721.png">
+<meta name="twitter:title" content="从浏览器输入URL到页面加载展示，中间发生了什么">
+<meta name="twitter:description" content="这是一个面试中常会遇到的问题，其中涉及的问题很多，接下来会试着一一分析一下。 具体过程主要分为浏览器处理URL、DNS解析、获取TCP连接、发送HTTP请求、服务器处理请求、服务器返回响应、浏览器渲染页面这几大步骤。 本文以输入www.google.com 为例进行分析，浏览器以chrome为例。  浏览器处理URL1. 校验URL格式首先，浏览器会校验用户输入的URL格式是否正确，如果不是URL">
+<meta name="twitter:image" content="http://www.wuleshen.com/2019/02/09/url-to-webpage/1549786677960.png">
 
 
 
 
 
 
-  <link rel="canonical" href="http://www.wuleshen.com/2019/02/14/hexo-blog-seo-optimization/">
+  <link rel="canonical" href="http://www.wuleshen.com/2019/02/09/url-to-webpage/">
 
 
 
@@ -134,7 +137,7 @@
   };
 </script>
 
-  <title>Hexo博客SEO优化 | 吴乐申的个人博客</title>
+  <title>从浏览器输入URL到页面加载展示，中间发生了什么 | 吴乐申的个人博客</title>
   
 
 
@@ -402,7 +405,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.wuleshen.com/2019/02/14/hexo-blog-seo-optimization/">
+    <link itemprop="mainEntityOfPage" href="http://www.wuleshen.com/2019/02/09/url-to-webpage/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Shawn Wu">
@@ -419,7 +422,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Hexo博客SEO优化
+          <h1 class="post-title" itemprop="name headline">从浏览器输入URL到页面加载展示，中间发生了什么
 
               
             
@@ -445,7 +448,7 @@
                 
               
 
-              <time title="创建时间：2019-02-14 11:59:43" itemprop="dateCreated datePublished" datetime="2019-02-14T11:59:43+08:00">2019-02-14</time>
+              <time title="创建时间：2019-02-09 18:02:57" itemprop="dateCreated datePublished" datetime="2019-02-09T18:02:57+08:00">2019-02-09</time>
             
 
             
@@ -462,7 +465,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-02-18 11:00:58" itemprop="dateModified" datetime="2019-02-18T11:00:58+08:00">2019-02-18</time>
+                <time title="修改时间：2019-02-13 20:22:02" itemprop="dateModified" datetime="2019-02-13T20:22:02+08:00">2019-02-13</time>
               
             
           </span>
@@ -521,94 +524,140 @@
       
 
       
-        <p>为了让我们的博客被搜索引擎爬取和收录，我们需要对博客进行SEO优化。</p>
-<p><a href="https://zh.wikipedia.org/wiki/%E6%90%9C%E5%B0%8B%E5%BC%95%E6%93%8E%E6%9C%80%E4%BD%B3%E5%8C%96" target="_blank" rel="noopener"><strong>搜索引擎优化</strong></a>（英语：search engine optimization，缩写为SEO），是一种透过了解搜索引擎的运作规则来调整网站，以及提高目的网站在有关搜索引擎内排名的方式。</p>
-<h3 id="站点地图"><a href="#站点地图" class="headerlink" title="站点地图"></a>站点地图</h3><p><a href="https://zh.wikipedia.org/wiki/%E7%B6%B2%E7%AB%99%E5%9C%B0%E5%9C%96" target="_blank" rel="noopener">站点地图</a>描述了一个网站的架构 它可以是一个任意形式的文档，用作网页设计的设计工具，也可以是列出网站中所有页面的一个网页，通常采用分级形式。这有助于访问者以及搜索引擎的机器人找到网站中的页面。</p>
+        <p>这是一个面试中常会遇到的问题，其中涉及的问题很多，接下来会试着一一分析一下。</p>
+<p>具体过程主要分为浏览器处理URL、DNS解析、获取TCP连接、发送HTTP请求、服务器处理请求、服务器返回响应、浏览器渲染页面这几大步骤。</p>
+<p>本文以输入<a href="http://www.google.com" target="_blank" rel="noopener">www.google.com</a> 为例进行分析，浏览器以chrome为例。</p>
+<hr>
+<h3 id="浏览器处理URL"><a href="#浏览器处理URL" class="headerlink" title="浏览器处理URL"></a>浏览器处理URL</h3><h4 id="1-校验URL格式"><a href="#1-校验URL格式" class="headerlink" title="1. 校验URL格式"></a>1. 校验URL格式</h4><p>首先，浏览器会校验用户输入的URL格式是否正确，如果不是URL地址，那么浏览器会自动调用默认的搜索引擎进行搜索。</p>
+<p>合法的URL地址如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;scheme&gt;://&lt;user&gt;:&lt;password&gt;@&lt;host&gt;:&lt;port&gt;/&lt;path&gt;;&lt;params&gt;?&lt;query&gt;#&lt;frag&gt;</span><br></pre></td></tr></table></figure>
+<p>URL 为了在不同协议不同传输机制都可以安全的运送信息，采用的字符都是符合 ASCII 集的。这其中还包含一些保留字符，比如上面的 URL 协议中的分割字符，等特殊含义的字符。<br>而不安全的字符，非 ASCII 的 Unicode（中文等）字符，就会通过转义去处理，使用% 。</p>
+<p>此部分就是检查 url 的合法性，并对不合法的进行转义。浏览器还会检查 HSTS 列表。</p>
+<h4 id="2-检查HSTS-列表"><a href="#2-检查HSTS-列表" class="headerlink" title="2. 检查HSTS 列表"></a>2. 检查HSTS 列表</h4><p>HSTS 就是一种安全策略的机制，是为了让浏览器强制使用 HTTPS 访问的，详细可以去这篇<a href="http://www.jianshu.com/p/caa80c7ad45c" target="_blank" rel="noopener">文章</a>看，介绍的比较清楚。当你的网站均采用 HTTPS，并符合它的安全规范，就可以申请加入 HSTS 列表，之后用户不加 HTTPS 协议再去访问你的网站，浏览器都会定向到 HTTPS。</p>
+<p>例如用户输入<code>google.com</code> ，最终会定向到<code>https://www.google.com/</code>。</p>
+<p><img src="/2019/02/09/url-to-webpage/1549786677960.png" alt="1549786677960"></p>
+<h3 id="DNS解析"><a href="#DNS解析" class="headerlink" title="DNS解析"></a>DNS解析</h3><p>我们浏览器中输入的地址只是一个代号，服务器是不认识这个名称的，服务器需要IP地址来进行定位。</p>
+<p>通过DNS（Domain Name System）域名系统解析，我们可以把url转换为IP地址</p>
+<h4 id="1-查询缓存"><a href="#1-查询缓存" class="headerlink" title="1. 查询缓存"></a>1. 查询缓存</h4><h5 id="1-1-查看浏览器内部缓存"><a href="#1-1-查看浏览器内部缓存" class="headerlink" title="1.1 查看浏览器内部缓存"></a>1.1 查看浏览器内部缓存</h5><p>检测域名是否存在于浏览器缓存中，如果有缓存直接使用，没有则下一步。打开 <code>chrome://net-internals/#dns</code> 即可查看本机浏览器的 dns 缓存。（chrome中有效期为1分钟）</p>
+<h5 id="1-2-系统缓存"><a href="#1-2-系统缓存" class="headerlink" title="1.2 系统缓存"></a>1.2 系统缓存</h5><p>浏览器会调用一个库函数，此函数会先去检测本地 hosts文件，查看是否有对应ip。</p>
+<h5 id="1-3-路由器缓存、ISP-缓存"><a href="#1-3-路由器缓存、ISP-缓存" class="headerlink" title="1.3. 路由器缓存、ISP 缓存"></a>1.3. 路由器缓存、ISP 缓存</h5><p>如果浏览器和系统缓存都没有，系统的库函数就会像 DNS 服务器发送请求。而网络服务一般都会先经过路由器以及网络服务商（电信），所以会先查询路由器缓存，然后再查询 ISP 的 DNS 缓存。</p>
+<h4 id="2-本地-DNS-服务器"><a href="#2-本地-DNS-服务器" class="headerlink" title="2. 本地 DNS 服务器"></a>2. 本地 DNS 服务器</h4><p>windows下利用<code>ipconfig</code>命令可以查看本机DNS服务器地址</p>
+<p><img src="/2019/02/09/url-to-webpage/1549802306452.png" alt="1549802306452"></p>
+<h4 id="3-域名服务器"><a href="#3-域名服务器" class="headerlink" title="3. 域名服务器"></a>3. 域名服务器</h4><p>如果本机DNS没有找到的情况下，本地域名服务器会向根域名服务器发送一个请求，如果根域名服务器也不存在该域名时，本地域名会向com顶级域名服务器发送一个请求，依次类推下去。直到最后本地域名服务器得到google的IP地址并把它缓存到本地，供下次查询使用。</p>
+<p>关于根域名服务器的介绍以及为什么是13台，可以去这篇<a href="https://jaminzhang.github.io/dns/The-Reason-of-There-Is-Only-13-DNS-Root-Servers/" target="_blank" rel="noopener">文章</a> 看，讲的很明白。</p>
+<p>到此处的过程为：根域服务器（.） -&gt; 顶级域名服务器（.com）-&gt; 主域名服务器（google.com）</p>
+<p>经过以上这些查询，如果域名正常，在某一步骤应该就会返回 IP 地址，如果直到最后一步都没有查询到，浏览器就会提示找不到服务器地址。</p>
+<p><strong>得到目标服务器地址后，可以进行TCP连接了。</strong></p>
+<h3 id="TCP连接"><a href="#TCP连接" class="headerlink" title="TCP连接"></a>TCP连接</h3><p>TCP协议（Transmission Control Protocol，传输控制协议）是一种面向连接，确保数据在端到端之间可靠传输的协议。由于TCP协议十分复杂，这里仅作简单介绍。</p>
+<p><strong>TCP header</strong></p>
+<p><img src="https://nmap.org/book/images/hdr/MJB-TCP-Header-800x564.png" alt=""></p>
+<p>根据TCP/IP协议，需要本机和目标服务器的<code>ip</code>和<code>port</code>才能进行传输。</p>
+<p>本机ip：由操作系统分配                本机port：由操作系统分配</p>
+<p>目标服务器ip：通过DNS解析            目标服务器port：http协议默认80，https协议默认443</p>
+<h4 id="建立TCP连接"><a href="#建立TCP连接" class="headerlink" title="建立TCP连接"></a>建立TCP连接</h4><p>TCP有6个标志位，分别为SYN, ACK, FIN, URG, PSH, RST。置一有效。</p>
+<p>这里介绍SYN，ACK， FIN这3个标志位。</p>
+<p>SYN（Synchronize Sequence Number）: 建立连接的同步信号</p>
+<p>ACK（Acknowledgement）: 对收到的数据进行确认</p>
+<p>FIN（Finish）: 表示后面没有数据要发送，连接需要关闭</p>
+<p>还需要用到两个序号，序列号seq和确认序号ack</p>
+<p>seq（sequence number）：表示要发送的数据的第一个字节的序号，后面按这个逻辑递增</p>
+<p>ack（Acknowledgement number）：期望收到的下一个报文段数据的第一个字节的序号</p>
+<p>3次握手的过程如下图所示</p>
+<p><img src="/2019/02/09/url-to-webpage/1549789979776.png" alt="1549789979776"></p>
+<p><strong>为什么要三次挥手来建立连接？</strong></p>
+<p>主要是要初始化Sequence Number(seq) 的初始值。seq要作为以后的数据通信的序号，以保证应用层接收到的数据不会因为网络上的传输的问题而乱序（TCP会用这个序号来拼接数据）。</p>
+<p><strong>为什么是三次而不是两次</strong>？</p>
+<p>主要因为<strong>信息对等</strong>和<strong>防止超时</strong></p>
+<p><strong>信息对等</strong>：如果只进行2次握手，B机器无法确认A收到了自己的信息，只有通过第3次握手，才能确认自己的发报能力和收报能力都是正常的</p>
+<p><img src="/2019/02/09/url-to-webpage/1549791850506.png" alt="1549791850506"></p>
+<p><strong>防止超时</strong>：TTL网络报文的生存时间往往都会超过TCP请求超时时间，如果只用2次握手建立连接，那么当A机器发送第一个请求超时，第二个请求才和B机器建立连接，当A发送的第一 个超时请求这个时候才到达B时，B机器会建立一个新的连接，然而，由于A的状态不是SYN_SENT，会直接丢弃B的确认数据，导致B单方面创建连接完毕。</p>
+<p><img src="/2019/02/09/url-to-webpage/1549791947646.png" alt="1549791947646"></p>
+<h4 id="断开TCP连接"><a href="#断开TCP连接" class="headerlink" title="断开TCP连接"></a>断开TCP连接</h4><p>建立连接需要3次，而断开连接需要4次挥手。主要过程见下图。</p>
+<p><img src="/2019/02/09/url-to-webpage/1549794267158.png" alt="1549794267158"></p>
+<p>这里主要介绍一下<code>CLOSE_WAIT</code>和<code>TIME_WAIT</code>这两个状态。</p>
 <ul>
-<li>站点地图的作用<ul>
-<li>为搜索引擎爬虫提供可以浏览整个网站的链接；</li>
-<li>为搜索引擎爬虫提供一些链接，指向动态页面或者采用其他方法比较难以到达的页面；</li>
-<li>如果访问者试图访问网站所在域内并不存在的URL，那么这个访问者就会被转到“无法找到文件”的错误页面，而网站地图可以作为该页面的“准”内容。</li>
-</ul>
+<li><p><code>CLOSE_WAIT</code>: 该状态表示等待关闭，并通知应用程序发送剩余数据，处理现场信息，关闭相关资源。</p>
+</li>
+<li><p><code>TIME_WAIT</code>:  主动要求关闭的机器在收到对方的FIN报文后，发送ACK报文，并进入TIME_WAIT状态，等待<code>2MSL</code>后即可进入<code>CLOSED</code>关闭状态。</p>
 </li>
 </ul>
-<p>生成步骤：</p>
+<p>MSL(Maximum Segment Lifetime)，等待<code>2MSL</code>是报文在网络上生存的最长时间，超过阈值报文则被丢弃，一般来说<code>MSL</code>大于TTL衰减至0的时间。在RFC793中规定<code>MSL</code>为2分钟，然而在当前告诉网络中，2分钟等待时间会造成极大的资源浪费，在高并发服务器上通常会使用更小的值。</p>
+<p><strong>既然<code>TIME_WAIT</code>这个状态看起很鸡肋，为何不直接进入<code>CLOSED</code>状态呢？</strong></p>
+<p>主要有两点原因：</p>
+<p><strong>第一，确认被动关闭方能够顺利进入CLOSED状态。</strong>如果最后一个ACK没有到达B机器，B机器会重发FIN+ACK报文，当A机器收到了第二次FIN+ACK报文，会重发一次ACK，并重新计时。如果A没有等待时间而是发送完ACK后直接关闭，可能会导致B机器无法确保收到最后的ACK指令。</p>
+<p><strong>第二，防止失效请求。</strong>防止已失效连接的请求数据包与正常连接的请求数据包混淆而发生异常。</p>
+<p>RFC793定义了MSL为2分钟，Linux设置成了30s，在服务器上通过变更<code>/etc/sysctl.conf</code>文件修改</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net.ipv4.tcp_fin_timeout = 30</span><br></pre></td></tr></table></figure>
+<p><strong>服务器上<code>TIME_WAIT</code>状态过多的原因？</strong></p>
+<p>如果在大并发的短链接下，此状态可能过多，可通过优化服务器参数得到解决<code>vim /etc/sysctl.conf</code><br>编辑文件，选择添加以下内容：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">net.ipv4.tcp_syncookies = 1</span><br><span class="line">net.ipv4.tcp_tw_reuse = 1</span><br><span class="line">net.ipv4.tcp_tw_recycle = 1</span><br><span class="line">net.ipv4.tcp_fin_timeout = 30</span><br></pre></td></tr></table></figure>
+<p>然后执行 <code>/sbin/sysctl -p</code>让参数生效。</p>
+<p><code>net.ipv4.tcp_syncookies = 1</code> 表示开启SYN Cookies。当出现SYN等待队列溢出时，启用cookies来处理，可防范少量SYN攻击。<strong>请注意，请先千万别用tcp_syncookies来处理正常的大负载的连接的情况。因为，syncookies是妥协版的TCP协议，并不严谨。</strong>默认为0，表示关闭；<br><code>net.ipv4.tcp_tw_reuse = 1</code>表示开启重用。官方文档上说tcp_tw_reuse 加上tcp_timestamps（又叫PAWS, for Protection Against Wrapped Sequence Numbers）可以保证协议的角度上的安全，但是你需要tcp_timestamps在两边都被打开（你可以读一下<a href="http://lxr.free-electrons.com/ident?i=tcp_twsk_unique" target="_blank" rel="noopener">tcp_twsk_unique</a>的源码 ）。默认为0，表示关闭；<br><code>net.ipv4.tcp_tw_recycle = 1</code> 表示开启TCP连接中TIME-WAIT sockets的快速回收。如果是tcp_tw_recycle被打开了话，会假设对端开启了tcp_timestamps，然后会去比较时间戳，如果时间戳变大了，就可以重用。但是，如果对端是一个NAT网络的话（如：一个公司只用一个IP出公网）或是对端的IP被另一台重用了，这个事就复杂了。建连接的SYN可能就被直接丢掉了（你可能会看到connection time out的错误）。默认为0，表示关闭。<br><strong>使用tcp_tw_reuse和tcp_tw_recycle来解决TIME_WAIT的问题是非常非常危险的，因为这两个参数违反了TCP协议（<a href="http://tools.ietf.org/html/rfc1122" target="_blank" rel="noopener">RFC 1122</a>)</strong> </p>
+<p><strong>服务器上<code>CLOSE_WAIT</code>状态过多的原因？</strong></p>
+<p>对方关闭socket连接，我方忙于读或写，没有及时关闭连接。</p>
+<p>检查代码，特别是释放资源的代码</p>
+<p>检查配置，特别是处理请求的线程配置</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 查看443端口上CLOSE_WAIT状态的命令</span><br><span class="line">netstat -ant | grep -i "443" | grep CLOSE_WAIT | wc-1</span><br><span class="line"><span class="meta">#</span> 统计各个状态的连接数</span><br><span class="line">netstat -n | awk '/^tcp/ &#123;++S[$NF]&#125; END &#123;for(a in S) print a, S[a]&#125;'</span><br></pre></td></tr></table></figure>
+<p><strong>为什么需要四次挥手才能断开连接？</strong></p>
+<p>因为TCP建立的是全双工连接，发送方和接收方都需要FIN报文和ACK报文。</p>
+<h4 id="TCP滑动窗口"><a href="#TCP滑动窗口" class="headerlink" title="TCP滑动窗口"></a>TCP滑动窗口</h4><p><a href="http://www.tcpipguide.com/free/t_TCPSlidingWindowAcknowledgmentSystemForDataTranspo.htm" target="_blank" rel="noopener">The TCP/IP Guide</a>中有详细的解说</p>
+<p>TCP对于发送数据进行跟踪，这种数据管理需要协议有以下两大关键功能：</p>
+<p><strong>可靠性</strong>：保证数据确实到达目的地。如果未到达，能够发现并重传。</p>
+<p><strong>数据流控</strong>：管理数据的发送速率，以使接收设备不致于过载。</p>
+<p>要完成这些任务，整个协议操作是围绕<strong>滑动窗口确认机制</strong>来进行的。因此，理解了滑动窗口，也就是理解了TCP。</p>
+<ul>
+<li>发送方的滑动窗口示意图</li>
+</ul>
+<p><img src="http://www.tcpipguide.com/free/diagrams/tcpswwindows.png" alt=""></p>
+<p>图中分为4个部分，其中黑色方框框出的部分就是滑动窗口</p>
+<p><strong>1.</strong> <strong>已发送已确认</strong> 数据流中最早的字节已经发送并得到确认。这些数据是站在发送设备的角度来看的。如上图所示，31个字节已经发送并确认。</p>
+<p><strong>2.</strong> <strong>已发送但尚未确认</strong> 已发送但尚未得到确认的字节。发送方在确认之前，不认为这些数据已经被处理。上图所示14字节为第2类。</p>
+<p><strong>3.</strong> <strong>未发送而接收方已Ready</strong> 设备尚未将数据发出，但接收方根据最近一次关于发送方一次要发送多少字节确认自己有足够空间。发送方会立即尝试发送。如图，第3类有6字节。</p>
+<p><strong>4.</strong> <strong>未发送而接收方Not Ready</strong> 由于接收方not ready，还不允许将这部分数据发出。</p>
+<ul>
+<li>滑动后窗口示意图</li>
+</ul>
+<p>当发送方接收到一系列字节的确认时，它知道数据被接收方成功地接收了，发送方将这些数据从“已发送但未确认”移动到“已发送已确认”。这样使得滑动窗口向右滑动，允许发送发发送更多数据。</p>
+<p><img src="http://www.tcpipguide.com/free/diagrams/tcpswslide.png" alt="img"></p>
+<h3 id="发送HTTPS请求"><a href="#发送HTTPS请求" class="headerlink" title="发送HTTPS请求"></a>发送HTTPS请求</h3><p><strong>TCP连接建立后，客户端向浏览器发送HTTP请求。</strong></p>
+<p>现在很多网站都使用https协议替代了http协议。</p>
+<p>HTTPS全称为HTTP over SSL。其中，SSL（Secure Socket Layer）安全套接字层，是一个工作于应用层和传输层之间，为应用提供加密传输的协议。顾名思义，HTTPS就是在HTTP上增加了SSL协议的加密能力。</p>
+<h4 id="关于数字加密"><a href="#关于数字加密" class="headerlink" title="关于数字加密"></a>关于数字加密</h4><p>这里需要补充一点数字加密的相关知识，在另一篇<a href="https://www.wuleshen.com/2019/02/13/digitalSignature/#more">文章</a>中提及。</p>
+<h4 id="HTTPS建立连接"><a href="#HTTPS建立连接" class="headerlink" title="HTTPS建立连接"></a>HTTPS建立连接</h4><p>HTTPS建立连接步骤大致如下：</p>
 <ol>
-<li>在hexo根目录下，运行以下指令安装站点地图生成的插件</li>
+<li>客户端向服务端发送请求，客户端会告诉服务端自己支持哪些加密套件</li>
+<li>服务端收到请求后，会返回一系列协议数据，并以一个没有数据内容的Server Hello Done 作为结束。</li>
+<li>客户端在收到服务端的握手信息后，也会发送一系列协议。</li>
+<li>服务端在接收客户端的确认信息和验证信息后，会对客户端发送的数据进行确认。</li>
+<li>最后，如果双方都确认加密无误后，各自按照之前约定的Session Secret对应用数据进行加密传输。</li>
 </ol>
+<p>具体的协议数据等，可以通过抓包工具进行查看，这里就不做展开了。</p>
+<p><img src="/2019/02/09/url-to-webpage/1549807179453.png" alt="1549807179453"></p>
+<h3 id="服务器处理请求"><a href="#服务器处理请求" class="headerlink" title="服务器处理请求"></a>服务器处理请求</h3><h4 id="WEB服务器"><a href="#WEB服务器" class="headerlink" title="WEB服务器"></a>WEB服务器</h4><p>如果后端采用WEB服务器和应用服务器的架构，请求先到达WEB服务器，然后在由WEB服务器转发到某个应用服务器。</p>
+<p>常见的WEB服务器有Nginx</p>
+<p>Nginx利用epoll的方式读取请求，判断请求类型。</p>
+<p><strong>对于静态请求：</strong>读取服务器硬盘上的相关文件，直接返回</p>
+<p><strong>对于动态请求：</strong>转发到应用服务器（这里假设为Tomcat），如果有多个应用服务器，需要采用策略（负载均衡）</p>
+<h4 id="应用服务器"><a href="#应用服务器" class="headerlink" title="应用服务器"></a>应用服务器</h4><p>常用的应用服务器有Tomcat</p>
+<p>Tomcat是一个由Java编写的可以运行Servlet/JSP的容器，Javaweb的代码运行在这个容器上</p>
+<p>Tomcat会采用阻塞I/O(Blocking I/O)或者I/O多路复用技术(NIO)</p>
 <ul>
-<li><p>Google </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-generator-sitemap --save</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Baidu </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-generator-baidu-sitemap --save</span><br></pre></td></tr></table></figure>
-</li>
+<li>BIO: 为每个请求分配一个线程去处理 </li>
+<li>NIO: 监听所有的连接，当连接状态发生变化，才用一个线程/进程对那个连接进行处理，处理完继续监视</li>
 </ul>
-<ol start="2">
-<li><p>插件安装完毕后，每次运行<code>hexo g</code>会自动生成站点地图，位置在<code>${hexo}\public</code>文件夹下。</p>
-<p>Google和Baidu分别生成sitemap.xml，baidusitemap.xml</p>
-<p>在hexo配置文件<code>_config.yml</code>中，添加如下配置：</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">sitemap:</span></span><br><span class="line"><span class="attr">  path:</span> <span class="string">sitemap.xml</span></span><br><span class="line"><span class="attr">baidusitemap:</span></span><br><span class="line"><span class="attr">  path:</span> <span class="string">baidusitemap.xml</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>运行<code>hexo d</code>进行部署，然后在浏览器访问<code>你的域名/sitemap.xml</code>，如果看到xml文件，那么就说明站点地图部署成功了。</p>
-</li>
-</ol>
-<h3 id="创建robots-txt"><a href="#创建robots-txt" class="headerlink" title="创建robots.txt"></a>创建robots.txt</h3><p><a href="https://zh.wikipedia.org/wiki/Robots.txt" target="_blank" rel="noopener">robots.txt</a>（统一小写）是一种存放于网站根目录下的ASCII编码的文本文件，它通常告诉网络搜索引擎的漫游器（又称网络蜘蛛），此网站中的哪些内容是不应被搜索引擎的漫游器获取的，哪些是可以被漫游器获取的。因为一些系统中的URL是大小写敏感的，所以robots.txt的文件名应统一为小写。robots.txt应放置于网站的根目录下。如果想单独定义搜索引擎的漫游器访问子目录时的行为，那么可以将自定的设置合并到根目录下的robots.txt，或者使用robots元数据（Metadata，又称元数据）。具体实例可见<a href="https://zh.wikipedia.org/wiki/Robots.txt#%E4%BE%8B%E5%AD%90" target="_blank" rel="noopener">这里</a>。</p>
-<p>在<code>${hexo根目录}\source</code>添加<code>robots.txt</code>，内容如下，可以根据需要自行修改拦截和允许通过等</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"># hexo robots.txt</span><br><span class="line">User-agent: *</span><br><span class="line">Allow: /</span><br><span class="line">Allow: /archives/ </span><br><span class="line"></span><br><span class="line">Disallow: /js/</span><br><span class="line">Disallow: /css/</span><br><span class="line">Disallow: /fonts/</span><br><span class="line">Disallow: /vendors/</span><br><span class="line">Disallow: /fancybox/</span><br><span class="line"></span><br><span class="line">Sitemap: yourwebsiteurl/sitemap.xml</span><br><span class="line">Sitemap: yourwebsiteurl/baidusitemap.xml</span><br></pre></td></tr></table></figure>
-<p>当运行<code>hexo d</code>部署后，该文件就会在网站的根目录下，搜索引擎就可以根据该文件进行爬取。</p>
-<h3 id="数据统计与分析"><a href="#数据统计与分析" class="headerlink" title="数据统计与分析"></a>数据统计与分析</h3><p>使用搜索网站提供的数据分析服务可以直观的了解网站的各种运行数据，这里介绍两种常用的分析工具。</p>
-<ul>
-<li>Google Analysis</li>
-</ul>
-<ol>
-<li>登录 <a href="https://analytics.google.com/analytics/web" target="_blank" rel="noopener">Google Analysis</a>，获得Google跟踪ID。</li>
-<li>编辑 <strong>主题配置文件</strong>， 修改字段 <code>google_analytics</code>， 值设置成你的 Google 跟踪 ID。跟踪 ID 通常是以 <code>UA-</code> 开头。</li>
-</ol>
-<p><img src="/2019/02/14/hexo-blog-seo-optimization/1550123640721.png" alt="1550123640721"></p>
-<ul>
-<li>百度统计</li>
-</ul>
-<ol>
-<li>登录 <a href="http://tongji.baidu.com/" target="_blank" rel="noopener">百度统计</a>，定位到站点的代码获取页面</li>
-<li>复制 <code>hm.js?</code> 后面那串统计脚本 id，如下图所示：</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">var _hmt = _hmt || [];</span><br><span class="line">(function() &#123;</span><br><span class="line">  var hm = document.createElement(&quot;script&quot;);</span><br><span class="line">  hm.src = &quot;https://hm.baidu.com/hm.js?你的统计id&quot;;</span><br><span class="line">  var s = document.getElementsByTagName(&quot;script&quot;)[0]; </span><br><span class="line">  s.parentNode.insertBefore(hm, s);</span><br><span class="line">&#125;)();</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
-<ol start="3">
-<li>编辑 <strong>主题配置文件</strong>， 修改字段 <code>baidu_analytics</code>，值设置成你的百度统计脚本 id。</li>
-</ol>
-<h3 id="使用CloudFlare"><a href="#使用CloudFlare" class="headerlink" title="使用CloudFlare"></a>使用CloudFlare</h3><p>在百度进行HTTPS认证时，出现如下提示：</p>
-<p><img src="/2019/02/14/hexo-blog-seo-optimization/1550453191650.png" alt="1550453191650"></p>
-<p>解决方法：在<a href="http://www.cloudflare.com中注册账号，根据官网提示进行相关配置" target="_blank" rel="noopener">www.cloudflare.com中注册账号，根据官网提示进行相关配置</a></p>
-<h4 id="1-更改域名服务商的Name-Servers"><a href="#1-更改域名服务商的Name-Servers" class="headerlink" title="1. 更改域名服务商的Name Servers"></a>1. 更改域名服务商的Name Servers</h4><p>将你的域名服务商的域名服务器改为cloudflare提供的两个，如下图</p>
-<p><img src="/2019/02/14/hexo-blog-seo-optimization/1550454986495.png" alt="1550454986495"></p>
-<h4 id="2-page-rules设置"><a href="#2-page-rules设置" class="headerlink" title="2. page rules设置"></a>2. page rules设置</h4><p>等待域名服务商的域名服务器更新生效，dashboard的overview出现下图所示表示应用成功</p>
-<p><img src="/2019/02/14/hexo-blog-seo-optimization/1550455204080.png" alt="1550455204080"></p>
-<p>然后在dashboard的page rules选项卡中进行如下配置</p>
-<p><img src="/2019/02/14/hexo-blog-seo-optimization/1550453144169.png" alt="1550453144169"></p>
-<h4 id="3-HSTS设置"><a href="#3-HSTS设置" class="headerlink" title="3. HSTS设置"></a>3. HSTS设置</h4><blockquote>
-<p>该段转自<a href="https://molunerfinn.com/hexo-travisci-https" target="_blank" rel="noopener">https://molunerfinn.com/hexo-travisci-https</a></p>
-</blockquote>
-<p>我们访问自己的网站是走HTTP-&gt;301/307重定向-&gt;HTTPS。这个是浏览器跟服务器进行了一次通信之后才发生的跳转。那有没有可能做到，访问的是HTTP，但是浏览器识别之后自动转成HTTPS访问，而不经过重定向那一层操作呢？答案是有的。通过HSTS的Preload List。</p>
-<p>可以参考这篇文章对<a href="https://www.jianshu.com/p/caa80c7ad45c" target="_blank" rel="noopener">HSTS</a>进行更深入的了解。简单来说，HSTS能够使我们的网站安全性更上一层楼。</p>
-<p><code>CloudFare</code>自带HSTS功能，开启之后就能很好的满足我们的需要。</p>
-<p>在<code>Crypto</code>选项下，开启<code>HSTS</code>，配置如下：</p>
-<p><img src="/2019/02/14/hexo-blog-seo-optimization/1550456001693.png" alt="1550456001693"></p>
-<p>然后可以去<a href="https://hstspreload.org/" target="_blank" rel="noopener">HSTS Preload List</a>的网站把我们的域名进行检查并收录（不能是子域名，必须是一级域名），如果没通过会给出修改建议，按照建议修改就行。如果通过了，就会放入审核列表。之后可以时不时回来看看自己的网站被收录了没有。网上的说法普遍是几周内。所以耐心等待收录。一旦被收录就会应用到主流浏览器上，这样你的网站就更加安全。</p>
-<p>我在第一次提交时出现如下问题，大意是<code>http://wuleshen.com</code>需要直接定向到<code>https://wuleshen.com</code>,而现在是先定向到<code>https://www.wuleshen.com</code>这个子域</p>
-<p><img src="/2019/02/14/hexo-blog-seo-optimization/1550457188872.png" alt="1550457188872"></p>
-<p><a href="https://ws1.sinaimg.cn/large/8700af19gy1fi45hvxt3oj21fu0f8gn5.jpg" target="_blank" rel="noopener">HSTS Preload List</a></p>
-<h3 id="配置-htaccess"><a href="#配置-htaccess" class="headerlink" title="配置 .htaccess"></a>配置 .htaccess</h3><p>概述来说，htaccess文件是<a href="https://baike.baidu.com/item/Apache" target="_blank" rel="noopener">Apache</a>服务器中的一个配置文件，它负责相关目录下的网页配置。通过htaccess文件，可以帮我们实现：网页<a href="https://baike.baidu.com/item/301%E9%87%8D%E5%AE%9A%E5%90%91" target="_blank" rel="noopener">301重定向</a>、自定义404错误页面、改变文件扩展名、允许/阻止特定的用户或者目录的访问、禁止目录列表、配置默认文档等功能。当然最多的还是rewrite功能，即URL重写，PHP中实现伪静态的一个重要途径，也是被公认为SEO中搜索引擎友好的极为有效的一个手段。</p>
-<p>首先，在<code>${hexo根目录}\source</code>下生成.htaccess，可以用<code>touch .htaccess</code>命令</p>
-<p>然后，可以通过<a href="http://htaccess.linuxnote.org" target="_blank" rel="noopener">这个网站</a>进行快速生成.htaccess，将内容复制到.htaccess文件中</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;Files ~ &quot;^.(htaccess|htpasswd)$&quot;&gt;</span><br><span class="line">deny from all</span><br><span class="line">&lt;/Files&gt;</span><br><span class="line">RewriteEngine on</span><br><span class="line">RewriteCond %&#123;HTTP_HOST&#125; ^(www\.wuleshen\.com)(:80)? [NC]</span><br><span class="line">RewriteRule ^(.*) https://wuleshen.com/$1 [R=301,L]</span><br><span class="line">Redirect permanent http://wuleshen.com https://wuleshen.com</span><br><span class="line">order deny,allow</span><br></pre></td></tr></table></figure>
-<p>此外，要让该文件生效，需要在hexo配置文件<code>_config.yml</code>中添加以下内容：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">include:</span><br><span class="line">  - .htaccess</span><br></pre></td></tr></table></figure>
-<p>最后，<code>hexo d</code>将文件部署。</p>
+<h3 id="服务器返回响应"><a href="#服务器返回响应" class="headerlink" title="服务器返回响应"></a>服务器返回响应</h3><p>Http请求到达应用服务器后，会被交给某个Servlet处理。</p>
+<p>如果使用框架（SpringMVC），DispatcherServlet会处理收到的请求。经过处理器映射器，处理器适配器交给Controller执行，返回的模型视图（ModelAndView）对象会交给视图解析器（ViewResolver）</p>
+<h3 id="浏览器渲染页面"><a href="#浏览器渲染页面" class="headerlink" title="浏览器渲染页面"></a>浏览器渲染页面</h3><p>视图解析器内部调用render方法，将Model数据填充到View中，最终将View包装成Response传给浏览器。</p>
+<p>浏览器从HTTPResponse中读取数据，准备显示页面。</p>
+<p>由于HTML中可能引用大量其他资源，例如js，css，图片等，浏览器会下载这些资源（从DNS获取IP地址开始）</p>
+<p>当服务器发给客户端资源文件时，会告知何时过期（使用Cache-control或者Expire），客户端可以把文件缓存到本地，下次再有请求时，如果没有过期，可以直接从本地缓存读取。如果过期，客户端会询问服务器资源是否被修改（依据上一次服务器发送的Last-Modified），如果未被修改（状态码304 Not Modified），可以继续使用缓存，否则服务器会发送最新的资源到客户端。</p>
 <hr>
 <h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
-<li><a href="https://theme-next.iissnan.com/third-party-services.html#analytics-system" target="_blank" rel="noopener">https://theme-next.iissnan.com/third-party-services.html#analytics-system</a></li>
-<li><a href="https://molunerfinn.com/hexo-travisci-https" target="_blank" rel="noopener">https://molunerfinn.com/hexo-travisci-https</a></li>
+<li><a href="https://github.com/sunyongjian/blog/issues/34" target="_blank" rel="noopener">https://github.com/sunyongjian/blog/issues/34</a></li>
+<li><a href="https://segmentfault.com/a/1190000006879700" target="_blank" rel="noopener">https://segmentfault.com/a/1190000006879700</a></li>
+<li><a href="https://www.cnblogs.com/crazylqy/p/7110357.html" target="_blank" rel="noopener">https://www.cnblogs.com/crazylqy/p/7110357.html</a></li>
+<li><a href="https://www.cnblogs.com/derekchen/archive/2011/02/26/1965839.html" target="_blank" rel="noopener">https://www.cnblogs.com/derekchen/archive/2011/02/26/1965839.html</a></li>
+<li>《码出高效 Java开发手册》</li>
 </ul>
 
       
@@ -633,9 +682,11 @@
       
         <div class="post-tags">
           
-            <a href="/tags/hexo/" rel="tag"># hexo</a>
+            <a href="/tags/Web/" rel="tag"># Web</a>
           
-            <a href="/tags/SEO/" rel="tag"># SEO</a>
+            <a href="/tags/计算机网络/" rel="tag"># 计算机网络</a>
+          
+            <a href="/tags/面试/" rel="tag"># 面试</a>
           
         </div>
       
@@ -648,8 +699,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/02/13/digitalSignature/" rel="next" title="数字签名和数字证书">
-                <i class="fa fa-chevron-left"></i> 数字签名和数字证书
+              <a href="/2019/02/03/java-alipay-1/" rel="next" title="Java对接支付宝支付功能（三）异步通知">
+                <i class="fa fa-chevron-left"></i> Java对接支付宝支付功能（三）异步通知
               </a>
             
           </div>
@@ -658,8 +709,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/02/27/volatile-and-synchronized/" rel="prev" title="volatile-and-synchronized">
-                volatile-and-synchronized <i class="fa fa-chevron-right"></i>
+              <a href="/2019/02/13/digitalSignature/" rel="prev" title="数字签名和数字证书">
+                数字签名和数字证书 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -861,7 +912,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#站点地图"><span class="nav-number">1.</span> <span class="nav-text">站点地图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建robots-txt"><span class="nav-number">2.</span> <span class="nav-text">创建robots.txt</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据统计与分析"><span class="nav-number">3.</span> <span class="nav-text">数据统计与分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用CloudFlare"><span class="nav-number">4.</span> <span class="nav-text">使用CloudFlare</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-更改域名服务商的Name-Servers"><span class="nav-number">4.1.</span> <span class="nav-text">1. 更改域名服务商的Name Servers</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-page-rules设置"><span class="nav-number">4.2.</span> <span class="nav-text">2. page rules设置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-HSTS设置"><span class="nav-number">4.3.</span> <span class="nav-text">3. HSTS设置</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置-htaccess"><span class="nav-number">5.</span> <span class="nav-text">配置 .htaccess</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考"><span class="nav-number">6.</span> <span class="nav-text">参考</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#浏览器处理URL"><span class="nav-number">1.</span> <span class="nav-text">浏览器处理URL</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-校验URL格式"><span class="nav-number">1.1.</span> <span class="nav-text">1. 校验URL格式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-检查HSTS-列表"><span class="nav-number">1.2.</span> <span class="nav-text">2. 检查HSTS 列表</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DNS解析"><span class="nav-number">2.</span> <span class="nav-text">DNS解析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-查询缓存"><span class="nav-number">2.1.</span> <span class="nav-text">1. 查询缓存</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-1-查看浏览器内部缓存"><span class="nav-number">2.1.1.</span> <span class="nav-text">1.1 查看浏览器内部缓存</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-2-系统缓存"><span class="nav-number">2.1.2.</span> <span class="nav-text">1.2 系统缓存</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-3-路由器缓存、ISP-缓存"><span class="nav-number">2.1.3.</span> <span class="nav-text">1.3. 路由器缓存、ISP 缓存</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-本地-DNS-服务器"><span class="nav-number">2.2.</span> <span class="nav-text">2. 本地 DNS 服务器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-域名服务器"><span class="nav-number">2.3.</span> <span class="nav-text">3. 域名服务器</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP连接"><span class="nav-number">3.</span> <span class="nav-text">TCP连接</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#建立TCP连接"><span class="nav-number">3.1.</span> <span class="nav-text">建立TCP连接</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#断开TCP连接"><span class="nav-number">3.2.</span> <span class="nav-text">断开TCP连接</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#TCP滑动窗口"><span class="nav-number">3.3.</span> <span class="nav-text">TCP滑动窗口</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#发送HTTPS请求"><span class="nav-number">4.</span> <span class="nav-text">发送HTTPS请求</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#关于数字加密"><span class="nav-number">4.1.</span> <span class="nav-text">关于数字加密</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HTTPS建立连接"><span class="nav-number">4.2.</span> <span class="nav-text">HTTPS建立连接</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#服务器处理请求"><span class="nav-number">5.</span> <span class="nav-text">服务器处理请求</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#WEB服务器"><span class="nav-number">5.1.</span> <span class="nav-text">WEB服务器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#应用服务器"><span class="nav-number">5.2.</span> <span class="nav-text">应用服务器</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#服务器返回响应"><span class="nav-number">6.</span> <span class="nav-text">服务器返回响应</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#浏览器渲染页面"><span class="nav-number">7.</span> <span class="nav-text">浏览器渲染页面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考"><span class="nav-number">8.</span> <span class="nav-text">参考</span></a></li></ol></div>
             
 
           </div>
@@ -1040,7 +1091,7 @@
   
     <script>
   window.livereOptions = {
-    refer: '2019/02/14/hexo-blog-seo-optimization/'
+    refer: '2019/02/09/url-to-webpage/'
   };
   (function(d, s) {
     var j, e = d.getElementsByTagName(s)[0];

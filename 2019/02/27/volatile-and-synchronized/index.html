@@ -98,25 +98,27 @@
 
 
 
-  <meta name="description" content="支付宝当面付官方Demo调试配置沙箱环境官方文档 点击“开放平台-开发者中心-沙箱环境”。进入沙箱环境页面，系统已经自动为你创建一个应用，在基础信息中可以看到应用信息。  生成并上传RSA2(SHA256)的应用公钥，详见生成RSA密钥；配置RSA2(SHA256)的应用公钥后，不需要配置RSA(SHA1)密钥，RSA和RSA2签名算法区别可以参考此处；  编写代码时，请将   ​">
-<meta name="keywords" content="Java,支付宝,当面付">
+  <meta name="description" content="volatile关键字和synchronized关键字的区别一句话概括 volatile保证了线程间的可见性和有序性 synchronized保证了线程间的原子性（同时保证了可见性和有序性） Java内存模型首先，为了说明两者的区别，先要引出一个概念——Java内存模型(JMM)，该模型用于屏蔽各种硬件和操作系统带来的内存访问的差异，定义了程序中各个变量（不包括局部变量和方法参数，因为这些是线程私">
+<meta name="keywords" content="并发,JVM">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Java对接支付宝支付功能（一）官方Demo调试">
-<meta property="og:url" content="http://www.wuleshen.com/2019/01/22/java对接支付宝支付功能（一）/index.html">
+<meta property="og:title" content="volatile-and-synchronized">
+<meta property="og:url" content="http://www.wuleshen.com/2019/02/27/volatile-and-synchronized/index.html">
 <meta property="og:site_name" content="吴乐申的个人博客">
-<meta property="og:description" content="支付宝当面付官方Demo调试配置沙箱环境官方文档 点击“开放平台-开发者中心-沙箱环境”。进入沙箱环境页面，系统已经自动为你创建一个应用，在基础信息中可以看到应用信息。  生成并上传RSA2(SHA256)的应用公钥，详见生成RSA密钥；配置RSA2(SHA256)的应用公钥后，不需要配置RSA(SHA1)密钥，RSA和RSA2签名算法区别可以参考此处；  编写代码时，请将   ​">
+<meta property="og:description" content="volatile关键字和synchronized关键字的区别一句话概括 volatile保证了线程间的可见性和有序性 synchronized保证了线程间的原子性（同时保证了可见性和有序性） Java内存模型首先，为了说明两者的区别，先要引出一个概念——Java内存模型(JMM)，该模型用于屏蔽各种硬件和操作系统带来的内存访问的差异，定义了程序中各个变量（不包括局部变量和方法参数，因为这些是线程私">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-02-01T07:19:40.161Z">
+<meta property="og:image" content="http://www.wuleshen.com/2019/02/27/volatile-and-synchronized/clipboard-1551243763377.png">
+<meta property="og:updated_time" content="2019-02-27T07:09:47.307Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Java对接支付宝支付功能（一）官方Demo调试">
-<meta name="twitter:description" content="支付宝当面付官方Demo调试配置沙箱环境官方文档 点击“开放平台-开发者中心-沙箱环境”。进入沙箱环境页面，系统已经自动为你创建一个应用，在基础信息中可以看到应用信息。  生成并上传RSA2(SHA256)的应用公钥，详见生成RSA密钥；配置RSA2(SHA256)的应用公钥后，不需要配置RSA(SHA1)密钥，RSA和RSA2签名算法区别可以参考此处；  编写代码时，请将   ​">
+<meta name="twitter:title" content="volatile-and-synchronized">
+<meta name="twitter:description" content="volatile关键字和synchronized关键字的区别一句话概括 volatile保证了线程间的可见性和有序性 synchronized保证了线程间的原子性（同时保证了可见性和有序性） Java内存模型首先，为了说明两者的区别，先要引出一个概念——Java内存模型(JMM)，该模型用于屏蔽各种硬件和操作系统带来的内存访问的差异，定义了程序中各个变量（不包括局部变量和方法参数，因为这些是线程私">
+<meta name="twitter:image" content="http://www.wuleshen.com/2019/02/27/volatile-and-synchronized/clipboard-1551243763377.png">
 
 
 
 
 
 
-  <link rel="canonical" href="http://www.wuleshen.com/2019/01/22/java对接支付宝支付功能（一）/">
+  <link rel="canonical" href="http://www.wuleshen.com/2019/02/27/volatile-and-synchronized/">
 
 
 
@@ -126,7 +128,7 @@
   };
 </script>
 
-  <title>Java对接支付宝支付功能（一）官方Demo调试 | 吴乐申的个人博客</title>
+  <title>volatile-and-synchronized | 吴乐申的个人博客</title>
   
 
 
@@ -394,7 +396,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.wuleshen.com/2019/01/22/java对接支付宝支付功能（一）/">
+    <link itemprop="mainEntityOfPage" href="http://www.wuleshen.com/2019/02/27/volatile-and-synchronized/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Shawn Wu">
@@ -411,7 +413,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Java对接支付宝支付功能（一）官方Demo调试
+          <h1 class="post-title" itemprop="name headline">volatile-and-synchronized
 
               
             
@@ -437,24 +439,12 @@
                 
               
 
-              <time title="创建时间：2019-01-22 23:45:18" itemprop="dateCreated datePublished" datetime="2019-01-22T23:45:18+08:00">2019-01-22</time>
+              <time title="创建时间：2019-02-27 12:53:26 / 修改时间：15:09:47" itemprop="dateCreated datePublished" datetime="2019-02-27T12:53:26+08:00">2019-02-27</time>
             
 
             
               
 
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-02-01 15:19:40" itemprop="dateModified" datetime="2019-02-01T15:19:40+08:00">2019-02-01</time>
               
             
           </span>
@@ -513,43 +503,30 @@
       
 
       
-        <h3 id="支付宝当面付官方Demo调试"><a href="#支付宝当面付官方Demo调试" class="headerlink" title="支付宝当面付官方Demo调试"></a>支付宝当面付官方Demo调试</h3><h4 id="配置沙箱环境"><a href="#配置沙箱环境" class="headerlink" title="配置沙箱环境"></a>配置沙箱环境</h4><p><a href="https://docs.open.alipay.com/200/105311" target="_blank" rel="noopener"><strong>官方文档</strong></a></p>
-<p>点击“开放平台-开发者中心-<a href="https://openhome.alipay.com/platform/appDaily.htm" target="_blank" rel="noopener">沙箱环境</a>”。进入沙箱环境页面，系统已经自动为你创建一个应用，在基础信息中可以看到应用信息。</p>
-<ol>
-<li><p>生成并上传RSA2(SHA256)的应用公钥，详见<a href="https://docs.open.alipay.com/291/105971" target="_blank" rel="noopener">生成RSA密钥</a>；配置RSA2(SHA256)的应用公钥后，不需要配置RSA(SHA1)密钥，<a href="https://docs.open.alipay.com/291/106115" target="_blank" rel="noopener">RSA和RSA2签名算法区别可以参考此处</a>；</p>
-</li>
-<li><p>编写代码时，请将</p>
-</li>
-</ol>
-<p>​          a.请求网关修改为：<a href="https://openapi.alipaydev.com/gateway.do" target="_blank" rel="noopener">https://openapi.alipaydev.com/gateway.do</a></p>
-<p>​          b.appid切换为沙箱的appid</p>
-<p>​          c.签名方式使用RSA2</p>
-<p>​          d.应用私钥使用第1步生成的RSA2(SHA256)的私钥(请根据开发语言进行选择原始或pkcs8格式)</p>
-<p>​          e.支付宝公钥切换为第1步配置后应用公钥后，点击查看支付宝公钥看到的公钥</p>
-<h4 id="当面付demo演示"><a href="#当面付demo演示" class="headerlink" title="当面付demo演示"></a>当面付demo演示</h4><ol>
-<li>下载demo，地址：<a href="https://docs.open.alipay.com/194/105201/" target="_blank" rel="noopener">https://docs.open.alipay.com/194/105201/</a></li>
-<li><p>将demo导入idea</p>
-</li>
-<li><p>配置支付相关的属性alipayinfo.properties</p>
-</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"># 支付宝网关名、partnerId和appId</span><br><span class="line">open_api_domain = https://openapi.alipaydev.com/gateway.do</span><br><span class="line">mcloud_api_domain = http://mcloudmonitor.com/gateway.do</span><br><span class="line">pid = 你的pid</span><br><span class="line">appid = 你的appid</span><br><span class="line"></span><br><span class="line"># RSA秘钥生成具体见官方文档</span><br><span class="line"># 应用私钥公钥</span><br><span class="line">private_key = 应用公钥</span><br><span class="line">public_key =  应用私钥</span><br><span class="line"></span><br><span class="line">#SHA1withRsa对应支付宝公钥</span><br><span class="line">#alipay_public_key = 使用RSA2时，不用配置此项</span><br><span class="line"></span><br><span class="line">#SHA256withRsa对应支付宝公钥</span><br><span class="line">alipay_public_key = 支付宝公钥</span><br><span class="line"></span><br><span class="line"># 签名类型: RSA-&gt;SHA1withRsa,RSA2-&gt;SHA256withRsa</span><br><span class="line">sign_type = RSA2</span><br><span class="line"># 当面付最大查询次数和查询间隔（毫秒）</span><br><span class="line">max_query_retry = 5</span><br><span class="line">query_duration = 5000</span><br><span class="line"># 当面付最大撤销次数和撤销间隔（毫秒）</span><br><span class="line">max_cancel_retry = 3</span><br><span class="line">cancel_duration = 2000</span><br><span class="line"># 交易保障线程第一次调度延迟和调度间隔（秒）</span><br><span class="line">heartbeat_delay = 5</span><br><span class="line">heartbeat_duration = 900</span><br></pre></td></tr></table></figure>
-<ol start="4">
-<li>启动main方法</li>
-</ol>
-<p>运行结果</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">一月 <span class="number">22</span>, <span class="number">2019</span> <span class="number">10</span>:<span class="number">58</span>:<span class="number">54</span> 下午 com.alipay.demo.trade.config.Configs init</span><br><span class="line">信息: 配置文件名: alipayinfo.properties</span><br><span class="line">一月 <span class="number">22</span>, <span class="number">2019</span> <span class="number">10</span>:<span class="number">58</span>:<span class="number">54</span> 下午 com.alipay.demo.trade.config.Configs init</span><br><span class="line">信息: Configs&#123;支付宝openapi网关: https:<span class="comment">//openapi.alipaydev.com/gateway.do</span></span><br><span class="line">, 支付宝mcloudapi网关域名: http:<span class="comment">//mcloudmonitor.com/gateway.do</span></span><br><span class="line">, pid: <span class="number">2088102177123264</span></span><br><span class="line">, appid: <span class="number">2016092400588794</span></span><br><span class="line">, 商户RSA私钥: MIIEvg******g1jt2A</span><br><span class="line">, 商户RSA公钥: MIIBIj******IDAQAB</span><br><span class="line">, 支付宝RSA公钥: MIIBIj******IDAQAB</span><br><span class="line">, 签名类型: RSA2</span><br><span class="line">, 查询重试次数: <span class="number">5</span></span><br><span class="line">, 查询间隔(毫秒): <span class="number">5000</span></span><br><span class="line">, 撤销尝试次数: <span class="number">3</span></span><br><span class="line">, 撤销重试间隔(毫秒): <span class="number">2000</span></span><br><span class="line">, 交易保障调度延迟(秒): <span class="number">5</span></span><br><span class="line">, 交易保障调度间隔(秒): <span class="number">900</span></span><br><span class="line">&#125;</span><br><span class="line">一月 <span class="number">22</span>, <span class="number">2019</span> <span class="number">10</span>:<span class="number">58</span>:<span class="number">54</span> 下午 com.alipay.demo.trade.service.impl.AbsAlipayTradeService tradePrecreate</span><br><span class="line">信息: trade.precreate bizContent:&#123;<span class="string">"out_trade_no"</span>:<span class="string">"tradeprecreate15481691348134324306"</span>,<span class="string">"seller_id"</span>:<span class="string">""</span>,<span class="string">"total_amount"</span>:<span class="string">"0.01"</span>,<span class="string">"undiscountable_amount"</span>:<span class="string">"0"</span>,<span class="string">"subject"</span>:<span class="string">"xxx品牌xxx门店当面付扫码消费"</span>,<span class="string">"body"</span>:<span class="string">"购买商品3件共20.00元"</span>,<span class="string">"goods_detail"</span>:[&#123;<span class="string">"goods_id"</span>:<span class="string">"goods_id001"</span>,<span class="string">"goods_name"</span>:<span class="string">"xxx小面包"</span>,<span class="string">"quantity"</span>:<span class="number">1</span>,<span class="string">"price"</span>:<span class="string">"10"</span>&#125;,&#123;<span class="string">"goods_id"</span>:<span class="string">"goods_id002"</span>,<span class="string">"goods_name"</span>:<span class="string">"xxx牙刷"</span>,<span class="string">"quantity"</span>:<span class="number">2</span>,<span class="string">"price"</span>:<span class="string">"5"</span>&#125;],<span class="string">"operator_id"</span>:<span class="string">"test_operator_id"</span>,<span class="string">"store_id"</span>:<span class="string">"test_store_id"</span>,<span class="string">"extend_params"</span>:&#123;<span class="string">"sys_service_provider_id"</span>:<span class="string">"2088100200300400500"</span>&#125;,<span class="string">"timeout_express"</span>:<span class="string">"120m"</span>&#125;</span><br><span class="line">一月 <span class="number">22</span>, <span class="number">2019</span> <span class="number">10</span>:<span class="number">58</span>:<span class="number">56</span> 下午 com.alipay.api.internal.util.AlipayLogger logBizSummary</span><br><span class="line">信息: Summary^_^<span class="number">10000</span>^_^<span class="keyword">null</span>^_^ProtocalMustParams:charset=utf-<span class="number">8</span>&amp;method=alipay.trade.precreate&amp;sign=eT6bgbDSF33TeESmRaqWCzfKZ5FB23e4ul6IOdPR9y1Lk6fKEWAhIWW/H0PWt4ttzsyhazy/HnoP4rSNBA11MW6FkK7EA7bwvU+V/kuDEMer4mbq9bPZ44zq5XHUW2wWxrGEIXWGa0O2UwFg1ahWDJCeXGUYqndOFtgMLeuKsShEZ7l/<span class="number">6</span>t9xfMEQSUyfzutucqgGGBApA3YNRpxa7Dh0zD1PZw0yqe0qDpEp2mbNvOEYWilaLS1wtHwOaOzNYKXJ+<span class="number">9</span>xfrz1YMjh6R0ikbIRGdKxPuTLiRB7F8pLim/QwvZYC/n0O9tmIF1X7CrN44Vimhy23IY3VEWbjuGKD4jvM8Q==&amp;version=<span class="number">1.0</span>&amp;app_id=<span class="number">2016092400588794</span>&amp;sign_type=RSA2&amp;timestamp=<span class="number">2019</span>-<span class="number">01</span>-<span class="number">22</span> <span class="number">22</span>:<span class="number">58</span>:<span class="number">54</span>^_^ProtocalOptParams:alipay_sdk=alipay-sdk-java-<span class="number">3.3</span>.0&amp;format=json^_^ApplicationParams:biz_content=&#123;<span class="string">"out_trade_no"</span>:<span class="string">"tradeprecreate15481691348134324306"</span>,<span class="string">"seller_id"</span>:<span class="string">""</span>,<span class="string">"total_amount"</span>:<span class="string">"0.01"</span>,<span class="string">"undiscountable_amount"</span>:<span class="string">"0"</span>,<span class="string">"subject"</span>:<span class="string">"xxx品牌xxx门店当面付扫码消费"</span>,<span class="string">"body"</span>:<span class="string">"购买商品3件共20.00元"</span>,<span class="string">"goods_detail"</span>:[&#123;<span class="string">"goods_id"</span>:<span class="string">"goods_id001"</span>,<span class="string">"goods_name"</span>:<span class="string">"xxx小面包"</span>,<span class="string">"quantity"</span>:<span class="number">1</span>,<span class="string">"price"</span>:<span class="string">"10"</span>&#125;,&#123;<span class="string">"goods_id"</span>:<span class="string">"goods_id002"</span>,<span class="string">"goods_name"</span>:<span class="string">"xxx牙刷"</span>,<span class="string">"quantity"</span>:<span class="number">2</span>,<span class="string">"price"</span>:<span class="string">"5"</span>&#125;],<span class="string">"operator_id"</span>:<span class="string">"test_operator_id"</span>,<span class="string">"store_id"</span>:<span class="string">"test_store_id"</span>,<span class="string">"extend_params"</span>:&#123;<span class="string">"sys_service_provider_id"</span>:<span class="string">"2088100200300400500"</span>&#125;,<span class="string">"timeout_express"</span>:<span class="string">"120m"</span>&#125;^_^<span class="number">567</span>ms,<span class="number">524</span>ms,<span class="number">22</span>ms</span><br><span class="line">一月 <span class="number">22</span>, <span class="number">2019</span> <span class="number">10</span>:<span class="number">58</span>:<span class="number">56</span> 下午 com.alipay.demo.trade.service.impl.AbsAlipayService getResponse</span><br><span class="line">信息: &#123;<span class="string">"alipay_trade_precreate_response"</span>:&#123;<span class="string">"code"</span>:<span class="string">"10000"</span>,<span class="string">"msg"</span>:<span class="string">"Success"</span>,<span class="string">"out_trade_no"</span>:<span class="string">"tradeprecreate15481691348134324306"</span>,<span class="string">"qr_code"</span>:<span class="string">"https:\/\/qr.alipay.com\/bax06491yqcl41q5rnzb00e8"</span>&#125;,<span class="string">"sign"</span>:<span class="string">"K68FrpzgPWkN2whVqVuzBLMr35h2TA/dm7VJWdoxsm/KIwsJS8bFI+hTe35bUP3C8Xu+lY4+SOuJdDZUQuM2P9NADt/lYViIigeWVy65BLcsU3qNKvBk/iAqY1zduXx3MjcxUzAUidpk6OnL6hG0uBPmYqlXL3u2jZB1FwdzmZo/iOjXq0Kg0I7tYUbiIIUy28he/dpxtaX7Iha5iHAB7nx0y0M7KoihmF8l6+sr9QGfm+N+DCqBWWQa336RieY/uxz/c8CF4Jexz8ahXf0/+EZJjA6+48umU3OL3lEnOgMoom2xB0IsEP0wsMI4HKagv/h21+YuaBH33CuzyyUkDQ=="</span>&#125;</span><br><span class="line">一月 <span class="number">22</span>, <span class="number">2019</span> <span class="number">10</span>:<span class="number">58</span>:<span class="number">56</span> 下午 com.alipay.demo.trade.Main test_trade_precreate</span><br><span class="line">信息: 支付宝预下单成功: )</span><br><span class="line">一月 <span class="number">22</span>, <span class="number">2019</span> <span class="number">10</span>:<span class="number">58</span>:<span class="number">56</span> 下午 com.alipay.demo.trade.Main dumpResponse</span><br><span class="line">信息: code:<span class="number">10000</span>, msg:Success</span><br><span class="line">一月 <span class="number">22</span>, <span class="number">2019</span> <span class="number">10</span>:<span class="number">58</span>:<span class="number">56</span> 下午 com.alipay.demo.trade.Main dumpResponse</span><br><span class="line">信息: body:&#123;<span class="string">"alipay_trade_precreate_response"</span>:&#123;<span class="string">"code"</span>:<span class="string">"10000"</span>,<span class="string">"msg"</span>:<span class="string">"Success"</span>,<span class="string">"out_trade_no"</span>:<span class="string">"tradeprecreate15481691348134324306"</span>,<span class="string">"qr_code"</span>:<span class="string">"https:\/\/qr.alipay.com\/bax06491yqcl41q5rnzb00e8"</span>&#125;,<span class="string">"sign"</span>:<span class="string">"K68FrpzgPWkN2whVqVuzBLMr35h2TA/dm7VJWdoxsm/KIwsJS8bFI+hTe35bUP3C8Xu+lY4+SOuJdDZUQuM2P9NADt/lYViIigeWVy65BLcsU3qNKvBk/iAqY1zduXx3MjcxUzAUidpk6OnL6hG0uBPmYqlXL3u2jZB1FwdzmZo/iOjXq0Kg0I7tYUbiIIUy28he/dpxtaX7Iha5iHAB7nx0y0M7KoihmF8l6+sr9QGfm+N+DCqBWWQa336RieY/uxz/c8CF4Jexz8ahXf0/+EZJjA6+48umU3OL3lEnOgMoom2xB0IsEP0wsMI4HKagv/h21+YuaBH33CuzyyUkDQ=="</span>&#125;</span><br><span class="line">一月 <span class="number">22</span>, <span class="number">2019</span> <span class="number">10</span>:<span class="number">58</span>:<span class="number">56</span> 下午 com.alipay.demo.trade.Main test_trade_precreate</span><br><span class="line">信息: filePath:/Users/sudo/Desktop/qr-tradeprecreate15481691348134324306.png</span><br></pre></td></tr></table></figure>
-<p>交易创建的参数</p>
+        <h2 id="volatile关键字和synchronized关键字的区别"><a href="#volatile关键字和synchronized关键字的区别" class="headerlink" title="volatile关键字和synchronized关键字的区别"></a>volatile关键字和synchronized关键字的区别</h2><p>一句话概括</p>
+<p><strong>volatile保证了线程间的可见性和有序性</strong></p>
+<p><strong>synchronized保证了线程间的原子性（同时保证了可见性和有序性）</strong></p>
+<h3 id="Java内存模型"><a href="#Java内存模型" class="headerlink" title="Java内存模型"></a>Java内存模型</h3><p>首先，为了说明两者的区别，先要引出一个概念——<strong>Java内存模型(JMM)</strong>，该模型用于屏蔽各种硬件和操作系统带来的内存访问的差异，定义了程序中各个<strong><em>变量</em></strong>（不包括局部变量和方法参数，因为这些是线程私有的）的访问规则。</p>
+<p>JMM规定所有的变量都存储在<strong>主内存</strong>中，每条线程还有自己的<strong>工作内存</strong>，线程的工作内存中保存了被该线程使用到的变量的主内存副本拷贝，线程对变量的所有操作（读取，赋值等）都必须在工作内存中进行，而不能直接读写主内存中的变量，不同线程也无法直接访问对方工作内存中的变量，线程间变量值的传递均需要通过主内存来完成</p>
+<p>需要注意的是，这里Java内存模型中的主内存，工作内存和Java内存区域中的Heap，Stack，方法区等是没有关系的，如果非要类比，主内存可以对应Heap中的对象实例的数据部分，工作内存对应JVM Stack中的部分区域。</p>
+<h3 id="volatile语义"><a href="#volatile语义" class="headerlink" title="volatile语义"></a>volatile语义</h3><p><code>volatile</code>关键字可以说是Java虚拟机提供的最轻量级的同步机制。</p>
+<p>当一个变量定义为<code>volatile</code>时，它将具备两种特性：</p>
+<p>第一，保证此变量对所有线程的可见性。这里的可见性指的是当一条线程修改了这个变量的值，新值对于其他线程来说是可以立即得知的。普通变量不能做到这一点，普通变量的值在线程间传递都需要通过主内存来完成。</p>
+<p>第二，禁止指令重排序优化。</p>
+<h3 id="举例说明"><a href="#举例说明" class="headerlink" title="举例说明"></a>举例说明</h3><p>如下图所示，有两个线程t1和t2，它们都需要使用对象A中的变量flag，这两个线程都会从主内存中copy一份对象A的变量flag，放到它们各自的线程工作内存中，然后在运行期间直接使用这份copy。</p>
+<p>当t2线程需要修改flag的值，它会先把自己工作区的flag修改然后存入主内存中，但是t1并不会去访问heap中的flag，而是依旧使用自己工作区的copy。</p>
+<p>当volatile关键字作用到变量flag上，将会强制所有线程都去主线程中读取变量flag的值。</p>
+<p><img src="/2019/02/27/volatile-and-synchronized/clipboard-1551243763377.png" alt="img"></p>
+<p>示例代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 示例代码中有两个线程，主线程和main方法中启动的线程t1</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">T</span> </span>&#123;</span><br><span class="line">	<span class="comment">/*volatile*/</span> <span class="keyword">boolean</span> flag = <span class="keyword">true</span>; <span class="comment">//对比一下有无volatile的情况下，整个程序运行结果的区别</span></span><br><span class="line">	</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">m</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"m start"</span>);</span><br><span class="line">		<span class="keyword">while</span>(flag) &#123;</span><br><span class="line">			</span><br><span class="line">		&#125;</span><br><span class="line">		System.out.println(<span class="string">"m end!"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">shutdown</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        flag = <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		T t = <span class="keyword">new</span> T();</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">new</span> Thread(t::m, <span class="string">"t1"</span>).start();</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			TimeUnit.SECONDS.sleep(<span class="number">1</span>);</span><br><span class="line">		&#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">        <span class="comment">// 主线程更改flag的值</span></span><br><span class="line">		shutdown();		</span><br><span class="line">	&#125;	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>以上代码开启了一个线程t1，该线程执行m方法，如果不加<code>volatile</code>关键字，在主线程中更改flag的值，并不会使循环停止，这是由于t1线程执行时使用的是来自主线程的拷贝，并不会在执行时访问主线程，而<code>volatile</code>关键词使得主线程对flag的修改对于线程t1来说是可见的，t1会刷新flag的值并结束循环。</p>
+<h3 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h3><p>由于<code>volatile</code>变量只能保证可见性，在不符合以下两条规则的场景中，我们仍需要通过加锁（使用<code>synchronized</code>或<code>java.util.concurrent</code>中的Atomic类）来保证原子性。</p>
 <ul>
-<li>发送</li>
+<li>运算结果并不依赖变量的当前值，或者能够确保只有单一的线程修改变量的值</li>
+<li>变量不需要与其他的状态变量共同参与不变约束</li>
 </ul>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  "out_trade_no": "tradeprecreate15481691348134324306", //外部交易订单号</span><br><span class="line">  "seller_id": "", //销售id</span><br><span class="line">  "total_amount": "0.01", //总金额</span><br><span class="line">  "undiscountable_amount": "0", //不参加折扣的金额</span><br><span class="line">  "subject": "xxx品牌xxx门店当面付扫码消费", //标题</span><br><span class="line">  "body": "购买商品3件共20.00元", //购买说明</span><br><span class="line">  //商品详情</span><br><span class="line">  "goods_detail": [</span><br><span class="line">    &#123;</span><br><span class="line">      "goods_id": "goods_id001", //商品id</span><br><span class="line">      "goods_name": "xxx小面包", //商品名称</span><br><span class="line">      "quantity": 1, //商品数量</span><br><span class="line">      "price": "10" //商品单价</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">"goods_id"</span>: <span class="string">"goods_id002"</span>,</span><br><span class="line">      <span class="attr">"goods_name"</span>: <span class="string">"xxx牙刷"</span>,</span><br><span class="line">      <span class="attr">"quantity"</span>: <span class="number">2</span>,</span><br><span class="line">      <span class="attr">"price"</span>: <span class="string">"5"</span></span><br><span class="line">    &#125;</span><br><span class="line">  ],</span><br><span class="line">  "operator_id": "test_operator_id", //操作员的id</span><br><span class="line">  "store_id": "test_store_id", //店铺id</span><br><span class="line">  //扩展字段</span><br><span class="line">  "extend_params": &#123;</span><br><span class="line">    "sys_service_provider_id": "2088100200300400500" //在回调时使用，交互时常用</span><br><span class="line">  &#125;,</span><br><span class="line">  "timeout_express": "120m" //交易超时时间，120分钟</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>响应</li>
-</ul>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  "code": "10000", //响应码</span><br><span class="line">  "msg": "Success", //信息</span><br><span class="line">  "out_trade_no": "tradeprecreate15481691348134324306", //外部交易订单号</span><br><span class="line">  "qr_code": "https:\/\/qr.alipay.com\/bax06491yqcl41q5rnzb00e8" //二维码，可以通过base64方式传给前端展示，或者将二维码上传到后台ftp服务器进行展示</span><br><span class="line">&#125;,"sign": "K68FrpzgPWkN2whVqVuzBLMr35h2TA/dm7VJWdoxsm/KIwsJS8bFI+hTe35bUP3C8Xu+lY4+SOuJdDZUQuM2P9NADt/lYViIigeWVy65BLcsU3qNKvBk/iAqY1zduXx3MjcxUzAUidpk6OnL6hG0uBPmYqlXL3u2jZB1FwdzmZo/iOjXq0Kg0I7tYUbiIIUy28he/dpxtaX7Iha5iHAB7nx0y0M7KoihmF8l6+sr9QGfm+N+DCqBWWQa336RieY/uxz/c8CF4Jexz8ahXf0/+EZJjA6+48umU3OL3lEnOgMoom2xB0IsEP0wsMI4HKagv/h21+YuaBH33CuzyyUkDQ=="</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>可以用二维码生成器将返回的<code>qr_code</code>生成，用<em>支付宝沙箱版</em>进行扫码支付测试</p>
-<p>至此，支付宝当面付的官方demo就调通了，可以进行后续开发</p>
+<p>前面举的列子就很适合使用<code>volatile变量</code>来控制并发，当<code>shutdown()</code>被调用时，能保证所有线程中的m()方法立即停止。</p>
+<p>大多数情况下使用<code>volatile</code>比<code>synchronized</code>开销低，选择的唯一依据就是我们是否在保证可见性和有序性的基础上，还需要保证原子性。</p>
 
       
     </div>
@@ -573,11 +550,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Java/" rel="tag"># Java</a>
+            <a href="/tags/并发/" rel="tag"># 并发</a>
           
-            <a href="/tags/支付宝/" rel="tag"># 支付宝</a>
-          
-            <a href="/tags/当面付/" rel="tag"># 当面付</a>
+            <a href="/tags/JVM/" rel="tag"># JVM</a>
           
         </div>
       
@@ -590,8 +565,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/01/18/First-Blog-Post/" rel="next" title="第一篇博客">
-                <i class="fa fa-chevron-left"></i> 第一篇博客
+              <a href="/2019/02/14/hexo-blog-seo-optimization/" rel="next" title="Hexo博客SEO优化">
+                <i class="fa fa-chevron-left"></i> Hexo博客SEO优化
               </a>
             
           </div>
@@ -599,10 +574,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/02/01/Java对接支付宝支付功能（二）/" rel="prev" title="Java对接支付宝功能（二）当面付预下单">
-                Java对接支付宝功能（二）当面付预下单 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -677,7 +648,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">7</span>
+                    <span class="site-state-item-count">8</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -737,7 +708,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">11</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">13</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -799,7 +774,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#支付宝当面付官方Demo调试"><span class="nav-number">1.</span> <span class="nav-text">支付宝当面付官方Demo调试</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#配置沙箱环境"><span class="nav-number">1.1.</span> <span class="nav-text">配置沙箱环境</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#当面付demo演示"><span class="nav-number">1.2.</span> <span class="nav-text">当面付demo演示</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#volatile关键字和synchronized关键字的区别"><span class="nav-number">1.</span> <span class="nav-text">volatile关键字和synchronized关键字的区别</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Java内存模型"><span class="nav-number">1.1.</span> <span class="nav-text">Java内存模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#volatile语义"><span class="nav-number">1.2.</span> <span class="nav-text">volatile语义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#举例说明"><span class="nav-number">1.3.</span> <span class="nav-text">举例说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用场景"><span class="nav-number">1.4.</span> <span class="nav-text">使用场景</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -978,7 +953,7 @@
   
     <script>
   window.livereOptions = {
-    refer: '2019/01/22/java对接支付宝支付功能（一）/'
+    refer: '2019/02/27/volatile-and-synchronized/'
   };
   (function(d, s) {
     var j, e = d.getElementsByTagName(s)[0];

@@ -98,21 +98,27 @@
 
 
 
-  <meta name="keywords" content="“java,javaweb,后端,Coder”">
-<meta property="og:type" content="website">
-<meta property="og:title" content="吴乐申的个人博客">
-<meta property="og:url" content="http://www.wuleshen.com/tags/当面付/index.html">
+  <meta name="description" content="Java执行机制首先，Java平台如今的主流版本（JDK8以上，HotSpot VM）中，主要采用混合模式进行代码执行。 Java主要使用JIT动态编译与解释器混合执行。  JIT编译器，英文写作Just-In-Time Compiler，中文意思是即时编译器。  JIT 编译过程当 JIT 编译启用时（默认是启用的），JVM 读入.class 文件解释后，将其发给 JIT 编译器。JIT 编译器">
+<meta name="keywords" content="Java,JVM,JIT">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java执行机制">
+<meta property="og:url" content="http://www.wuleshen.com/2019/03/04/java-execution-principle/index.html">
 <meta property="og:site_name" content="吴乐申的个人博客">
+<meta property="og:description" content="Java执行机制首先，Java平台如今的主流版本（JDK8以上，HotSpot VM）中，主要采用混合模式进行代码执行。 Java主要使用JIT动态编译与解释器混合执行。  JIT编译器，英文写作Just-In-Time Compiler，中文意思是即时编译器。  JIT 编译过程当 JIT 编译启用时（默认是启用的），JVM 读入.class 文件解释后，将其发给 JIT 编译器。JIT 编译器">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://www.wuleshen.com/2019/03/04/java-execution-principle/clipboard.png">
+<meta property="og:updated_time" content="2019-03-04T05:38:05.841Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="吴乐申的个人博客">
+<meta name="twitter:title" content="Java执行机制">
+<meta name="twitter:description" content="Java执行机制首先，Java平台如今的主流版本（JDK8以上，HotSpot VM）中，主要采用混合模式进行代码执行。 Java主要使用JIT动态编译与解释器混合执行。  JIT编译器，英文写作Just-In-Time Compiler，中文意思是即时编译器。  JIT 编译过程当 JIT 编译启用时（默认是启用的），JVM 读入.class 文件解释后，将其发给 JIT 编译器。JIT 编译器">
+<meta name="twitter:image" content="http://www.wuleshen.com/2019/03/04/java-execution-principle/clipboard.png">
 
 
 
 
 
 
-  <link rel="canonical" href="http://www.wuleshen.com/tags/当面付/">
+  <link rel="canonical" href="http://www.wuleshen.com/2019/03/04/java-execution-principle/">
 
 
 
@@ -122,7 +128,7 @@
   };
 </script>
 
-  <title>标签: 当面付 | 吴乐申的个人博客</title>
+  <title>Java执行机制 | 吴乐申的个人博客</title>
   
 
 
@@ -188,7 +194,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
     <!-- 右上角github连接 -->
     <a href="https://github.com/LefterWu" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
@@ -265,7 +271,7 @@
         
         
           
-          <li class="menu-item menu-item-tags menu-item-active">
+          <li class="menu-item menu-item-tags">
 
     
     
@@ -370,134 +376,233 @@
           
             
 
-    
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-    
-
-  
-
-
           
           <div id="content" class="content">
             
 
+  <div id="posts" class="posts-expand">
+    
+
+  
+
   
   
   
-  <div class="post-block tag">
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>当面付<small>标签</small>
-        </h1>
-      </div>
-
-      
-        
+  
 
   <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.wuleshen.com/2019/03/04/java-execution-principle/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shawn Wu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="吴乐申的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
         
-          <a class="post-title-link" href="/2019/02/03/java-alipay-1/" itemprop="url">
-            
-              <span itemprop="name">Java对接支付宝支付功能（三）异步通知</span>
-            
-          </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">Java执行机制
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-02-03T10:10:07+08:00" content="2019-02-03">
-          02-03
-        </time>
-      </div>
+              
+            
+          </h1>
+        
 
-    </header>
-  </article>
+        <div class="post-meta">
+          <span class="post-time">
 
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-03-04 10:23:38 / 修改时间：13:38:05" itemprop="dateCreated datePublished" datetime="2019-03-04T10:23:38+08:00">2019-03-04</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/技术/" itemprop="url" rel="index"><span itemprop="name">技术</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon">
+            <i class="fa fa-eye"></i>
+             阅读次数： 
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2019/02/01/java-alipay-2/" itemprop="url">
-            
-              <span itemprop="name">Java对接支付宝功能（二）当面付预下单</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-02-01T13:30:30+08:00" content="2019-02-01">
-          02-01
-        </time>
-      </div>
-
-    </header>
-  </article>
-
+      
 
       
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2019/01/22/java-alipay-3/" itemprop="url">
-            
-              <span itemprop="name">Java对接支付宝支付功能（一）官方Demo调试</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-01-22T23:45:18+08:00" content="2019-01-22">
-          01-22
-        </time>
-      </div>
-
-    </header>
-  </article>
-
+        <h2 id="Java执行机制"><a href="#Java执行机制" class="headerlink" title="Java执行机制"></a>Java执行机制</h2><p>首先，Java平台如今的主流版本（JDK8以上，HotSpot VM）中，主要采用混合模式进行代码执行。</p>
+<p>Java主要使用<strong>JIT动态编译</strong>与<strong>解释器</strong>混合执行。</p>
+<blockquote>
+<p>JIT编译器，英文写作Just-In-Time Compiler，中文意思是即时编译器。</p>
+</blockquote>
+<h3 id="JIT-编译过程"><a href="#JIT-编译过程" class="headerlink" title="JIT 编译过程"></a>JIT 编译过程</h3><p>当 JIT 编译启用时（默认是启用的），JVM 读入.class 文件解释后，将其发给 JIT 编译器。JIT 编译器将字节码编译成本机机器代码。</p>
+<p>具体来说，Java有热点代码编译功能，通过统计热点代码，将热点代码通过JIT编译成机器码交并存入Code Cache，而其余代码则由JVM解释执行。</p>
+<p><img src="/2019/03/04/java-execution-principle/clipboard.png" alt="图片参考《码出高效》一书"></p>
+<h3 id="Hot-Spot-编译"><a href="#Hot-Spot-编译" class="headerlink" title="Hot Spot 编译"></a>Hot Spot 编译</h3><p>当 JVM 执行代码时，它并不立即开始编译代码。这主要有两个原因：</p>
+<p>首先，如果这段代码本身在将来只会被执行一次，那么从本质上看，编译就是在浪费精力。因为将代码翻译成 java 字节码相对于编译这段代码并执行代码来说，要快很多。</p>
+<p>当然，如果一段代码频繁的调用方法，或是一个循环，也就是这段代码被多次执行，那么编译就非常值得了。因此，编译器具有的这种权衡能力会首先执行解释后的代码，然后再去分辨哪些方法会被频繁调用来保证其本身的编译。其实说简单点，就是 JIT 在起作用，我们知道，对于 Java 代码，刚开始都是被编译器编译成字节码文件，然后字节码文件会被交由 JVM 解释执行，所以可以说 Java 本身是一种半编译半解释执行的语言。Hot Spot VM 采用了 JIT compile 技术，将运行频率很高的字节码直接编译为机器指令执行以提高性能，所以当字节码被 JIT 编译为机器码的时候，要说它是编译执行的也可以。也就是说，运行时，部分代码可能由 JIT 翻译为目标机器指令（以 method 为翻译单位，还会保存起来，第二次执行就不用翻译了）直接执行。</p>
+<p>第二个原因是最优化，当 JVM 执行某一方法或遍历循环的次数越多，就会更加了解代码结构，那么 JVM 在编译代码的时候就做出相应的优化。</p>
+<p>举一个简单的例子：我们知道<code>equals()</code>这个方法存在于每一个 Java Object 中而且经常被覆写。当解释器遇到<code>b = obj1.equals(obj2)</code>这样一句代码，它则会查询 obj1 的类型从而得知到底运行哪一个 <code>equals()</code> 方法。而这个动态查询的过程从某种程度上说是很耗时的。</p>
+<h3 id="具体案例"><a href="#具体案例" class="headerlink" title="具体案例"></a>具体案例</h3><p>放到具体生产环境，这种执行方式造成了机器在热机状态可以承受的负载要大于冷机状态。</p>
+<p>如果以热机状态时的流量进行切流，可能使处于冷机状态的服务器因无法承载流量而假死。</p>
+<p><strong>案例：</strong></p>
+<p>某程序员在发布平台进行分批发布，在输入发布总批数时，误填写成两批发布，</p>
+<p>如果是热机状态，正常情况下一半的机器可以勉强承载流量，但由于<strong>刚启动时的JVM均为解释执行，没有进行热点代码统计和JIT动态编译，</strong>导致当前1/2发布成功的服务器马上全部宕机。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li>《码出高效——Java开发手册》</li>
+<li><a href="https://www.ibm.com/developerworks/cn/java/j-lo-just-in-time/index.html" target="_blank" rel="noopener">深入浅出 JIT 编译器</a></li>
+</ul>
 
       
     </div>
 
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag"># Java</a>
+          
+            <a href="/tags/JVM/" rel="tag"># JVM</a>
+          
+            <a href="/tags/JIT/" rel="tag"># JIT</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/27/volatile-and-synchronized/" rel="next" title="volatile关键字和synchronized关键字的区别">
+                <i class="fa fa-chevron-left"></i> volatile关键字和synchronized关键字的区别
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
+
+  </div>
 
 
           </div>
           
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80MjQ4MC8xOTAyNw=="></div>
+    </div>
+
+  
+
+
 
         </div>
         
@@ -518,8 +623,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -651,6 +765,23 @@
         </div>
       </div>
 
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Java执行机制"><span class="nav-number">1.</span> <span class="nav-text">Java执行机制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#JIT-编译过程"><span class="nav-number">1.1.</span> <span class="nav-text">JIT 编译过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hot-Spot-编译"><span class="nav-number">1.2.</span> <span class="nav-text">Hot Spot 编译</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#具体案例"><span class="nav-number">1.3.</span> <span class="nav-text">具体案例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">2.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
       
 
       
@@ -806,6 +937,10 @@
 
 
   
+  <script src="/js/src/scrollspy.js?v=6.7.0"></script>
+<script src="/js/src/post-details.js?v=6.7.0"></script>
+
+
 
   
 
@@ -816,6 +951,23 @@
 
   
 
+
+  
+    <script>
+  window.livereOptions = {
+    refer: '2019/03/04/java-execution-principle/'
+  };
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+    if (typeof LivereTower === 'function') { return; }
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+</script>
+
+  
 
 
   

@@ -98,18 +98,18 @@
 
 
 
-  <meta name="description" content="1. 安装官网下载地址 https://redis.io/download 12345$ wget http://download.redis.io/releases/redis-5.0.3.tar.gz$ tar xzf redis-5.0.3.tar.gz$ cd redis-5.0.3$ make$ make install 2. 编辑redis.conf配置文件由于redis默认在前台运行">
+  <meta name="description" content="1. 安装 官网下载地址 https://redis.io/download  linux下分别输入 12345$ wget http://download.redis.io/releases/redis-5.0.3.tar.gz$ tar xzf redis-5.0.3.tar.gz$ cd redis-5.0.3$ make$ make install 2. 编辑redis.conf配置文件由">
 <meta name="keywords" content="linux,redis">
 <meta property="og:type" content="article">
-<meta property="og:title" content="linux下安装redis">
+<meta property="og:title" content="centOS下安装redis">
 <meta property="og:url" content="http://www.wuleshen.com/2019/03/05/linux-install-redis/index.html">
 <meta property="og:site_name" content="吴乐申的个人博客">
-<meta property="og:description" content="1. 安装官网下载地址 https://redis.io/download 12345$ wget http://download.redis.io/releases/redis-5.0.3.tar.gz$ tar xzf redis-5.0.3.tar.gz$ cd redis-5.0.3$ make$ make install 2. 编辑redis.conf配置文件由于redis默认在前台运行">
+<meta property="og:description" content="1. 安装 官网下载地址 https://redis.io/download  linux下分别输入 12345$ wget http://download.redis.io/releases/redis-5.0.3.tar.gz$ tar xzf redis-5.0.3.tar.gz$ cd redis-5.0.3$ make$ make install 2. 编辑redis.conf配置文件由">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-03-05T07:37:38.574Z">
+<meta property="og:updated_time" content="2019-03-05T09:36:16.657Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="linux下安装redis">
-<meta name="twitter:description" content="1. 安装官网下载地址 https://redis.io/download 12345$ wget http://download.redis.io/releases/redis-5.0.3.tar.gz$ tar xzf redis-5.0.3.tar.gz$ cd redis-5.0.3$ make$ make install 2. 编辑redis.conf配置文件由于redis默认在前台运行">
+<meta name="twitter:title" content="centOS下安装redis">
+<meta name="twitter:description" content="1. 安装 官网下载地址 https://redis.io/download  linux下分别输入 12345$ wget http://download.redis.io/releases/redis-5.0.3.tar.gz$ tar xzf redis-5.0.3.tar.gz$ cd redis-5.0.3$ make$ make install 2. 编辑redis.conf配置文件由">
 
 
 
@@ -126,7 +126,7 @@
   };
 </script>
 
-  <title>linux下安装redis | 吴乐申的个人博客</title>
+  <title>centOS下安装redis | 吴乐申的个人博客</title>
   
 
 
@@ -411,7 +411,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">linux下安装redis
+          <h1 class="post-title" itemprop="name headline">centOS下安装redis
 
               
             
@@ -437,7 +437,7 @@
                 
               
 
-              <time title="创建时间：2019-03-05 14:42:16 / 修改时间：15:37:38" itemprop="dateCreated datePublished" datetime="2019-03-05T14:42:16+08:00">2019-03-05</time>
+              <time title="创建时间：2019-03-05 14:42:16 / 修改时间：17:36:16" itemprop="dateCreated datePublished" datetime="2019-03-05T14:42:16+08:00">2019-03-05</time>
             
 
             
@@ -513,7 +513,10 @@
       
 
       
-        <h2 id="1-安装"><a href="#1-安装" class="headerlink" title="1. 安装"></a>1. 安装</h2><p>官网下载地址 <a href="https://redis.io/download" target="_blank" rel="noopener">https://redis.io/download</a></p>
+        <h2 id="1-安装"><a href="#1-安装" class="headerlink" title="1. 安装"></a>1. 安装</h2><blockquote>
+<p>官网下载地址 <a href="https://redis.io/download" target="_blank" rel="noopener">https://redis.io/download</a></p>
+</blockquote>
+<p>linux下分别输入</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> wget http://download.redis.io/releases/redis-5.0.3.tar.gz</span><br><span class="line"><span class="meta">$</span> tar xzf redis-5.0.3.tar.gz</span><br><span class="line"><span class="meta">$</span> cd redis-5.0.3</span><br><span class="line"><span class="meta">$</span> make</span><br><span class="line"><span class="meta">$</span> make install</span><br></pre></td></tr></table></figure>
 <h2 id="2-编辑redis-conf配置文件"><a href="#2-编辑redis-conf配置文件" class="headerlink" title="2. 编辑redis.conf配置文件"></a>2. 编辑redis.conf配置文件</h2><p>由于redis默认在前台运行，我们希望它能够以守护进程的形式在后台运行，需要配置一下<code>redis.conf</code></p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> cd redis-5.0.3</span><br><span class="line"><span class="meta">$</span> vim redis.conf</span><br></pre></td></tr></table></figure>
@@ -559,7 +562,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="/2019/03/05/linux-install-redis/" title="linux下安装redis">2019/03/05/linux-install-redis/</a>
+    <a href="/2019/03/05/linux-install-redis/" title="centOS下安装redis">2019/03/05/linux-install-redis/</a>
   </li>
   <li class="post-copyright-license">
     <strong>许可协议： </strong>

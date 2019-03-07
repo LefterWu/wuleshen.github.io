@@ -98,19 +98,19 @@
 
 
 
-  <meta name="description" content="一句话概括 volatile保证了线程间的可见性和有序性 synchronized保证了线程间的原子性（同时保证了可见性和有序性） Java内存模型首先，为了说明两者的区别，先要引出一个概念——Java内存模型(JMM)，该模型用于屏蔽各种硬件和操作系统带来的内存访问的差异，定义了程序中各个变量（不包括局部变量和方法参数，因为这些是线程私有的）的访问规则。 JMM规定所有的变量都存储在主内存中，每">
+  <meta name="description" content="本文介绍了volatile关键字和synchronized关键字的区别">
 <meta name="keywords" content="JVM,并发">
 <meta property="og:type" content="article">
 <meta property="og:title" content="volatile关键字和synchronized关键字的区别">
 <meta property="og:url" content="http://www.wuleshen.com/2019/02/27/volatile-and-synchronized/index.html">
 <meta property="og:site_name" content="吴乐申的个人博客">
-<meta property="og:description" content="一句话概括 volatile保证了线程间的可见性和有序性 synchronized保证了线程间的原子性（同时保证了可见性和有序性） Java内存模型首先，为了说明两者的区别，先要引出一个概念——Java内存模型(JMM)，该模型用于屏蔽各种硬件和操作系统带来的内存访问的差异，定义了程序中各个变量（不包括局部变量和方法参数，因为这些是线程私有的）的访问规则。 JMM规定所有的变量都存储在主内存中，每">
+<meta property="og:description" content="本文介绍了volatile关键字和synchronized关键字的区别">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://www.wuleshen.com/2019/02/27/volatile-and-synchronized/clipboard-1551243763377.png">
-<meta property="og:updated_time" content="2019-02-27T07:19:41.703Z">
+<meta property="og:updated_time" content="2019-03-07T13:26:40.595Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="volatile关键字和synchronized关键字的区别">
-<meta name="twitter:description" content="一句话概括 volatile保证了线程间的可见性和有序性 synchronized保证了线程间的原子性（同时保证了可见性和有序性） Java内存模型首先，为了说明两者的区别，先要引出一个概念——Java内存模型(JMM)，该模型用于屏蔽各种硬件和操作系统带来的内存访问的差异，定义了程序中各个变量（不包括局部变量和方法参数，因为这些是线程私有的）的访问规则。 JMM规定所有的变量都存储在主内存中，每">
+<meta name="twitter:description" content="本文介绍了volatile关键字和synchronized关键字的区别">
 <meta name="twitter:image" content="http://www.wuleshen.com/2019/02/27/volatile-and-synchronized/clipboard-1551243763377.png">
 
 
@@ -439,13 +439,9 @@
                 
               
 
-              <time title="创建时间：2019-02-27 12:53:26 / 修改时间：15:19:41" itemprop="dateCreated datePublished" datetime="2019-02-27T12:53:26+08:00">2019-02-27</time>
+              <time title="创建时间：2019-02-27 12:53:26" itemprop="dateCreated datePublished" datetime="2019-02-27T12:53:26+08:00">2019-02-27</time>
             
 
-            
-              
-
-              
             
           </span>
 
@@ -515,7 +511,9 @@
       
 
       
-        <p>一句话概括</p>
+        <p>本文介绍了volatile关键字和synchronized关键字的区别</p>
+<a id="more"></a>
+<p>一句话概括</p>
 <p><strong>volatile保证了线程间的可见性和有序性</strong></p>
 <p><strong>synchronized保证了线程间的原子性（同时保证了可见性和有序性）</strong></p>
 <h3 id="Java内存模型"><a href="#Java内存模型" class="headerlink" title="Java内存模型"></a>Java内存模型</h3><p>首先，为了说明两者的区别，先要引出一个概念——<strong>Java内存模型(JMM)</strong>，该模型用于屏蔽各种硬件和操作系统带来的内存访问的差异，定义了程序中各个<strong><em>变量</em></strong>（不包括局部变量和方法参数，因为这些是线程私有的）的访问规则。</p>
@@ -689,7 +687,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">10</span>
+                    <span class="site-state-item-count">11</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -759,7 +757,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">16</span>
+                      
+                    
+                    <span class="site-state-item-count">17</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>

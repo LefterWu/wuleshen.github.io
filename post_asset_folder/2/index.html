@@ -98,25 +98,21 @@
 
 
 
-  <meta name="description" content="支付宝当面付官方Demo调试配置沙箱环境官方文档 点击“开放平台-开发者中心-沙箱环境”。进入沙箱环境页面，系统已经自动为你创建一个应用，在基础信息中可以看到应用信息。  生成并上传RSA2(SHA256)的应用公钥，详见生成RSA密钥；配置RSA2(SHA256)的应用公钥后，不需要配置RSA(SHA1)密钥，RSA和RSA2签名算法区别可以参考此处；  编写代码时，请将   ​">
-<meta name="keywords" content="Java,支付宝,当面付">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Java对接支付宝支付功能（一）官方Demo调试">
-<meta property="og:url" content="http://www.wuleshen.com/2019/01/22/java-alipay-3/index.html">
+  <meta name="keywords" content="“java,javaweb,后端,Coder”">
+<meta property="og:type" content="website">
+<meta property="og:title" content="吴乐申的个人博客">
+<meta property="og:url" content="http://www.wuleshen.com/post_asset_folder/2/index.html">
 <meta property="og:site_name" content="吴乐申的个人博客">
-<meta property="og:description" content="支付宝当面付官方Demo调试配置沙箱环境官方文档 点击“开放平台-开发者中心-沙箱环境”。进入沙箱环境页面，系统已经自动为你创建一个应用，在基础信息中可以看到应用信息。  生成并上传RSA2(SHA256)的应用公钥，详见生成RSA密钥；配置RSA2(SHA256)的应用公钥后，不需要配置RSA(SHA1)密钥，RSA和RSA2签名算法区别可以参考此处；  编写代码时，请将   ​">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-02-01T07:19:40.161Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Java对接支付宝支付功能（一）官方Demo调试">
-<meta name="twitter:description" content="支付宝当面付官方Demo调试配置沙箱环境官方文档 点击“开放平台-开发者中心-沙箱环境”。进入沙箱环境页面，系统已经自动为你创建一个应用，在基础信息中可以看到应用信息。  生成并上传RSA2(SHA256)的应用公钥，详见生成RSA密钥；配置RSA2(SHA256)的应用公钥后，不需要配置RSA(SHA1)密钥，RSA和RSA2签名算法区别可以参考此处；  编写代码时，请将   ​">
+<meta name="twitter:title" content="吴乐申的个人博客">
 
 
 
 
 
 
-  <link rel="canonical" href="http://www.wuleshen.com/2019/01/22/java-alipay-3/">
+  <link rel="canonical" href="http://www.wuleshen.com/post_asset_folder/2/">
 
 
 
@@ -126,7 +122,7 @@
   };
 </script>
 
-  <title>Java对接支付宝支付功能（一）官方Demo调试 | 吴乐申的个人博客</title>
+  <title>吴乐申的个人博客</title>
   
 
 
@@ -192,7 +188,8 @@
     
   
 
-  <div class="container sidebar-position-left page-post-detail">
+  <div class="container sidebar-position-left 
+  page-home">
     <div class="headband"></div>
     <!-- 右上角github连接 -->
     <a href="https://github.com/LefterWu" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
@@ -377,9 +374,9 @@
           
           <div id="content" class="content">
             
-
-  <div id="posts" class="posts-expand">
+  <section id="posts" class="posts-expand">
     
+      
 
   
 
@@ -394,7 +391,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.wuleshen.com/2019/01/22/java-alipay-3/">
+    <link itemprop="mainEntityOfPage" href="http://www.wuleshen.com/2019/01/18/First-Blog-Post/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Shawn Wu">
@@ -411,8 +408,10 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Java对接支付宝支付功能（一）官方Demo调试
-
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/01/18/First-Blog-Post/" class="post-title-link" itemprop="url">第一篇博客</a>
               
             
           </h1>
@@ -437,25 +436,9 @@
                 
               
 
-              <time title="创建时间：2019-01-22 23:45:18" itemprop="dateCreated datePublished" datetime="2019-01-22T23:45:18+08:00">2019-01-22</time>
+              <time title="创建时间：2019-01-18 14:10:22" itemprop="dateCreated datePublished" datetime="2019-01-18T14:10:22+08:00">2019-01-18</time>
             
 
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-02-01 15:19:40" itemprop="dateModified" datetime="2019-02-01T15:19:40+08:00">2019-02-01</time>
-              
             
           </span>
 
@@ -471,7 +454,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/技术/" itemprop="url" rel="index"><span itemprop="name">技术</span></a></span>
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/记录/" itemprop="url" rel="index"><span itemprop="name">记录</span></a></span>
 
                 
                 
@@ -489,8 +472,8 @@
                   <i class="fa fa-comment-o"></i>
                 </span>
             
-                <a href="/2019/01/22/java-alipay-3/#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2019/01/22/java-alipay-3/" itemprop="commentCount"></span>
+                <a href="/2019/01/18/First-Blog-Post/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2019/01/18/First-Blog-Post/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -499,13 +482,6 @@
           
           
 
-          
-            <span class="post-meta-divider">|</span>
-            <span class="post-meta-item-icon">
-            <i class="fa fa-eye"></i>
-             阅读次数： 
-            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
-            </span>
           
 
           
@@ -525,44 +501,18 @@
       
 
       
-        <h3 id="支付宝当面付官方Demo调试"><a href="#支付宝当面付官方Demo调试" class="headerlink" title="支付宝当面付官方Demo调试"></a>支付宝当面付官方Demo调试</h3><h4 id="配置沙箱环境"><a href="#配置沙箱环境" class="headerlink" title="配置沙箱环境"></a>配置沙箱环境</h4><p><a href="https://docs.open.alipay.com/200/105311" target="_blank" rel="noopener"><strong>官方文档</strong></a></p>
-<p>点击“开放平台-开发者中心-<a href="https://openhome.alipay.com/platform/appDaily.htm" target="_blank" rel="noopener">沙箱环境</a>”。进入沙箱环境页面，系统已经自动为你创建一个应用，在基础信息中可以看到应用信息。</p>
-<ol>
-<li><p>生成并上传RSA2(SHA256)的应用公钥，详见<a href="https://docs.open.alipay.com/291/105971" target="_blank" rel="noopener">生成RSA密钥</a>；配置RSA2(SHA256)的应用公钥后，不需要配置RSA(SHA1)密钥，<a href="https://docs.open.alipay.com/291/106115" target="_blank" rel="noopener">RSA和RSA2签名算法区别可以参考此处</a>；</p>
-</li>
-<li><p>编写代码时，请将</p>
-</li>
-</ol>
-<p>​          a.请求网关修改为：<a href="https://openapi.alipaydev.com/gateway.do" target="_blank" rel="noopener">https://openapi.alipaydev.com/gateway.do</a></p>
-<p>​          b.appid切换为沙箱的appid</p>
-<p>​          c.签名方式使用RSA2</p>
-<p>​          d.应用私钥使用第1步生成的RSA2(SHA256)的私钥(请根据开发语言进行选择原始或pkcs8格式)</p>
-<p>​          e.支付宝公钥切换为第1步配置后应用公钥后，点击查看支付宝公钥看到的公钥</p>
-<h4 id="当面付demo演示"><a href="#当面付demo演示" class="headerlink" title="当面付demo演示"></a>当面付demo演示</h4><ol>
-<li>下载demo，地址：<a href="https://docs.open.alipay.com/194/105201/" target="_blank" rel="noopener">https://docs.open.alipay.com/194/105201/</a></li>
-<li><p>将demo导入idea</p>
-</li>
-<li><p>配置支付相关的属性alipayinfo.properties</p>
-</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"># 支付宝网关名、partnerId和appId</span><br><span class="line">open_api_domain = https://openapi.alipaydev.com/gateway.do</span><br><span class="line">mcloud_api_domain = http://mcloudmonitor.com/gateway.do</span><br><span class="line">pid = 你的pid</span><br><span class="line">appid = 你的appid</span><br><span class="line"></span><br><span class="line"># RSA秘钥生成具体见官方文档</span><br><span class="line"># 应用私钥公钥</span><br><span class="line">private_key = 应用公钥</span><br><span class="line">public_key =  应用私钥</span><br><span class="line"></span><br><span class="line">#SHA1withRsa对应支付宝公钥</span><br><span class="line">#alipay_public_key = 使用RSA2时，不用配置此项</span><br><span class="line"></span><br><span class="line">#SHA256withRsa对应支付宝公钥</span><br><span class="line">alipay_public_key = 支付宝公钥</span><br><span class="line"></span><br><span class="line"># 签名类型: RSA-&gt;SHA1withRsa,RSA2-&gt;SHA256withRsa</span><br><span class="line">sign_type = RSA2</span><br><span class="line"># 当面付最大查询次数和查询间隔（毫秒）</span><br><span class="line">max_query_retry = 5</span><br><span class="line">query_duration = 5000</span><br><span class="line"># 当面付最大撤销次数和撤销间隔（毫秒）</span><br><span class="line">max_cancel_retry = 3</span><br><span class="line">cancel_duration = 2000</span><br><span class="line"># 交易保障线程第一次调度延迟和调度间隔（秒）</span><br><span class="line">heartbeat_delay = 5</span><br><span class="line">heartbeat_duration = 900</span><br></pre></td></tr></table></figure>
-<ol start="4">
-<li>启动main方法</li>
-</ol>
-<p>运行结果</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">一月 <span class="number">22</span>, <span class="number">2019</span> <span class="number">10</span>:<span class="number">58</span>:<span class="number">54</span> 下午 com.alipay.demo.trade.config.Configs init</span><br><span class="line">信息: 配置文件名: alipayinfo.properties</span><br><span class="line">一月 <span class="number">22</span>, <span class="number">2019</span> <span class="number">10</span>:<span class="number">58</span>:<span class="number">54</span> 下午 com.alipay.demo.trade.config.Configs init</span><br><span class="line">信息: Configs&#123;支付宝openapi网关: https:<span class="comment">//openapi.alipaydev.com/gateway.do</span></span><br><span class="line">, 支付宝mcloudapi网关域名: http:<span class="comment">//mcloudmonitor.com/gateway.do</span></span><br><span class="line">, pid: <span class="number">2088102177123264</span></span><br><span class="line">, appid: <span class="number">2016092400588794</span></span><br><span class="line">, 商户RSA私钥: MIIEvg******g1jt2A</span><br><span class="line">, 商户RSA公钥: MIIBIj******IDAQAB</span><br><span class="line">, 支付宝RSA公钥: MIIBIj******IDAQAB</span><br><span class="line">, 签名类型: RSA2</span><br><span class="line">, 查询重试次数: <span class="number">5</span></span><br><span class="line">, 查询间隔(毫秒): <span class="number">5000</span></span><br><span class="line">, 撤销尝试次数: <span class="number">3</span></span><br><span class="line">, 撤销重试间隔(毫秒): <span class="number">2000</span></span><br><span class="line">, 交易保障调度延迟(秒): <span class="number">5</span></span><br><span class="line">, 交易保障调度间隔(秒): <span class="number">900</span></span><br><span class="line">&#125;</span><br><span class="line">一月 <span class="number">22</span>, <span class="number">2019</span> <span class="number">10</span>:<span class="number">58</span>:<span class="number">54</span> 下午 com.alipay.demo.trade.service.impl.AbsAlipayTradeService tradePrecreate</span><br><span class="line">信息: trade.precreate bizContent:&#123;<span class="string">"out_trade_no"</span>:<span class="string">"tradeprecreate15481691348134324306"</span>,<span class="string">"seller_id"</span>:<span class="string">""</span>,<span class="string">"total_amount"</span>:<span class="string">"0.01"</span>,<span class="string">"undiscountable_amount"</span>:<span class="string">"0"</span>,<span class="string">"subject"</span>:<span class="string">"xxx品牌xxx门店当面付扫码消费"</span>,<span class="string">"body"</span>:<span class="string">"购买商品3件共20.00元"</span>,<span class="string">"goods_detail"</span>:[&#123;<span class="string">"goods_id"</span>:<span class="string">"goods_id001"</span>,<span class="string">"goods_name"</span>:<span class="string">"xxx小面包"</span>,<span class="string">"quantity"</span>:<span class="number">1</span>,<span class="string">"price"</span>:<span class="string">"10"</span>&#125;,&#123;<span class="string">"goods_id"</span>:<span class="string">"goods_id002"</span>,<span class="string">"goods_name"</span>:<span class="string">"xxx牙刷"</span>,<span class="string">"quantity"</span>:<span class="number">2</span>,<span class="string">"price"</span>:<span class="string">"5"</span>&#125;],<span class="string">"operator_id"</span>:<span class="string">"test_operator_id"</span>,<span class="string">"store_id"</span>:<span class="string">"test_store_id"</span>,<span class="string">"extend_params"</span>:&#123;<span class="string">"sys_service_provider_id"</span>:<span class="string">"2088100200300400500"</span>&#125;,<span class="string">"timeout_express"</span>:<span class="string">"120m"</span>&#125;</span><br><span class="line">一月 <span class="number">22</span>, <span class="number">2019</span> <span class="number">10</span>:<span class="number">58</span>:<span class="number">56</span> 下午 com.alipay.api.internal.util.AlipayLogger logBizSummary</span><br><span class="line">信息: Summary^_^<span class="number">10000</span>^_^<span class="keyword">null</span>^_^ProtocalMustParams:charset=utf-<span class="number">8</span>&amp;method=alipay.trade.precreate&amp;sign=eT6bgbDSF33TeESmRaqWCzfKZ5FB23e4ul6IOdPR9y1Lk6fKEWAhIWW/H0PWt4ttzsyhazy/HnoP4rSNBA11MW6FkK7EA7bwvU+V/kuDEMer4mbq9bPZ44zq5XHUW2wWxrGEIXWGa0O2UwFg1ahWDJCeXGUYqndOFtgMLeuKsShEZ7l/<span class="number">6</span>t9xfMEQSUyfzutucqgGGBApA3YNRpxa7Dh0zD1PZw0yqe0qDpEp2mbNvOEYWilaLS1wtHwOaOzNYKXJ+<span class="number">9</span>xfrz1YMjh6R0ikbIRGdKxPuTLiRB7F8pLim/QwvZYC/n0O9tmIF1X7CrN44Vimhy23IY3VEWbjuGKD4jvM8Q==&amp;version=<span class="number">1.0</span>&amp;app_id=<span class="number">2016092400588794</span>&amp;sign_type=RSA2&amp;timestamp=<span class="number">2019</span>-<span class="number">01</span>-<span class="number">22</span> <span class="number">22</span>:<span class="number">58</span>:<span class="number">54</span>^_^ProtocalOptParams:alipay_sdk=alipay-sdk-java-<span class="number">3.3</span>.0&amp;format=json^_^ApplicationParams:biz_content=&#123;<span class="string">"out_trade_no"</span>:<span class="string">"tradeprecreate15481691348134324306"</span>,<span class="string">"seller_id"</span>:<span class="string">""</span>,<span class="string">"total_amount"</span>:<span class="string">"0.01"</span>,<span class="string">"undiscountable_amount"</span>:<span class="string">"0"</span>,<span class="string">"subject"</span>:<span class="string">"xxx品牌xxx门店当面付扫码消费"</span>,<span class="string">"body"</span>:<span class="string">"购买商品3件共20.00元"</span>,<span class="string">"goods_detail"</span>:[&#123;<span class="string">"goods_id"</span>:<span class="string">"goods_id001"</span>,<span class="string">"goods_name"</span>:<span class="string">"xxx小面包"</span>,<span class="string">"quantity"</span>:<span class="number">1</span>,<span class="string">"price"</span>:<span class="string">"10"</span>&#125;,&#123;<span class="string">"goods_id"</span>:<span class="string">"goods_id002"</span>,<span class="string">"goods_name"</span>:<span class="string">"xxx牙刷"</span>,<span class="string">"quantity"</span>:<span class="number">2</span>,<span class="string">"price"</span>:<span class="string">"5"</span>&#125;],<span class="string">"operator_id"</span>:<span class="string">"test_operator_id"</span>,<span class="string">"store_id"</span>:<span class="string">"test_store_id"</span>,<span class="string">"extend_params"</span>:&#123;<span class="string">"sys_service_provider_id"</span>:<span class="string">"2088100200300400500"</span>&#125;,<span class="string">"timeout_express"</span>:<span class="string">"120m"</span>&#125;^_^<span class="number">567</span>ms,<span class="number">524</span>ms,<span class="number">22</span>ms</span><br><span class="line">一月 <span class="number">22</span>, <span class="number">2019</span> <span class="number">10</span>:<span class="number">58</span>:<span class="number">56</span> 下午 com.alipay.demo.trade.service.impl.AbsAlipayService getResponse</span><br><span class="line">信息: &#123;<span class="string">"alipay_trade_precreate_response"</span>:&#123;<span class="string">"code"</span>:<span class="string">"10000"</span>,<span class="string">"msg"</span>:<span class="string">"Success"</span>,<span class="string">"out_trade_no"</span>:<span class="string">"tradeprecreate15481691348134324306"</span>,<span class="string">"qr_code"</span>:<span class="string">"https:\/\/qr.alipay.com\/bax06491yqcl41q5rnzb00e8"</span>&#125;,<span class="string">"sign"</span>:<span class="string">"K68FrpzgPWkN2whVqVuzBLMr35h2TA/dm7VJWdoxsm/KIwsJS8bFI+hTe35bUP3C8Xu+lY4+SOuJdDZUQuM2P9NADt/lYViIigeWVy65BLcsU3qNKvBk/iAqY1zduXx3MjcxUzAUidpk6OnL6hG0uBPmYqlXL3u2jZB1FwdzmZo/iOjXq0Kg0I7tYUbiIIUy28he/dpxtaX7Iha5iHAB7nx0y0M7KoihmF8l6+sr9QGfm+N+DCqBWWQa336RieY/uxz/c8CF4Jexz8ahXf0/+EZJjA6+48umU3OL3lEnOgMoom2xB0IsEP0wsMI4HKagv/h21+YuaBH33CuzyyUkDQ=="</span>&#125;</span><br><span class="line">一月 <span class="number">22</span>, <span class="number">2019</span> <span class="number">10</span>:<span class="number">58</span>:<span class="number">56</span> 下午 com.alipay.demo.trade.Main test_trade_precreate</span><br><span class="line">信息: 支付宝预下单成功: )</span><br><span class="line">一月 <span class="number">22</span>, <span class="number">2019</span> <span class="number">10</span>:<span class="number">58</span>:<span class="number">56</span> 下午 com.alipay.demo.trade.Main dumpResponse</span><br><span class="line">信息: code:<span class="number">10000</span>, msg:Success</span><br><span class="line">一月 <span class="number">22</span>, <span class="number">2019</span> <span class="number">10</span>:<span class="number">58</span>:<span class="number">56</span> 下午 com.alipay.demo.trade.Main dumpResponse</span><br><span class="line">信息: body:&#123;<span class="string">"alipay_trade_precreate_response"</span>:&#123;<span class="string">"code"</span>:<span class="string">"10000"</span>,<span class="string">"msg"</span>:<span class="string">"Success"</span>,<span class="string">"out_trade_no"</span>:<span class="string">"tradeprecreate15481691348134324306"</span>,<span class="string">"qr_code"</span>:<span class="string">"https:\/\/qr.alipay.com\/bax06491yqcl41q5rnzb00e8"</span>&#125;,<span class="string">"sign"</span>:<span class="string">"K68FrpzgPWkN2whVqVuzBLMr35h2TA/dm7VJWdoxsm/KIwsJS8bFI+hTe35bUP3C8Xu+lY4+SOuJdDZUQuM2P9NADt/lYViIigeWVy65BLcsU3qNKvBk/iAqY1zduXx3MjcxUzAUidpk6OnL6hG0uBPmYqlXL3u2jZB1FwdzmZo/iOjXq0Kg0I7tYUbiIIUy28he/dpxtaX7Iha5iHAB7nx0y0M7KoihmF8l6+sr9QGfm+N+DCqBWWQa336RieY/uxz/c8CF4Jexz8ahXf0/+EZJjA6+48umU3OL3lEnOgMoom2xB0IsEP0wsMI4HKagv/h21+YuaBH33CuzyyUkDQ=="</span>&#125;</span><br><span class="line">一月 <span class="number">22</span>, <span class="number">2019</span> <span class="number">10</span>:<span class="number">58</span>:<span class="number">56</span> 下午 com.alipay.demo.trade.Main test_trade_precreate</span><br><span class="line">信息: filePath:/Users/sudo/Desktop/qr-tradeprecreate15481691348134324306.png</span><br></pre></td></tr></table></figure>
-<p>交易创建的参数</p>
-<ul>
-<li>发送</li>
-</ul>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  "out_trade_no": "tradeprecreate15481691348134324306", //外部交易订单号</span><br><span class="line">  "seller_id": "", //销售id</span><br><span class="line">  "total_amount": "0.01", //总金额</span><br><span class="line">  "undiscountable_amount": "0", //不参加折扣的金额</span><br><span class="line">  "subject": "xxx品牌xxx门店当面付扫码消费", //标题</span><br><span class="line">  "body": "购买商品3件共20.00元", //购买说明</span><br><span class="line">  //商品详情</span><br><span class="line">  "goods_detail": [</span><br><span class="line">    &#123;</span><br><span class="line">      "goods_id": "goods_id001", //商品id</span><br><span class="line">      "goods_name": "xxx小面包", //商品名称</span><br><span class="line">      "quantity": 1, //商品数量</span><br><span class="line">      "price": "10" //商品单价</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">"goods_id"</span>: <span class="string">"goods_id002"</span>,</span><br><span class="line">      <span class="attr">"goods_name"</span>: <span class="string">"xxx牙刷"</span>,</span><br><span class="line">      <span class="attr">"quantity"</span>: <span class="number">2</span>,</span><br><span class="line">      <span class="attr">"price"</span>: <span class="string">"5"</span></span><br><span class="line">    &#125;</span><br><span class="line">  ],</span><br><span class="line">  "operator_id": "test_operator_id", //操作员的id</span><br><span class="line">  "store_id": "test_store_id", //店铺id</span><br><span class="line">  //扩展字段</span><br><span class="line">  "extend_params": &#123;</span><br><span class="line">    "sys_service_provider_id": "2088100200300400500" //在回调时使用，交互时常用</span><br><span class="line">  &#125;,</span><br><span class="line">  "timeout_express": "120m" //交易超时时间，120分钟</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>响应</li>
-</ul>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  "code": "10000", //响应码</span><br><span class="line">  "msg": "Success", //信息</span><br><span class="line">  "out_trade_no": "tradeprecreate15481691348134324306", //外部交易订单号</span><br><span class="line">  "qr_code": "https:\/\/qr.alipay.com\/bax06491yqcl41q5rnzb00e8" //二维码，可以通过base64方式传给前端展示，或者将二维码上传到后台ftp服务器进行展示</span><br><span class="line">&#125;,"sign": "K68FrpzgPWkN2whVqVuzBLMr35h2TA/dm7VJWdoxsm/KIwsJS8bFI+hTe35bUP3C8Xu+lY4+SOuJdDZUQuM2P9NADt/lYViIigeWVy65BLcsU3qNKvBk/iAqY1zduXx3MjcxUzAUidpk6OnL6hG0uBPmYqlXL3u2jZB1FwdzmZo/iOjXq0Kg0I7tYUbiIIUy28he/dpxtaX7Iha5iHAB7nx0y0M7KoihmF8l6+sr9QGfm+N+DCqBWWQa336RieY/uxz/c8CF4Jexz8ahXf0/+EZJjA6+48umU3OL3lEnOgMoom2xB0IsEP0wsMI4HKagv/h21+YuaBH33CuzyyUkDQ=="</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>可以用二维码生成器将返回的<code>qr_code</code>生成，用<em>支付宝沙箱版</em>进行扫码支付测试</p>
-<p>至此，支付宝当面付的官方demo就调通了，可以进行后续开发</p>
-
+        
+          <p>It all started here</p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2019/01/18/First-Blog-Post/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
       
     </div>
 
@@ -580,73 +530,17 @@
     
 
     
-      <div>
-        
-
-
-
-  
-
-
-
-<ul class="post-copyright">
-  <li class="post-copyright-author">
-      <strong>本文作者：</strong>Shawn Wu
-  </li>
-  <li class="post-copyright-link">
-    <strong>本文链接：</strong>
-    <a href="/2019/01/22/java-alipay-3/" title="Java对接支付宝支付功能（一）官方Demo调试">2019/01/22/java-alipay-3/</a>
-  </li>
-  <li class="post-copyright-license">
-    <strong>许可协议： </strong>
-    除特殊声明外，本站博文均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0 CN</a> 许可协议，转载请注明出处！
-  </li>
-</ul>
-
-
-      </div>
-    
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/Java/" rel="tag"># Java</a>
-          
-            <a href="/tags/支付宝/" rel="tag"># 支付宝</a>
-          
-            <a href="/tags/当面付/" rel="tag"># 当面付</a>
-          
-        </div>
+
+      
+
       
 
       
       
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2019/01/18/First-Blog-Post/" rel="next" title="第一篇博客">
-                <i class="fa fa-chevron-left"></i> 第一篇博客
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/02/01/java-alipay-2/" rel="prev" title="Java对接支付宝功能（二）当面付预下单">
-                Java对接支付宝功能（二）当面付预下单 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
+        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -656,19 +550,18 @@
   </article>
 
 
-  </div>
+    
+  </section>
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+  </nav>
+
 
 
           </div>
           
-
-  
-    <div class="comments" id="comments">
-    </div>
-
-  
-
-
 
         </div>
         
@@ -689,17 +582,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <div class="site-overview-wrap sidebar-panel">
+      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -714,7 +598,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">10</span>
+                    <span class="site-state-item-count">11</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -784,7 +668,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">16</span>
+                      
+                    
+                    <span class="site-state-item-count">17</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -835,23 +721,6 @@
         </div>
       </div>
 
-      
-      <!--noindex-->
-        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-            
-            
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#支付宝当面付官方Demo调试"><span class="nav-number">1.</span> <span class="nav-text">支付宝当面付官方Demo调试</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#配置沙箱环境"><span class="nav-number">1.1.</span> <span class="nav-text">配置沙箱环境</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#当面付demo演示"><span class="nav-number">1.2.</span> <span class="nav-text">当面付demo演示</span></a></li></ol></li></ol></div>
-            
-
-          </div>
-        </div>
-      <!--/noindex-->
       
 
       
@@ -1007,10 +876,6 @@
 
 
   
-  <script src="/js/src/scrollspy.js?v=6.7.0"></script>
-<script src="/js/src/post-details.js?v=6.7.0"></script>
-
-
 
   
 
@@ -1050,8 +915,6 @@
 
 
 
-
-  
 
 
   

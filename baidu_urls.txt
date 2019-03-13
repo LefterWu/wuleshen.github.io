@@ -1,5 +1,5 @@
+http://www.wuleshen.com/2019/03/13/druid-quick-start/
 http://www.wuleshen.com/2019/03/07/install-under-linux/
 http://www.wuleshen.com/2019/03/05/linux-install-redis/
 http://www.wuleshen.com/2019/03/04/java-execution-principle/
 http://www.wuleshen.com/2019/02/27/volatile-and-synchronized/
-http://www.wuleshen.com/2019/02/14/hexo-blog-seo-optimization/

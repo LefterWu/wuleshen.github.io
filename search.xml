@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[LCS最长公共子序列问题]]></title>
+    <url>%2F2019%2F07%2F12%2Flongest-common-subsequence-problem%2F</url>
+    <content type="text"><![CDATA[问题：给定一个字符串s，你可以从中删除一些字符，使得剩下的串是一个回文串。如何删除才能使得回文串最长呢？输出需要删除的字符个数。 思路：该问题可以转化为，将一个字符串s逆序，求源字符串与逆序后字符串的最长公共子序列，剩余的长度即需要删除的字符个数 首先区分最长公共子串和最长公共子序列 最长公共子串（Longest Common Substirng）：连续 最长公共子序列（Longest Common Subsequence，LCS）：不必连续 解决方案方案一：暴力穷举法 枚举序列X里的每一个子序列xi； 检查子序列xi是否也是Y序列里的子序列； 在每一步记录当前找到的子序列里面的最长的子序列。 暴力穷举法，是所有算法中最直观的方法，但效率往往也是最差的。在第1步枚举XX中所有的子序列有2m2m个，每个子序列在YY中检查时间复杂度为O(n)O(n)。因此蛮力策略的最坏时间复杂度为O(n2m)O(n2m)，这是指数级算法，对较长的序列求LCS是不适用的]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>面试</tag>
+        <tag>算法</tag>
+        <tag>LCS</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[ClassNotFoundException和NoClassDefFoundError区别]]></title>
     <url>%2F2019%2F06%2F28%2FClassNotFoundException-and-NoClassDefFoundError%2F</url>
     <content type="text"><![CDATA[NoClassDefFoundError是一个错误(Error)，而ClassNotFoundException是一个异常，分别列出两者的产生原因以及解决方案。 ClassNotFoundException 产生原因 Java支持使用Class.forName方法来动态地加载类，任意一个类的类名如果被作为参数传递给这个方法都将导致该类被加载到JVM内存中，如果这个类在类路径中没有被找到，那么此时就会在运行时抛出ClassNotFoundException异常。 要解决这个问题很容易，唯一需要做的就是要确保所需的类连同它依赖的包存在于类路径中。当Class.forName被调用的时候，类加载器会查找类路径中的类，如果找到了那么这个类就会被成功加载，如果没找到，那么就会抛出ClassNotFountException，除了Class.forName，ClassLoader.loadClass、ClassLOader.findSystemClass在动态加载类到内存中的时候也可能会抛出这个异常。 另外还有一个导致ClassNotFoundException的原因就是：当一个类已经某个类加载器加载到内存中了，此时另一个类加载器又尝试着动态地从同一个包中加载这个类。 解决方案 由于类的动态加载在某种程度上是被开发者所控制的，所以他可以选择catch这个异常然后采取相应的补救措施。有些程序可能希望忽略这个异常而采取其他方法。还有一些程序则会终止程序然后让用户再次尝试前做点事情。 NoClassDefFoundError 产生原因 如果JVM或者ClassLoader实例尝试加载（可以通过正常的方法调用，也可能是使用new来创建新的对象）类的时候却找不到类的定义。要查找的类在编译的时候是存在的，运行的时候却找不到了。 最有可能的原因就是存在多个类加载器和多个目标类，即我们常说的Jar包冲突 解决方案 使用Maven Helper 这个插件，可以排除掉大部分jar包冲突； 1mvn dependency:tree -Dverbose -Dincludes=:logback-classic 发生时机：简单来说，NoClassDefFoundError和ClassNotFoundException都是由于在CLASSPATH下找不到对应的类而引起的，通常是缺少对应的jar包，不过，JVM认为： 当应用运行时没有找到对应的引用，则会抛出NoClassDefFoundError； 调用Class.forName()、ClassLoader.findSystemClass()和ClassLoader.loadClass()等方法时可能会引起ClassNotFoundException； 开发者经常遇到的情况是：ClassNotFoundException异常引起了NoClassDefFoundError。 ClassNotFoundException发生在装入阶段。 当应用程序试图通过类的字符串名称，使用常规的三种方法装入类，但却找不到指定名称的类定义时就抛出该异常。 NoClassDefFoundError：当目前执行的类已经编译，但是找不到它的定义时。 也就是说你如果编译了一个类B，在类A中调用，编译完成以后，你又删除掉B，运行A的时候那么就会出现这个错误 加载时从外存储器找不到需要的class就出现ClassNotFoundException 连接时从内存找不到需要的class就出现NoClassDefFoundError 参考https://my.oschina.net/jasonultimate/blog/166932 https://www.jianshu.com/p/93d0db07d2e3]]></content>
@@ -106,9 +119,9 @@
         <category>技术</category>
       </categories>
       <tags>
+        <tag>面试</tag>
         <tag>Web</tag>
         <tag>计算机网络</tag>
-        <tag>面试</tag>
       </tags>
   </entry>
   <entry>

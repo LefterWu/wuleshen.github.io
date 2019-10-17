@@ -106,13 +106,13 @@
 <meta property="og:site_name" content="吴乐申的个人博客">
 <meta property="og:description" content="支付宝当面付预下单流程介绍以及生成二维码核心代码的源码分析">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://ws1.sinaimg.cn/large/3e03c521gy1fzqyx2pof6j20n90ppac3.jpg">
-<meta property="og:image" content="http://ww1.sinaimg.cn/large/3e03c521gy1fzqx5cxedxj20b905f74c.jpg">
-<meta property="og:updated_time" content="2019-03-07T13:23:52.185Z">
+<meta property="og:image" content="http://www.wuleshen.com/2019/02/01/java-alipay-2/0dd5f9ae0c3da01ce2b9d6019efde979.png">
+<meta property="og:image" content="http://www.wuleshen.com/2019/02/01/java-alipay-2/1549003941776.png">
+<meta property="og:updated_time" content="2019-10-17T11:05:12.283Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java对接支付宝功能（二）当面付预下单">
 <meta name="twitter:description" content="支付宝当面付预下单流程介绍以及生成二维码核心代码的源码分析">
-<meta name="twitter:image" content="https://ws1.sinaimg.cn/large/3e03c521gy1fzqyx2pof6j20n90ppac3.jpg">
+<meta name="twitter:image" content="http://www.wuleshen.com/2019/02/01/java-alipay-2/0dd5f9ae0c3da01ce2b9d6019efde979.png">
 
 
 
@@ -517,9 +517,9 @@
 <h3 id="当面付预下单"><a href="#当面付预下单" class="headerlink" title="当面付预下单"></a>当面付预下单</h3><h4 id="支付流程"><a href="#支付流程" class="headerlink" title="支付流程"></a>支付流程</h4><p><a href="https://docs.open.alipay.com/194/106078/" target="_blank" rel="noopener">接入指引</a></p>
 <p>官方文档提供了接入的详细指引，调用流程和注意事项的介绍</p>
 <p>这里放一张支付流程</p>
-<p><img src="https://ws1.sinaimg.cn/large/3e03c521gy1fzqyx2pof6j20n90ppac3.jpg" alt=""></p>
+<p><img src="/2019/02/01/java-alipay-2/0dd5f9ae0c3da01ce2b9d6019efde979.png" alt=""></p>
 <h4 id="加载alipay-SDK-jar包"><a href="#加载alipay-SDK-jar包" class="headerlink" title="加载alipay SDK jar包"></a>加载alipay SDK jar包</h4><p>首先，需要在项目中添加alipay-sdk-java和alipay-trade-sdk这两个包</p>
-<p><img src="http://ww1.sinaimg.cn/large/3e03c521gy1fzqx5cxedxj20b905f74c.jpg" alt=""></p>
+<p><img src="/2019/02/01/java-alipay-2/1549003941776.png" alt=""></p>
 <p>将本地jar包通过maven发布到服务器上</p>
 <p>为了读取在“/src/main/webapp/WEB-INF/lib”路径下的jar包，在pom文件中添加maven插件的配置</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.maven.plugins<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-compiler-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">source</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">source</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">target</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">target</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">encoding</span>&gt;</span>UTF-8<span class="tag">&lt;/<span class="name">encoding</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">compilerArguments</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">extdirs</span>&gt;</span>$&#123;project.basedir&#125;/src/main/webapp/WEB-INF/lib<span class="tag">&lt;/<span class="name">extdirs</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">compilerArguments</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br></pre></td></tr></table></figure>
@@ -694,7 +694,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">13</span>
+                    <span class="site-state-item-count">14</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -778,7 +778,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">20</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">22</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>

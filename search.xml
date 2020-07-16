@@ -1,6 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>ClassNotFoundException和NoClassDefFoundError区别</title>
+    <url>/2020/06/28/ClassNotFoundException-and-NoClassDefFoundError/</url>
+    <content><![CDATA[<p>NoClassDefFoundError是一个错误(Error)，而ClassNotFoundException是一个异常，分别列出两者的产生原因以及解决方案。</p>
+<a id="more"></a>
+
+<h2 id="ClassNotFoundException"><a href="#ClassNotFoundException" class="headerlink" title="ClassNotFoundException"></a><strong>ClassNotFoundException</strong></h2><ul>
+<li><strong>产生原因</strong></li>
+</ul>
+<p>Java支持使用<code>Class.forName</code>方法来动态地加载类，<strong>任意一个类的类名如果被作为参数传递给这个方法都将导致该类被加载到JVM内存中，如果这个类在类路径中没有被找到，那么此时就会在运行时抛出ClassNotFoundException异常。</strong></p>
+<p>要解决这个问题很容易，唯一需要做的就是要确保所需的类连同它依赖的包存在于类路径中。当Class.forName被调用的时候，类加载器会查找类路径中的类，如果找到了那么这个类就会被成功加载，如果没找到，那么就会抛出ClassNotFountException，除了<code>Class.forName，ClassLoader.loadClass、ClassLOader.findSystemClass</code>在动态加载类到内存中的时候也可能会抛出这个异常。</p>
+<p>另外还有一个导致ClassNotFoundException的原因就是：当一个类已经某个类加载器加载到内存中了，此时另一个类加载器又尝试着动态地从同一个包中加载这个类。</p>
+<ul>
+<li><strong>解决方案</strong></li>
+</ul>
+<p>由于类的动态加载在某种程度上是被开发者所控制的，所以他可以选择catch这个异常然后采取相应的补救措施。有些程序可能希望忽略这个异常而采取其他方法。还有一些程序则会终止程序然后让用户再次尝试前做点事情。</p>
+<h2 id="NoClassDefFoundError"><a href="#NoClassDefFoundError" class="headerlink" title="NoClassDefFoundError"></a><strong>NoClassDefFoundError</strong></h2><ul>
+<li><strong>产生原因</strong></li>
+</ul>
+<p>如果JVM或者ClassLoader实例尝试加载（可以通过正常的方法调用，也可能是使用new来创建新的对象）类的时候却找不到类的定义。<strong>要查找的类在编译的时候是存在的，运行的时候却找不到了。</strong></p>
+<p><strong>最有可能的原因就是存在多个类加载器和多个目标类，即我们常说的Jar包冲突</strong></p>
+<ul>
+<li><strong>解决方案</strong></li>
+</ul>
+<p>使用Maven Helper 这个插件，可以排除掉大部分jar包冲突；</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">mvn dependency:tree -Dverbose -Dincludes=:logback-classic</span><br></pre></td></tr></table></figure>
+
+<h2 id="发生时机："><a href="#发生时机：" class="headerlink" title="发生时机："></a><strong>发生时机：</strong></h2><p>简单来说，NoClassDefFoundError和ClassNotFoundException都是由于在CLASSPATH下找不到对应的类而引起的，通常是缺少对应的jar包，不过，JVM认为：</p>
+<ol>
+<li>当应用运行时没有找到对应的引用，则会抛出NoClassDefFoundError；</li>
+<li>调用Class.forName()、ClassLoader.findSystemClass()和ClassLoader.loadClass()等方法时可能会引起ClassNotFoundException；</li>
+</ol>
+<p>开发者经常遇到的情况是：ClassNotFoundException异常引起了NoClassDefFoundError。</p>
+<p><strong>ClassNotFoundException发生在装入阶段。</strong> </p>
+<p>当应用程序试图通过类的字符串名称，使用常规的三种方法装入类，但却找不到指定名称的类定义时就抛出该异常。</p>
+<p><strong>NoClassDefFoundError：当目前执行的类已经编译，但是找不到它的定义时。</strong></p>
+<p>也就是说你如果编译了一个类B，在类A中调用，编译完成以后，你又删除掉B，运行A的时候那么就会出现这个错误</p>
+<p>加载时从外存储器找不到需要的class就出现ClassNotFoundException </p>
+<p>连接时从内存找不到需要的class就出现NoClassDefFoundError</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://my.oschina.net/jasonultimate/blog/166932" target="_blank" rel="noopener">https://my.oschina.net/jasonultimate/blog/166932</a></p>
+<p><a href="https://www.jianshu.com/p/93d0db07d2e3" target="_blank" rel="noopener">https://www.jianshu.com/p/93d0db07d2e3</a></p>
+]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>异常</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>数字签名和数字证书</title>
     <url>/2020/02/13/digitalSignature/</url>
     <content><![CDATA[<p>本文介绍了RSA加密和数字签名的基本原理，以及数字证书的由来。</p>
@@ -80,56 +130,6 @@
         <tag>RSA</tag>
         <tag>数字签名</tag>
         <tag>数字证书</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>ClassNotFoundException和NoClassDefFoundError区别</title>
-    <url>/2020/06/28/ClassNotFoundException-and-NoClassDefFoundError/</url>
-    <content><![CDATA[<p>NoClassDefFoundError是一个错误(Error)，而ClassNotFoundException是一个异常，分别列出两者的产生原因以及解决方案。</p>
-<a id="more"></a>
-
-<h2 id="ClassNotFoundException"><a href="#ClassNotFoundException" class="headerlink" title="ClassNotFoundException"></a><strong>ClassNotFoundException</strong></h2><ul>
-<li><strong>产生原因</strong></li>
-</ul>
-<p>Java支持使用<code>Class.forName</code>方法来动态地加载类，<strong>任意一个类的类名如果被作为参数传递给这个方法都将导致该类被加载到JVM内存中，如果这个类在类路径中没有被找到，那么此时就会在运行时抛出ClassNotFoundException异常。</strong></p>
-<p>要解决这个问题很容易，唯一需要做的就是要确保所需的类连同它依赖的包存在于类路径中。当Class.forName被调用的时候，类加载器会查找类路径中的类，如果找到了那么这个类就会被成功加载，如果没找到，那么就会抛出ClassNotFountException，除了<code>Class.forName，ClassLoader.loadClass、ClassLOader.findSystemClass</code>在动态加载类到内存中的时候也可能会抛出这个异常。</p>
-<p>另外还有一个导致ClassNotFoundException的原因就是：当一个类已经某个类加载器加载到内存中了，此时另一个类加载器又尝试着动态地从同一个包中加载这个类。</p>
-<ul>
-<li><strong>解决方案</strong></li>
-</ul>
-<p>由于类的动态加载在某种程度上是被开发者所控制的，所以他可以选择catch这个异常然后采取相应的补救措施。有些程序可能希望忽略这个异常而采取其他方法。还有一些程序则会终止程序然后让用户再次尝试前做点事情。</p>
-<h2 id="NoClassDefFoundError"><a href="#NoClassDefFoundError" class="headerlink" title="NoClassDefFoundError"></a><strong>NoClassDefFoundError</strong></h2><ul>
-<li><strong>产生原因</strong></li>
-</ul>
-<p>如果JVM或者ClassLoader实例尝试加载（可以通过正常的方法调用，也可能是使用new来创建新的对象）类的时候却找不到类的定义。<strong>要查找的类在编译的时候是存在的，运行的时候却找不到了。</strong></p>
-<p><strong>最有可能的原因就是存在多个类加载器和多个目标类，即我们常说的Jar包冲突</strong></p>
-<ul>
-<li><strong>解决方案</strong></li>
-</ul>
-<p>使用Maven Helper 这个插件，可以排除掉大部分jar包冲突；</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">mvn dependency:tree -Dverbose -Dincludes=:logback-classic</span><br></pre></td></tr></table></figure>
-
-<h2 id="发生时机："><a href="#发生时机：" class="headerlink" title="发生时机："></a><strong>发生时机：</strong></h2><p>简单来说，NoClassDefFoundError和ClassNotFoundException都是由于在CLASSPATH下找不到对应的类而引起的，通常是缺少对应的jar包，不过，JVM认为：</p>
-<ol>
-<li>当应用运行时没有找到对应的引用，则会抛出NoClassDefFoundError；</li>
-<li>调用Class.forName()、ClassLoader.findSystemClass()和ClassLoader.loadClass()等方法时可能会引起ClassNotFoundException；</li>
-</ol>
-<p>开发者经常遇到的情况是：ClassNotFoundException异常引起了NoClassDefFoundError。</p>
-<p><strong>ClassNotFoundException发生在装入阶段。</strong> </p>
-<p>当应用程序试图通过类的字符串名称，使用常规的三种方法装入类，但却找不到指定名称的类定义时就抛出该异常。</p>
-<p><strong>NoClassDefFoundError：当目前执行的类已经编译，但是找不到它的定义时。</strong></p>
-<p>也就是说你如果编译了一个类B，在类A中调用，编译完成以后，你又删除掉B，运行A的时候那么就会出现这个错误</p>
-<p>加载时从外存储器找不到需要的class就出现ClassNotFoundException </p>
-<p>连接时从内存找不到需要的class就出现NoClassDefFoundError</p>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://my.oschina.net/jasonultimate/blog/166932" target="_blank" rel="noopener">https://my.oschina.net/jasonultimate/blog/166932</a></p>
-<p><a href="https://www.jianshu.com/p/93d0db07d2e3" target="_blank" rel="noopener">https://www.jianshu.com/p/93d0db07d2e3</a></p>
-]]></content>
-      <categories>
-        <category>技术</category>
-      </categories>
-      <tags>
-        <tag>Java</tag>
-        <tag>异常</tag>
       </tags>
   </entry>
   <entry>
@@ -256,6 +256,50 @@
       </tags>
   </entry>
   <entry>
+    <title>centOS下安装redis</title>
+    <url>/2020/03/05/linux-install-redis/</url>
+    <content><![CDATA[<p>CentOS6.8 安装redis过程记录</p>
+<a id="more"></a>
+
+<h2 id="1-安装"><a href="#1-安装" class="headerlink" title="1. 安装"></a>1. 安装</h2><blockquote>
+<p>官网下载地址 <a href="https://redis.io/download" target="_blank" rel="noopener">https://redis.io/download</a></p>
+</blockquote>
+<p>linux下分别输入</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> wget http://download.redis.io/releases/redis-5.0.3.tar.gz</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> tar xzf redis-5.0.3.tar.gz</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> redis-5.0.3</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> make</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> make install</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="2-编辑redis-conf配置文件"><a href="#2-编辑redis-conf配置文件" class="headerlink" title="2. 编辑redis.conf配置文件"></a>2. 编辑redis.conf配置文件</h2><p>由于redis默认在前台运行，我们希望它能够以守护进程的形式在后台运行，需要配置一下<code>redis.conf</code></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> redis-5.0.3</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> vim redis.conf</span></span><br></pre></td></tr></table></figure>
+
+<p>找到daemonize，修改为yes，:wq保存</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">################################# GENERAL #####################################</span><br><span class="line"></span><br><span class="line"># By default Redis does not run as a daemon. Use &#39;yes&#39; if you need it.</span><br><span class="line"># Note that Redis will write a pid file in &#x2F;var&#x2F;run&#x2F;redis.pid when daemonized.</span><br><span class="line">daemonize yes</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-启动redis"><a href="#3-启动redis" class="headerlink" title="3. 启动redis"></a>3. 启动redis</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 启动并加载配置文件</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> redis-server redis.conf</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 启动详情</span></span><br><span class="line">[lefter@shen redis-5.0.3]$ redis-server redis.conf</span><br><span class="line">8256:C 05 Mar 2019 14:40:56.851 # oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo</span><br><span class="line">8256:C 05 Mar 2019 14:40:56.851 # Redis version=5.0.3, bits=64, commit=00000000, modified=0, pid=8256, just started</span><br><span class="line">8256:C 05 Mar 2019 14:40:56.851 # Configuration loaded</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看进程</span></span><br><span class="line">[lefter@shen redis-5.0.3]$ ps aux | grep redis</span><br><span class="line">lefter     8257  0.6  0.4 152416  7804 ?        Ssl  14:40   0:00 redis-server 127.0.0.1:6379</span><br><span class="line">lefter     8262  0.0  0.0 103328   856 pts/0    S+   14:41   0:00 grep redis</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 启动redis命令行</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> redis-cli</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 关闭redis</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> redis-cli shutdown</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="4-简化配置"><a href="#4-简化配置" class="headerlink" title="4.简化配置"></a>4.简化配置</h2><p>在<code>redis/utils</code>下，使用<code>install_server.sh</code>可以简化配置，并设置redis为开机启动</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[lefter@shen utils]$ sudo ./install_server.sh </span><br><span class="line">Welcome to the redis service installer</span><br><span class="line">This script will help you easily set up a running redis server</span><br><span class="line"></span><br><span class="line">Please select the redis port for this instance: [6379] </span><br><span class="line">Selecting default: 6379</span><br><span class="line">Please select the redis config file name [/etc/redis/6379.conf] /usr/local/redis/redis.conf</span><br><span class="line">Please select the redis log file name [/var/log/redis_6379.log] /usr/local/redis/redis.log</span><br><span class="line">Please select the data directory for this instance [/var/lib/redis/6379] /usr/local/redis/data</span><br><span class="line">Please select the redis executable path [] /usr/local/bin/redis-server</span><br><span class="line">Selected config:</span><br><span class="line">Port           : 6379</span><br><span class="line">Config file    : /usr/local/redis/redis.conf</span><br><span class="line">Log file       : /usr/local/redis/redis.log</span><br><span class="line">Data dir       : /usr/local/redis/data</span><br><span class="line">Executable     : /usr/local/bin/redis-server</span><br><span class="line">Cli Executable : /usr/local/bin/redis-cli</span><br></pre></td></tr></table></figure>
+<p>检查启动配置，已经变为开机启动</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[lefter@shen redis]$ chkconfig --list | grep redis</span><br><span class="line">redis_6379     	0:关闭	1:关闭	2:启用	3:启用	4:启用	5:启用	6:关闭</span><br></pre></td></tr></table></figure>
+<p>可以通过service直接启动redis</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[lefter@shen redis]$ service redis_6379 status</span><br><span class="line">Redis is running (8105)</span><br><span class="line">[lefter@shen redis]$ service redis_6379 stop</span><br><span class="line">Stopping ...</span><br><span class="line">Redis stopped</span><br><span class="line">[lefter@shen redis]$ sudo service redis_6379 start</span><br><span class="line">Starting Redis server...</span><br></pre></td></tr></table></figure>
+
+<h2 id="5-关于jedis访问的配置"><a href="#5-关于jedis访问的配置" class="headerlink" title="5. 关于jedis访问的配置"></a>5. 关于jedis访问的配置</h2><p>Redis默认配置只绑定了本地访问，<code>bind 127.0.0.1</code></p>
+<p>由于我的Redis装在虚拟机中，需要在<code>redis.conf</code>中添加绑定虚拟机地址，如下：</p>
+<p><code>bind 192.168.163.129</code></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"><span class="comment">################################# NETWORK #####################################</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> By default, <span class="keyword">if</span> no <span class="string">"bind"</span> configuration directive is specified, Redis listens</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="keyword">for</span> connections from all the network interfaces available on the server.</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> It is possible to listen to just one or multiple selected interfaces using</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> the <span class="string">"bind"</span> configuration directive, followed by one or more IP addresses.</span></span><br><span class="line"><span class="meta">#</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Examples:</span></span><br><span class="line"><span class="meta">#</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">bind</span> 192.168.1.100 10.0.0.1</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">bind</span> 127.0.0.1 ::1</span></span><br><span class="line"><span class="meta">#</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> ~~~ WARNING ~~~ If the computer running Redis is directly exposed to the</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> internet, binding to all the interfaces is dangerous and will expose the</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> instance to everybody on the internet. So by default we uncomment the</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> following <span class="built_in">bind</span> directive, that will force Redis to listen only into</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> the IPv4 loopback interface address (this means Redis will be able to</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> accept connections only from clients running into the same computer it</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> is running).</span></span><br><span class="line"><span class="meta">#</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> IF YOU ARE SURE YOU WANT YOUR INSTANCE TO LISTEN TO ALL THE INTERFACES</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> JUST COMMENT THE FOLLOWING LINE.</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span><br><span class="line">bind 127.0.0.1</span><br><span class="line">bind 192.168.163.129 # 在这里添加新的绑定</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>linux</tag>
+        <tag>redis</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Java执行机制</title>
     <url>/2020/03/04/java-execution-principle/</url>
     <content><![CDATA[<p>本文介绍了Java的动态编译机制</p>
@@ -331,114 +375,6 @@
       <tags>
         <tag>JVM</tag>
         <tag>并发</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>centOS下安装redis</title>
-    <url>/2020/03/05/linux-install-redis/</url>
-    <content><![CDATA[<p>CentOS6.8 安装redis过程记录</p>
-<a id="more"></a>
-
-<h2 id="1-安装"><a href="#1-安装" class="headerlink" title="1. 安装"></a>1. 安装</h2><blockquote>
-<p>官网下载地址 <a href="https://redis.io/download" target="_blank" rel="noopener">https://redis.io/download</a></p>
-</blockquote>
-<p>linux下分别输入</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> wget http://download.redis.io/releases/redis-5.0.3.tar.gz</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> tar xzf redis-5.0.3.tar.gz</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> redis-5.0.3</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> make</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> make install</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="2-编辑redis-conf配置文件"><a href="#2-编辑redis-conf配置文件" class="headerlink" title="2. 编辑redis.conf配置文件"></a>2. 编辑redis.conf配置文件</h2><p>由于redis默认在前台运行，我们希望它能够以守护进程的形式在后台运行，需要配置一下<code>redis.conf</code></p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> redis-5.0.3</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> vim redis.conf</span></span><br></pre></td></tr></table></figure>
-
-<p>找到daemonize，修改为yes，:wq保存</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">################################# GENERAL #####################################</span><br><span class="line"></span><br><span class="line"># By default Redis does not run as a daemon. Use &#39;yes&#39; if you need it.</span><br><span class="line"># Note that Redis will write a pid file in &#x2F;var&#x2F;run&#x2F;redis.pid when daemonized.</span><br><span class="line">daemonize yes</span><br></pre></td></tr></table></figure>
-
-<h2 id="3-启动redis"><a href="#3-启动redis" class="headerlink" title="3. 启动redis"></a>3. 启动redis</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 启动并加载配置文件</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> redis-server redis.conf</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 启动详情</span></span><br><span class="line">[lefter@shen redis-5.0.3]$ redis-server redis.conf</span><br><span class="line">8256:C 05 Mar 2019 14:40:56.851 # oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo</span><br><span class="line">8256:C 05 Mar 2019 14:40:56.851 # Redis version=5.0.3, bits=64, commit=00000000, modified=0, pid=8256, just started</span><br><span class="line">8256:C 05 Mar 2019 14:40:56.851 # Configuration loaded</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看进程</span></span><br><span class="line">[lefter@shen redis-5.0.3]$ ps aux | grep redis</span><br><span class="line">lefter     8257  0.6  0.4 152416  7804 ?        Ssl  14:40   0:00 redis-server 127.0.0.1:6379</span><br><span class="line">lefter     8262  0.0  0.0 103328   856 pts/0    S+   14:41   0:00 grep redis</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 启动redis命令行</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> redis-cli</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 关闭redis</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> redis-cli shutdown</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="4-简化配置"><a href="#4-简化配置" class="headerlink" title="4.简化配置"></a>4.简化配置</h2><p>在<code>redis/utils</code>下，使用<code>install_server.sh</code>可以简化配置，并设置redis为开机启动</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[lefter@shen utils]$ sudo ./install_server.sh </span><br><span class="line">Welcome to the redis service installer</span><br><span class="line">This script will help you easily set up a running redis server</span><br><span class="line"></span><br><span class="line">Please select the redis port for this instance: [6379] </span><br><span class="line">Selecting default: 6379</span><br><span class="line">Please select the redis config file name [/etc/redis/6379.conf] /usr/local/redis/redis.conf</span><br><span class="line">Please select the redis log file name [/var/log/redis_6379.log] /usr/local/redis/redis.log</span><br><span class="line">Please select the data directory for this instance [/var/lib/redis/6379] /usr/local/redis/data</span><br><span class="line">Please select the redis executable path [] /usr/local/bin/redis-server</span><br><span class="line">Selected config:</span><br><span class="line">Port           : 6379</span><br><span class="line">Config file    : /usr/local/redis/redis.conf</span><br><span class="line">Log file       : /usr/local/redis/redis.log</span><br><span class="line">Data dir       : /usr/local/redis/data</span><br><span class="line">Executable     : /usr/local/bin/redis-server</span><br><span class="line">Cli Executable : /usr/local/bin/redis-cli</span><br></pre></td></tr></table></figure>
-<p>检查启动配置，已经变为开机启动</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[lefter@shen redis]$ chkconfig --list | grep redis</span><br><span class="line">redis_6379     	0:关闭	1:关闭	2:启用	3:启用	4:启用	5:启用	6:关闭</span><br></pre></td></tr></table></figure>
-<p>可以通过service直接启动redis</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[lefter@shen redis]$ service redis_6379 status</span><br><span class="line">Redis is running (8105)</span><br><span class="line">[lefter@shen redis]$ service redis_6379 stop</span><br><span class="line">Stopping ...</span><br><span class="line">Redis stopped</span><br><span class="line">[lefter@shen redis]$ sudo service redis_6379 start</span><br><span class="line">Starting Redis server...</span><br></pre></td></tr></table></figure>
-
-<h2 id="5-关于jedis访问的配置"><a href="#5-关于jedis访问的配置" class="headerlink" title="5. 关于jedis访问的配置"></a>5. 关于jedis访问的配置</h2><p>Redis默认配置只绑定了本地访问，<code>bind 127.0.0.1</code></p>
-<p>由于我的Redis装在虚拟机中，需要在<code>redis.conf</code>中添加绑定虚拟机地址，如下：</p>
-<p><code>bind 192.168.163.129</code></p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"><span class="comment">################################# NETWORK #####################################</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> By default, <span class="keyword">if</span> no <span class="string">"bind"</span> configuration directive is specified, Redis listens</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="keyword">for</span> connections from all the network interfaces available on the server.</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> It is possible to listen to just one or multiple selected interfaces using</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> the <span class="string">"bind"</span> configuration directive, followed by one or more IP addresses.</span></span><br><span class="line"><span class="meta">#</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Examples:</span></span><br><span class="line"><span class="meta">#</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">bind</span> 192.168.1.100 10.0.0.1</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">bind</span> 127.0.0.1 ::1</span></span><br><span class="line"><span class="meta">#</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> ~~~ WARNING ~~~ If the computer running Redis is directly exposed to the</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> internet, binding to all the interfaces is dangerous and will expose the</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> instance to everybody on the internet. So by default we uncomment the</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> following <span class="built_in">bind</span> directive, that will force Redis to listen only into</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> the IPv4 loopback interface address (this means Redis will be able to</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> accept connections only from clients running into the same computer it</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> is running).</span></span><br><span class="line"><span class="meta">#</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> IF YOU ARE SURE YOU WANT YOUR INSTANCE TO LISTEN TO ALL THE INTERFACES</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> JUST COMMENT THE FOLLOWING LINE.</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span><br><span class="line">bind 127.0.0.1</span><br><span class="line">bind 192.168.163.129 # 在这里添加新的绑定</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>技术</category>
-      </categories>
-      <tags>
-        <tag>linux</tag>
-        <tag>redis</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Java对接支付宝支付功能（一）官方Demo调试</title>
-    <url>/2020/01/22/java-alipay-1/</url>
-    <content><![CDATA[<p>支付宝当面付功能官方Demo调试的相关内容</p>
-<a id="more"></a>
-
-<h3 id="支付宝当面付官方Demo调试"><a href="#支付宝当面付官方Demo调试" class="headerlink" title="支付宝当面付官方Demo调试"></a>支付宝当面付官方Demo调试</h3><h4 id="配置沙箱环境"><a href="#配置沙箱环境" class="headerlink" title="配置沙箱环境"></a>配置沙箱环境</h4><p><a href="https://docs.open.alipay.com/200/105311" target="_blank" rel="noopener"><strong>官方文档</strong></a></p>
-<p>点击“开放平台-开发者中心-<a href="https://openhome.alipay.com/platform/appDaily.htm" target="_blank" rel="noopener">沙箱环境</a>”。进入沙箱环境页面，系统已经自动为你创建一个应用，在基础信息中可以看到应用信息。</p>
-<ol>
-<li><p>生成并上传RSA2(SHA256)的应用公钥，详见<a href="https://docs.open.alipay.com/291/105971" target="_blank" rel="noopener">生成RSA密钥</a>；配置RSA2(SHA256)的应用公钥后，不需要配置RSA(SHA1)密钥，<a href="https://docs.open.alipay.com/291/106115" target="_blank" rel="noopener">RSA和RSA2签名算法区别可以参考此处</a>；</p>
-</li>
-<li><p>编写代码时，请将</p>
-</li>
-</ol>
-<p>​          a.请求网关修改为：<a href="https://openapi.alipaydev.com/gateway.do" target="_blank" rel="noopener">https://openapi.alipaydev.com/gateway.do</a></p>
-<p>​          b.appid切换为沙箱的appid</p>
-<p>​          c.签名方式使用RSA2</p>
-<p>​          d.应用私钥使用第1步生成的RSA2(SHA256)的私钥(请根据开发语言进行选择原始或pkcs8格式)</p>
-<p>​          e.支付宝公钥切换为第1步配置后应用公钥后，点击查看支付宝公钥看到的公钥</p>
-<h4 id="当面付demo演示"><a href="#当面付demo演示" class="headerlink" title="当面付demo演示"></a>当面付demo演示</h4><ol>
-<li><p>下载demo，地址：<a href="https://docs.open.alipay.com/194/105201/" target="_blank" rel="noopener">https://docs.open.alipay.com/194/105201/</a></p>
-</li>
-<li><p>将demo导入idea</p>
-</li>
-<li><p>配置支付相关的属性alipayinfo.properties</p>
-</li>
-</ol>
-<figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 支付宝网关名、partnerId和appId</span></span><br><span class="line"><span class="attr">open_api_domain</span> = <span class="string">https://openapi.alipaydev.com/gateway.do</span></span><br><span class="line"><span class="attr">mcloud_api_domain</span> = <span class="string">http://mcloudmonitor.com/gateway.do</span></span><br><span class="line"><span class="attr">pid</span> = <span class="string">你的pid</span></span><br><span class="line"><span class="attr">appid</span> = <span class="string">你的appid</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># RSA秘钥生成具体见官方文档</span></span><br><span class="line"><span class="comment"># 应用私钥公钥</span></span><br><span class="line"><span class="attr">private_key</span> = <span class="string">应用公钥</span></span><br><span class="line"><span class="attr">public_key</span> =  <span class="string">应用私钥</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#SHA1withRsa对应支付宝公钥</span></span><br><span class="line"><span class="comment">#alipay_public_key = 使用RSA2时，不用配置此项</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#SHA256withRsa对应支付宝公钥</span></span><br><span class="line"><span class="attr">alipay_public_key</span> = <span class="string">支付宝公钥</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 签名类型: RSA-&gt;SHA1withRsa,RSA2-&gt;SHA256withRsa</span></span><br><span class="line"><span class="attr">sign_type</span> = <span class="string">RSA2</span></span><br><span class="line"><span class="comment"># 当面付最大查询次数和查询间隔（毫秒）</span></span><br><span class="line"><span class="attr">max_query_retry</span> = <span class="string">5</span></span><br><span class="line"><span class="attr">query_duration</span> = <span class="string">5000</span></span><br><span class="line"><span class="comment"># 当面付最大撤销次数和撤销间隔（毫秒）</span></span><br><span class="line"><span class="attr">max_cancel_retry</span> = <span class="string">3</span></span><br><span class="line"><span class="attr">cancel_duration</span> = <span class="string">2000</span></span><br><span class="line"><span class="comment"># 交易保障线程第一次调度延迟和调度间隔（秒）</span></span><br><span class="line"><span class="attr">heartbeat_delay</span> = <span class="string">5</span></span><br><span class="line"><span class="attr">heartbeat_duration</span> = <span class="string">900</span></span><br></pre></td></tr></table></figure>
-
-
-
-<ol start="4">
-<li>启动main方法</li>
-</ol>
-<p>运行结果</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">一月 <span class="number">22</span>, <span class="number">2019</span> <span class="number">10</span>:<span class="number">58</span>:<span class="number">54</span> 下午 com.alipay.demo.trade.config.Configs init</span><br><span class="line">信息: 配置文件名: alipayinfo.properties</span><br><span class="line">一月 <span class="number">22</span>, <span class="number">2019</span> <span class="number">10</span>:<span class="number">58</span>:<span class="number">54</span> 下午 com.alipay.demo.trade.config.Configs init</span><br><span class="line">信息: Configs&#123;支付宝openapi网关: https:<span class="comment">//openapi.alipaydev.com/gateway.do</span></span><br><span class="line">, 支付宝mcloudapi网关域名: http:<span class="comment">//mcloudmonitor.com/gateway.do</span></span><br><span class="line">, pid: <span class="number">2088102177123264</span></span><br><span class="line">, appid: <span class="number">2016092400588794</span></span><br><span class="line">, 商户RSA私钥: MIIEvg******g1jt2A</span><br><span class="line">, 商户RSA公钥: MIIBIj******IDAQAB</span><br><span class="line">, 支付宝RSA公钥: MIIBIj******IDAQAB</span><br><span class="line">, 签名类型: RSA2</span><br><span class="line">, 查询重试次数: <span class="number">5</span></span><br><span class="line">, 查询间隔(毫秒): <span class="number">5000</span></span><br><span class="line">, 撤销尝试次数: <span class="number">3</span></span><br><span class="line">, 撤销重试间隔(毫秒): <span class="number">2000</span></span><br><span class="line">, 交易保障调度延迟(秒): <span class="number">5</span></span><br><span class="line">, 交易保障调度间隔(秒): <span class="number">900</span></span><br><span class="line">&#125;</span><br><span class="line">一月 <span class="number">22</span>, <span class="number">2019</span> <span class="number">10</span>:<span class="number">58</span>:<span class="number">54</span> 下午 com.alipay.demo.trade.service.impl.AbsAlipayTradeService tradePrecreate</span><br><span class="line">信息: trade.precreate bizContent:&#123;<span class="string">"out_trade_no"</span>:<span class="string">"tradeprecreate15481691348134324306"</span>,<span class="string">"seller_id"</span>:<span class="string">""</span>,<span class="string">"total_amount"</span>:<span class="string">"0.01"</span>,<span class="string">"undiscountable_amount"</span>:<span class="string">"0"</span>,<span class="string">"subject"</span>:<span class="string">"xxx品牌xxx门店当面付扫码消费"</span>,<span class="string">"body"</span>:<span class="string">"购买商品3件共20.00元"</span>,<span class="string">"goods_detail"</span>:[&#123;<span class="string">"goods_id"</span>:<span class="string">"goods_id001"</span>,<span class="string">"goods_name"</span>:<span class="string">"xxx小面包"</span>,<span class="string">"quantity"</span>:<span class="number">1</span>,<span class="string">"price"</span>:<span class="string">"10"</span>&#125;,&#123;<span class="string">"goods_id"</span>:<span class="string">"goods_id002"</span>,<span class="string">"goods_name"</span>:<span class="string">"xxx牙刷"</span>,<span class="string">"quantity"</span>:<span class="number">2</span>,<span class="string">"price"</span>:<span class="string">"5"</span>&#125;],<span class="string">"operator_id"</span>:<span class="string">"test_operator_id"</span>,<span class="string">"store_id"</span>:<span class="string">"test_store_id"</span>,<span class="string">"extend_params"</span>:&#123;<span class="string">"sys_service_provider_id"</span>:<span class="string">"2088100200300400500"</span>&#125;,<span class="string">"timeout_express"</span>:<span class="string">"120m"</span>&#125;</span><br><span class="line">一月 <span class="number">22</span>, <span class="number">2019</span> <span class="number">10</span>:<span class="number">58</span>:<span class="number">56</span> 下午 com.alipay.api.internal.util.AlipayLogger logBizSummary</span><br><span class="line">信息: Summary^_^<span class="number">10000</span>^_^<span class="keyword">null</span>^_^ProtocalMustParams:charset=utf-<span class="number">8</span>&amp;method=alipay.trade.precreate&amp;sign=eT6bgbDSF33TeESmRaqWCzfKZ5FB23e4ul6IOdPR9y1Lk6fKEWAhIWW/H0PWt4ttzsyhazy/HnoP4rSNBA11MW6FkK7EA7bwvU+V/kuDEMer4mbq9bPZ44zq5XHUW2wWxrGEIXWGa0O2UwFg1ahWDJCeXGUYqndOFtgMLeuKsShEZ7l/<span class="number">6</span>t9xfMEQSUyfzutucqgGGBApA3YNRpxa7Dh0zD1PZw0yqe0qDpEp2mbNvOEYWilaLS1wtHwOaOzNYKXJ+<span class="number">9</span>xfrz1YMjh6R0ikbIRGdKxPuTLiRB7F8pLim/QwvZYC/n0O9tmIF1X7CrN44Vimhy23IY3VEWbjuGKD4jvM8Q==&amp;version=<span class="number">1.0</span>&amp;app_id=<span class="number">2016092400588794</span>&amp;sign_type=RSA2&amp;timestamp=<span class="number">2019</span>-<span class="number">01</span>-<span class="number">22</span> <span class="number">22</span>:<span class="number">58</span>:<span class="number">54</span>^_^ProtocalOptParams:alipay_sdk=alipay-sdk-java-<span class="number">3.3</span><span class="number">.0</span>&amp;format=json^_^ApplicationParams:biz_content=&#123;<span class="string">"out_trade_no"</span>:<span class="string">"tradeprecreate15481691348134324306"</span>,<span class="string">"seller_id"</span>:<span class="string">""</span>,<span class="string">"total_amount"</span>:<span class="string">"0.01"</span>,<span class="string">"undiscountable_amount"</span>:<span class="string">"0"</span>,<span class="string">"subject"</span>:<span class="string">"xxx品牌xxx门店当面付扫码消费"</span>,<span class="string">"body"</span>:<span class="string">"购买商品3件共20.00元"</span>,<span class="string">"goods_detail"</span>:[&#123;<span class="string">"goods_id"</span>:<span class="string">"goods_id001"</span>,<span class="string">"goods_name"</span>:<span class="string">"xxx小面包"</span>,<span class="string">"quantity"</span>:<span class="number">1</span>,<span class="string">"price"</span>:<span class="string">"10"</span>&#125;,&#123;<span class="string">"goods_id"</span>:<span class="string">"goods_id002"</span>,<span class="string">"goods_name"</span>:<span class="string">"xxx牙刷"</span>,<span class="string">"quantity"</span>:<span class="number">2</span>,<span class="string">"price"</span>:<span class="string">"5"</span>&#125;],<span class="string">"operator_id"</span>:<span class="string">"test_operator_id"</span>,<span class="string">"store_id"</span>:<span class="string">"test_store_id"</span>,<span class="string">"extend_params"</span>:&#123;<span class="string">"sys_service_provider_id"</span>:<span class="string">"2088100200300400500"</span>&#125;,<span class="string">"timeout_express"</span>:<span class="string">"120m"</span>&#125;^_^<span class="number">567</span>ms,<span class="number">524</span>ms,<span class="number">22</span>ms</span><br><span class="line">一月 <span class="number">22</span>, <span class="number">2019</span> <span class="number">10</span>:<span class="number">58</span>:<span class="number">56</span> 下午 com.alipay.demo.trade.service.impl.AbsAlipayService getResponse</span><br><span class="line">信息: &#123;<span class="string">"alipay_trade_precreate_response"</span>:&#123;<span class="string">"code"</span>:<span class="string">"10000"</span>,<span class="string">"msg"</span>:<span class="string">"Success"</span>,<span class="string">"out_trade_no"</span>:<span class="string">"tradeprecreate15481691348134324306"</span>,<span class="string">"qr_code"</span>:<span class="string">"https:\/\/qr.alipay.com\/bax06491yqcl41q5rnzb00e8"</span>&#125;,<span class="string">"sign"</span>:<span class="string">"K68FrpzgPWkN2whVqVuzBLMr35h2TA/dm7VJWdoxsm/KIwsJS8bFI+hTe35bUP3C8Xu+lY4+SOuJdDZUQuM2P9NADt/lYViIigeWVy65BLcsU3qNKvBk/iAqY1zduXx3MjcxUzAUidpk6OnL6hG0uBPmYqlXL3u2jZB1FwdzmZo/iOjXq0Kg0I7tYUbiIIUy28he/dpxtaX7Iha5iHAB7nx0y0M7KoihmF8l6+sr9QGfm+N+DCqBWWQa336RieY/uxz/c8CF4Jexz8ahXf0/+EZJjA6+48umU3OL3lEnOgMoom2xB0IsEP0wsMI4HKagv/h21+YuaBH33CuzyyUkDQ=="</span>&#125;</span><br><span class="line">一月 <span class="number">22</span>, <span class="number">2019</span> <span class="number">10</span>:<span class="number">58</span>:<span class="number">56</span> 下午 com.alipay.demo.trade.Main test_trade_precreate</span><br><span class="line">信息: 支付宝预下单成功: )</span><br><span class="line">一月 <span class="number">22</span>, <span class="number">2019</span> <span class="number">10</span>:<span class="number">58</span>:<span class="number">56</span> 下午 com.alipay.demo.trade.Main dumpResponse</span><br><span class="line">信息: code:<span class="number">10000</span>, msg:Success</span><br><span class="line">一月 <span class="number">22</span>, <span class="number">2019</span> <span class="number">10</span>:<span class="number">58</span>:<span class="number">56</span> 下午 com.alipay.demo.trade.Main dumpResponse</span><br><span class="line">信息: body:&#123;<span class="string">"alipay_trade_precreate_response"</span>:&#123;<span class="string">"code"</span>:<span class="string">"10000"</span>,<span class="string">"msg"</span>:<span class="string">"Success"</span>,<span class="string">"out_trade_no"</span>:<span class="string">"tradeprecreate15481691348134324306"</span>,<span class="string">"qr_code"</span>:<span class="string">"https:\/\/qr.alipay.com\/bax06491yqcl41q5rnzb00e8"</span>&#125;,<span class="string">"sign"</span>:<span class="string">"K68FrpzgPWkN2whVqVuzBLMr35h2TA/dm7VJWdoxsm/KIwsJS8bFI+hTe35bUP3C8Xu+lY4+SOuJdDZUQuM2P9NADt/lYViIigeWVy65BLcsU3qNKvBk/iAqY1zduXx3MjcxUzAUidpk6OnL6hG0uBPmYqlXL3u2jZB1FwdzmZo/iOjXq0Kg0I7tYUbiIIUy28he/dpxtaX7Iha5iHAB7nx0y0M7KoihmF8l6+sr9QGfm+N+DCqBWWQa336RieY/uxz/c8CF4Jexz8ahXf0/+EZJjA6+48umU3OL3lEnOgMoom2xB0IsEP0wsMI4HKagv/h21+YuaBH33CuzyyUkDQ=="</span>&#125;</span><br><span class="line">一月 <span class="number">22</span>, <span class="number">2019</span> <span class="number">10</span>:<span class="number">58</span>:<span class="number">56</span> 下午 com.alipay.demo.trade.Main test_trade_precreate</span><br><span class="line">信息: filePath:/Users/sudo/Desktop/qr-tradeprecreate15481691348134324306.png</span><br></pre></td></tr></table></figure>
-
-
-
-<p>交易创建的参数</p>
-<ul>
-<li>发送</li>
-</ul>
-<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"out_trade_no"</span>: <span class="string">"tradeprecreate15481691348134324306"</span>, <span class="comment">//外部交易订单号</span></span><br><span class="line">  <span class="attr">"seller_id"</span>: <span class="string">""</span>, <span class="comment">//销售id</span></span><br><span class="line">  <span class="attr">"total_amount"</span>: <span class="string">"0.01"</span>, <span class="comment">//总金额</span></span><br><span class="line">  <span class="attr">"undiscountable_amount"</span>: <span class="string">"0"</span>, <span class="comment">//不参加折扣的金额</span></span><br><span class="line">  <span class="attr">"subject"</span>: <span class="string">"xxx品牌xxx门店当面付扫码消费"</span>, <span class="comment">//标题</span></span><br><span class="line">  <span class="attr">"body"</span>: <span class="string">"购买商品3件共20.00元"</span>, <span class="comment">//购买说明</span></span><br><span class="line">  <span class="comment">//商品详情</span></span><br><span class="line">  <span class="attr">"goods_detail"</span>: [</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">"goods_id"</span>: <span class="string">"goods_id001"</span>, <span class="comment">//商品id</span></span><br><span class="line">      <span class="attr">"goods_name"</span>: <span class="string">"xxx小面包"</span>, <span class="comment">//商品名称</span></span><br><span class="line">      <span class="attr">"quantity"</span>: <span class="number">1</span>, <span class="comment">//商品数量</span></span><br><span class="line">      <span class="attr">"price"</span>: <span class="string">"10"</span> <span class="comment">//商品单价</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">"goods_id"</span>: <span class="string">"goods_id002"</span>,</span><br><span class="line">      <span class="attr">"goods_name"</span>: <span class="string">"xxx牙刷"</span>,</span><br><span class="line">      <span class="attr">"quantity"</span>: <span class="number">2</span>,</span><br><span class="line">      <span class="attr">"price"</span>: <span class="string">"5"</span></span><br><span class="line">    &#125;</span><br><span class="line">  ],</span><br><span class="line">  <span class="attr">"operator_id"</span>: <span class="string">"test_operator_id"</span>, <span class="comment">//操作员的id</span></span><br><span class="line">  <span class="attr">"store_id"</span>: <span class="string">"test_store_id"</span>, <span class="comment">//店铺id</span></span><br><span class="line">  <span class="comment">//扩展字段</span></span><br><span class="line">  <span class="attr">"extend_params"</span>: &#123;</span><br><span class="line">    <span class="attr">"sys_service_provider_id"</span>: <span class="string">"2088100200300400500"</span> <span class="comment">//在回调时使用，交互时常用</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">"timeout_express"</span>: <span class="string">"120m"</span> <span class="comment">//交易超时时间，120分钟</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<ul>
-<li>响应</li>
-</ul>
-<figure class="highlight"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"code"</span>: <span class="string">"10000"</span>, <span class="comment">//响应码</span></span><br><span class="line">  <span class="attr">"msg"</span>: <span class="string">"Success"</span>, <span class="comment">//信息</span></span><br><span class="line">  <span class="attr">"out_trade_no"</span>: <span class="string">"tradeprecreate15481691348134324306"</span>, <span class="comment">//外部交易订单号</span></span><br><span class="line">  <span class="attr">"qr_code"</span>: <span class="string">"https:\/\/qr.alipay.com\/bax06491yqcl41q5rnzb00e8"</span> <span class="comment">//二维码，可以通过base64方式传给前端展示，或者将二维码上传到后台ftp服务器进行展示</span></span><br><span class="line">&#125;,"sign": "K68FrpzgPWkN2whVqVuzBLMr35h2TA/dm7VJWdoxsm/KIwsJS8bFI+hTe35bUP3C8Xu+lY4+SOuJdDZUQuM2P9NADt/lYViIigeWVy65BLcsU3qNKvBk/iAqY1zduXx3MjcxUzAUidpk6OnL6hG0uBPmYqlXL3u2jZB1FwdzmZo/iOjXq0Kg0I7tYUbiIIUy28he/dpxtaX7Iha5iHAB7nx0y0M7KoihmF8l6+sr9QGfm+N+DCqBWWQa336RieY/uxz/c8CF4Jexz8ahXf0/+EZJjA6+48umU3OL3lEnOgMoom2xB0IsEP0wsMI4HKagv/h21+YuaBH33CuzyyUkDQ=="</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>可以用二维码生成器将返回的<code>qr_code</code>生成，用<em>支付宝沙箱版</em>进行扫码支付测试</p>
-<p>至此，支付宝当面付的官方demo就调通了，可以进行后续开发</p>
-]]></content>
-      <categories>
-        <category>技术</category>
-      </categories>
-      <tags>
-        <tag>Java</tag>
-        <tag>支付宝</tag>
-        <tag>当面付</tag>
       </tags>
   </entry>
   <entry>
@@ -547,6 +483,70 @@
       <tags>
         <tag>hexo</tag>
         <tag>SEO</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Java对接支付宝支付功能（一）官方Demo调试</title>
+    <url>/2020/01/22/java-alipay-1/</url>
+    <content><![CDATA[<p>支付宝当面付功能官方Demo调试的相关内容</p>
+<a id="more"></a>
+
+<h3 id="支付宝当面付官方Demo调试"><a href="#支付宝当面付官方Demo调试" class="headerlink" title="支付宝当面付官方Demo调试"></a>支付宝当面付官方Demo调试</h3><h4 id="配置沙箱环境"><a href="#配置沙箱环境" class="headerlink" title="配置沙箱环境"></a>配置沙箱环境</h4><p><a href="https://docs.open.alipay.com/200/105311" target="_blank" rel="noopener"><strong>官方文档</strong></a></p>
+<p>点击“开放平台-开发者中心-<a href="https://openhome.alipay.com/platform/appDaily.htm" target="_blank" rel="noopener">沙箱环境</a>”。进入沙箱环境页面，系统已经自动为你创建一个应用，在基础信息中可以看到应用信息。</p>
+<ol>
+<li><p>生成并上传RSA2(SHA256)的应用公钥，详见<a href="https://docs.open.alipay.com/291/105971" target="_blank" rel="noopener">生成RSA密钥</a>；配置RSA2(SHA256)的应用公钥后，不需要配置RSA(SHA1)密钥，<a href="https://docs.open.alipay.com/291/106115" target="_blank" rel="noopener">RSA和RSA2签名算法区别可以参考此处</a>；</p>
+</li>
+<li><p>编写代码时，请将</p>
+</li>
+</ol>
+<p>​          a.请求网关修改为：<a href="https://openapi.alipaydev.com/gateway.do" target="_blank" rel="noopener">https://openapi.alipaydev.com/gateway.do</a></p>
+<p>​          b.appid切换为沙箱的appid</p>
+<p>​          c.签名方式使用RSA2</p>
+<p>​          d.应用私钥使用第1步生成的RSA2(SHA256)的私钥(请根据开发语言进行选择原始或pkcs8格式)</p>
+<p>​          e.支付宝公钥切换为第1步配置后应用公钥后，点击查看支付宝公钥看到的公钥</p>
+<h4 id="当面付demo演示"><a href="#当面付demo演示" class="headerlink" title="当面付demo演示"></a>当面付demo演示</h4><ol>
+<li><p>下载demo，地址：<a href="https://docs.open.alipay.com/194/105201/" target="_blank" rel="noopener">https://docs.open.alipay.com/194/105201/</a></p>
+</li>
+<li><p>将demo导入idea</p>
+</li>
+<li><p>配置支付相关的属性alipayinfo.properties</p>
+</li>
+</ol>
+<figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 支付宝网关名、partnerId和appId</span></span><br><span class="line"><span class="attr">open_api_domain</span> = <span class="string">https://openapi.alipaydev.com/gateway.do</span></span><br><span class="line"><span class="attr">mcloud_api_domain</span> = <span class="string">http://mcloudmonitor.com/gateway.do</span></span><br><span class="line"><span class="attr">pid</span> = <span class="string">你的pid</span></span><br><span class="line"><span class="attr">appid</span> = <span class="string">你的appid</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># RSA秘钥生成具体见官方文档</span></span><br><span class="line"><span class="comment"># 应用私钥公钥</span></span><br><span class="line"><span class="attr">private_key</span> = <span class="string">应用公钥</span></span><br><span class="line"><span class="attr">public_key</span> =  <span class="string">应用私钥</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#SHA1withRsa对应支付宝公钥</span></span><br><span class="line"><span class="comment">#alipay_public_key = 使用RSA2时，不用配置此项</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#SHA256withRsa对应支付宝公钥</span></span><br><span class="line"><span class="attr">alipay_public_key</span> = <span class="string">支付宝公钥</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 签名类型: RSA-&gt;SHA1withRsa,RSA2-&gt;SHA256withRsa</span></span><br><span class="line"><span class="attr">sign_type</span> = <span class="string">RSA2</span></span><br><span class="line"><span class="comment"># 当面付最大查询次数和查询间隔（毫秒）</span></span><br><span class="line"><span class="attr">max_query_retry</span> = <span class="string">5</span></span><br><span class="line"><span class="attr">query_duration</span> = <span class="string">5000</span></span><br><span class="line"><span class="comment"># 当面付最大撤销次数和撤销间隔（毫秒）</span></span><br><span class="line"><span class="attr">max_cancel_retry</span> = <span class="string">3</span></span><br><span class="line"><span class="attr">cancel_duration</span> = <span class="string">2000</span></span><br><span class="line"><span class="comment"># 交易保障线程第一次调度延迟和调度间隔（秒）</span></span><br><span class="line"><span class="attr">heartbeat_delay</span> = <span class="string">5</span></span><br><span class="line"><span class="attr">heartbeat_duration</span> = <span class="string">900</span></span><br></pre></td></tr></table></figure>
+
+
+
+<ol start="4">
+<li>启动main方法</li>
+</ol>
+<p>运行结果</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">一月 <span class="number">22</span>, <span class="number">2019</span> <span class="number">10</span>:<span class="number">58</span>:<span class="number">54</span> 下午 com.alipay.demo.trade.config.Configs init</span><br><span class="line">信息: 配置文件名: alipayinfo.properties</span><br><span class="line">一月 <span class="number">22</span>, <span class="number">2019</span> <span class="number">10</span>:<span class="number">58</span>:<span class="number">54</span> 下午 com.alipay.demo.trade.config.Configs init</span><br><span class="line">信息: Configs&#123;支付宝openapi网关: https:<span class="comment">//openapi.alipaydev.com/gateway.do</span></span><br><span class="line">, 支付宝mcloudapi网关域名: http:<span class="comment">//mcloudmonitor.com/gateway.do</span></span><br><span class="line">, pid: <span class="number">2088102177123264</span></span><br><span class="line">, appid: <span class="number">2016092400588794</span></span><br><span class="line">, 商户RSA私钥: MIIEvg******g1jt2A</span><br><span class="line">, 商户RSA公钥: MIIBIj******IDAQAB</span><br><span class="line">, 支付宝RSA公钥: MIIBIj******IDAQAB</span><br><span class="line">, 签名类型: RSA2</span><br><span class="line">, 查询重试次数: <span class="number">5</span></span><br><span class="line">, 查询间隔(毫秒): <span class="number">5000</span></span><br><span class="line">, 撤销尝试次数: <span class="number">3</span></span><br><span class="line">, 撤销重试间隔(毫秒): <span class="number">2000</span></span><br><span class="line">, 交易保障调度延迟(秒): <span class="number">5</span></span><br><span class="line">, 交易保障调度间隔(秒): <span class="number">900</span></span><br><span class="line">&#125;</span><br><span class="line">一月 <span class="number">22</span>, <span class="number">2019</span> <span class="number">10</span>:<span class="number">58</span>:<span class="number">54</span> 下午 com.alipay.demo.trade.service.impl.AbsAlipayTradeService tradePrecreate</span><br><span class="line">信息: trade.precreate bizContent:&#123;<span class="string">"out_trade_no"</span>:<span class="string">"tradeprecreate15481691348134324306"</span>,<span class="string">"seller_id"</span>:<span class="string">""</span>,<span class="string">"total_amount"</span>:<span class="string">"0.01"</span>,<span class="string">"undiscountable_amount"</span>:<span class="string">"0"</span>,<span class="string">"subject"</span>:<span class="string">"xxx品牌xxx门店当面付扫码消费"</span>,<span class="string">"body"</span>:<span class="string">"购买商品3件共20.00元"</span>,<span class="string">"goods_detail"</span>:[&#123;<span class="string">"goods_id"</span>:<span class="string">"goods_id001"</span>,<span class="string">"goods_name"</span>:<span class="string">"xxx小面包"</span>,<span class="string">"quantity"</span>:<span class="number">1</span>,<span class="string">"price"</span>:<span class="string">"10"</span>&#125;,&#123;<span class="string">"goods_id"</span>:<span class="string">"goods_id002"</span>,<span class="string">"goods_name"</span>:<span class="string">"xxx牙刷"</span>,<span class="string">"quantity"</span>:<span class="number">2</span>,<span class="string">"price"</span>:<span class="string">"5"</span>&#125;],<span class="string">"operator_id"</span>:<span class="string">"test_operator_id"</span>,<span class="string">"store_id"</span>:<span class="string">"test_store_id"</span>,<span class="string">"extend_params"</span>:&#123;<span class="string">"sys_service_provider_id"</span>:<span class="string">"2088100200300400500"</span>&#125;,<span class="string">"timeout_express"</span>:<span class="string">"120m"</span>&#125;</span><br><span class="line">一月 <span class="number">22</span>, <span class="number">2019</span> <span class="number">10</span>:<span class="number">58</span>:<span class="number">56</span> 下午 com.alipay.api.internal.util.AlipayLogger logBizSummary</span><br><span class="line">信息: Summary^_^<span class="number">10000</span>^_^<span class="keyword">null</span>^_^ProtocalMustParams:charset=utf-<span class="number">8</span>&amp;method=alipay.trade.precreate&amp;sign=eT6bgbDSF33TeESmRaqWCzfKZ5FB23e4ul6IOdPR9y1Lk6fKEWAhIWW/H0PWt4ttzsyhazy/HnoP4rSNBA11MW6FkK7EA7bwvU+V/kuDEMer4mbq9bPZ44zq5XHUW2wWxrGEIXWGa0O2UwFg1ahWDJCeXGUYqndOFtgMLeuKsShEZ7l/<span class="number">6</span>t9xfMEQSUyfzutucqgGGBApA3YNRpxa7Dh0zD1PZw0yqe0qDpEp2mbNvOEYWilaLS1wtHwOaOzNYKXJ+<span class="number">9</span>xfrz1YMjh6R0ikbIRGdKxPuTLiRB7F8pLim/QwvZYC/n0O9tmIF1X7CrN44Vimhy23IY3VEWbjuGKD4jvM8Q==&amp;version=<span class="number">1.0</span>&amp;app_id=<span class="number">2016092400588794</span>&amp;sign_type=RSA2&amp;timestamp=<span class="number">2019</span>-<span class="number">01</span>-<span class="number">22</span> <span class="number">22</span>:<span class="number">58</span>:<span class="number">54</span>^_^ProtocalOptParams:alipay_sdk=alipay-sdk-java-<span class="number">3.3</span><span class="number">.0</span>&amp;format=json^_^ApplicationParams:biz_content=&#123;<span class="string">"out_trade_no"</span>:<span class="string">"tradeprecreate15481691348134324306"</span>,<span class="string">"seller_id"</span>:<span class="string">""</span>,<span class="string">"total_amount"</span>:<span class="string">"0.01"</span>,<span class="string">"undiscountable_amount"</span>:<span class="string">"0"</span>,<span class="string">"subject"</span>:<span class="string">"xxx品牌xxx门店当面付扫码消费"</span>,<span class="string">"body"</span>:<span class="string">"购买商品3件共20.00元"</span>,<span class="string">"goods_detail"</span>:[&#123;<span class="string">"goods_id"</span>:<span class="string">"goods_id001"</span>,<span class="string">"goods_name"</span>:<span class="string">"xxx小面包"</span>,<span class="string">"quantity"</span>:<span class="number">1</span>,<span class="string">"price"</span>:<span class="string">"10"</span>&#125;,&#123;<span class="string">"goods_id"</span>:<span class="string">"goods_id002"</span>,<span class="string">"goods_name"</span>:<span class="string">"xxx牙刷"</span>,<span class="string">"quantity"</span>:<span class="number">2</span>,<span class="string">"price"</span>:<span class="string">"5"</span>&#125;],<span class="string">"operator_id"</span>:<span class="string">"test_operator_id"</span>,<span class="string">"store_id"</span>:<span class="string">"test_store_id"</span>,<span class="string">"extend_params"</span>:&#123;<span class="string">"sys_service_provider_id"</span>:<span class="string">"2088100200300400500"</span>&#125;,<span class="string">"timeout_express"</span>:<span class="string">"120m"</span>&#125;^_^<span class="number">567</span>ms,<span class="number">524</span>ms,<span class="number">22</span>ms</span><br><span class="line">一月 <span class="number">22</span>, <span class="number">2019</span> <span class="number">10</span>:<span class="number">58</span>:<span class="number">56</span> 下午 com.alipay.demo.trade.service.impl.AbsAlipayService getResponse</span><br><span class="line">信息: &#123;<span class="string">"alipay_trade_precreate_response"</span>:&#123;<span class="string">"code"</span>:<span class="string">"10000"</span>,<span class="string">"msg"</span>:<span class="string">"Success"</span>,<span class="string">"out_trade_no"</span>:<span class="string">"tradeprecreate15481691348134324306"</span>,<span class="string">"qr_code"</span>:<span class="string">"https:\/\/qr.alipay.com\/bax06491yqcl41q5rnzb00e8"</span>&#125;,<span class="string">"sign"</span>:<span class="string">"K68FrpzgPWkN2whVqVuzBLMr35h2TA/dm7VJWdoxsm/KIwsJS8bFI+hTe35bUP3C8Xu+lY4+SOuJdDZUQuM2P9NADt/lYViIigeWVy65BLcsU3qNKvBk/iAqY1zduXx3MjcxUzAUidpk6OnL6hG0uBPmYqlXL3u2jZB1FwdzmZo/iOjXq0Kg0I7tYUbiIIUy28he/dpxtaX7Iha5iHAB7nx0y0M7KoihmF8l6+sr9QGfm+N+DCqBWWQa336RieY/uxz/c8CF4Jexz8ahXf0/+EZJjA6+48umU3OL3lEnOgMoom2xB0IsEP0wsMI4HKagv/h21+YuaBH33CuzyyUkDQ=="</span>&#125;</span><br><span class="line">一月 <span class="number">22</span>, <span class="number">2019</span> <span class="number">10</span>:<span class="number">58</span>:<span class="number">56</span> 下午 com.alipay.demo.trade.Main test_trade_precreate</span><br><span class="line">信息: 支付宝预下单成功: )</span><br><span class="line">一月 <span class="number">22</span>, <span class="number">2019</span> <span class="number">10</span>:<span class="number">58</span>:<span class="number">56</span> 下午 com.alipay.demo.trade.Main dumpResponse</span><br><span class="line">信息: code:<span class="number">10000</span>, msg:Success</span><br><span class="line">一月 <span class="number">22</span>, <span class="number">2019</span> <span class="number">10</span>:<span class="number">58</span>:<span class="number">56</span> 下午 com.alipay.demo.trade.Main dumpResponse</span><br><span class="line">信息: body:&#123;<span class="string">"alipay_trade_precreate_response"</span>:&#123;<span class="string">"code"</span>:<span class="string">"10000"</span>,<span class="string">"msg"</span>:<span class="string">"Success"</span>,<span class="string">"out_trade_no"</span>:<span class="string">"tradeprecreate15481691348134324306"</span>,<span class="string">"qr_code"</span>:<span class="string">"https:\/\/qr.alipay.com\/bax06491yqcl41q5rnzb00e8"</span>&#125;,<span class="string">"sign"</span>:<span class="string">"K68FrpzgPWkN2whVqVuzBLMr35h2TA/dm7VJWdoxsm/KIwsJS8bFI+hTe35bUP3C8Xu+lY4+SOuJdDZUQuM2P9NADt/lYViIigeWVy65BLcsU3qNKvBk/iAqY1zduXx3MjcxUzAUidpk6OnL6hG0uBPmYqlXL3u2jZB1FwdzmZo/iOjXq0Kg0I7tYUbiIIUy28he/dpxtaX7Iha5iHAB7nx0y0M7KoihmF8l6+sr9QGfm+N+DCqBWWQa336RieY/uxz/c8CF4Jexz8ahXf0/+EZJjA6+48umU3OL3lEnOgMoom2xB0IsEP0wsMI4HKagv/h21+YuaBH33CuzyyUkDQ=="</span>&#125;</span><br><span class="line">一月 <span class="number">22</span>, <span class="number">2019</span> <span class="number">10</span>:<span class="number">58</span>:<span class="number">56</span> 下午 com.alipay.demo.trade.Main test_trade_precreate</span><br><span class="line">信息: filePath:/Users/sudo/Desktop/qr-tradeprecreate15481691348134324306.png</span><br></pre></td></tr></table></figure>
+
+
+
+<p>交易创建的参数</p>
+<ul>
+<li>发送</li>
+</ul>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"out_trade_no"</span>: <span class="string">"tradeprecreate15481691348134324306"</span>, <span class="comment">//外部交易订单号</span></span><br><span class="line">  <span class="attr">"seller_id"</span>: <span class="string">""</span>, <span class="comment">//销售id</span></span><br><span class="line">  <span class="attr">"total_amount"</span>: <span class="string">"0.01"</span>, <span class="comment">//总金额</span></span><br><span class="line">  <span class="attr">"undiscountable_amount"</span>: <span class="string">"0"</span>, <span class="comment">//不参加折扣的金额</span></span><br><span class="line">  <span class="attr">"subject"</span>: <span class="string">"xxx品牌xxx门店当面付扫码消费"</span>, <span class="comment">//标题</span></span><br><span class="line">  <span class="attr">"body"</span>: <span class="string">"购买商品3件共20.00元"</span>, <span class="comment">//购买说明</span></span><br><span class="line">  <span class="comment">//商品详情</span></span><br><span class="line">  <span class="attr">"goods_detail"</span>: [</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">"goods_id"</span>: <span class="string">"goods_id001"</span>, <span class="comment">//商品id</span></span><br><span class="line">      <span class="attr">"goods_name"</span>: <span class="string">"xxx小面包"</span>, <span class="comment">//商品名称</span></span><br><span class="line">      <span class="attr">"quantity"</span>: <span class="number">1</span>, <span class="comment">//商品数量</span></span><br><span class="line">      <span class="attr">"price"</span>: <span class="string">"10"</span> <span class="comment">//商品单价</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">"goods_id"</span>: <span class="string">"goods_id002"</span>,</span><br><span class="line">      <span class="attr">"goods_name"</span>: <span class="string">"xxx牙刷"</span>,</span><br><span class="line">      <span class="attr">"quantity"</span>: <span class="number">2</span>,</span><br><span class="line">      <span class="attr">"price"</span>: <span class="string">"5"</span></span><br><span class="line">    &#125;</span><br><span class="line">  ],</span><br><span class="line">  <span class="attr">"operator_id"</span>: <span class="string">"test_operator_id"</span>, <span class="comment">//操作员的id</span></span><br><span class="line">  <span class="attr">"store_id"</span>: <span class="string">"test_store_id"</span>, <span class="comment">//店铺id</span></span><br><span class="line">  <span class="comment">//扩展字段</span></span><br><span class="line">  <span class="attr">"extend_params"</span>: &#123;</span><br><span class="line">    <span class="attr">"sys_service_provider_id"</span>: <span class="string">"2088100200300400500"</span> <span class="comment">//在回调时使用，交互时常用</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">"timeout_express"</span>: <span class="string">"120m"</span> <span class="comment">//交易超时时间，120分钟</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li>响应</li>
+</ul>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"code"</span>: <span class="string">"10000"</span>, <span class="comment">//响应码</span></span><br><span class="line">  <span class="attr">"msg"</span>: <span class="string">"Success"</span>, <span class="comment">//信息</span></span><br><span class="line">  <span class="attr">"out_trade_no"</span>: <span class="string">"tradeprecreate15481691348134324306"</span>, <span class="comment">//外部交易订单号</span></span><br><span class="line">  <span class="attr">"qr_code"</span>: <span class="string">"https:\/\/qr.alipay.com\/bax06491yqcl41q5rnzb00e8"</span> <span class="comment">//二维码，可以通过base64方式传给前端展示，或者将二维码上传到后台ftp服务器进行展示</span></span><br><span class="line">&#125;,"sign": "K68FrpzgPWkN2whVqVuzBLMr35h2TA/dm7VJWdoxsm/KIwsJS8bFI+hTe35bUP3C8Xu+lY4+SOuJdDZUQuM2P9NADt/lYViIigeWVy65BLcsU3qNKvBk/iAqY1zduXx3MjcxUzAUidpk6OnL6hG0uBPmYqlXL3u2jZB1FwdzmZo/iOjXq0Kg0I7tYUbiIIUy28he/dpxtaX7Iha5iHAB7nx0y0M7KoihmF8l6+sr9QGfm+N+DCqBWWQa336RieY/uxz/c8CF4Jexz8ahXf0/+EZJjA6+48umU3OL3lEnOgMoom2xB0IsEP0wsMI4HKagv/h21+YuaBH33CuzyyUkDQ=="</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可以用二维码生成器将返回的<code>qr_code</code>生成，用<em>支付宝沙箱版</em>进行扫码支付测试</p>
+<p>至此，支付宝当面付的官方demo就调通了，可以进行后续开发</p>
+]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>支付宝</tag>
+        <tag>当面付</tag>
       </tags>
   </entry>
   <entry>

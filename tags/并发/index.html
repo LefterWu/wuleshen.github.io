@@ -21,9 +21,9 @@
   </script>
 
   <meta property="og:type" content="website">
-<meta property="og:title" content="吴乐申的技术博客">
+<meta property="og:title" content="吴乐申的博客">
 <meta property="og:url" content="http://www.wuleshen.com/tags/%E5%B9%B6%E5%8F%91/index.html">
-<meta property="og:site_name" content="吴乐申的技术博客">
+<meta property="og:site_name" content="吴乐申的博客">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:author" content="Shawn Wu">
 <meta property="article:tag" content="“java">
@@ -46,7 +46,7 @@
   };
 </script>
 
-  <title>标签: 并发 | 吴乐申的技术博客</title>
+  <title>标签: 并发 | 吴乐申的博客</title>
   
 
 
@@ -97,7 +97,7 @@
 
     <a href="/" class="brand" rel="start">
       <span class="logo-line-before"><i></i></span>
-      <h1 class="site-title">吴乐申的技术博客</h1>
+      <h1 class="site-title">吴乐申的博客</h1>
       <span class="logo-line-after"><i></i></span>
     </a>
       <p class="site-subtitle" itemprop="description">Done is better than perfect</p>
@@ -379,6 +379,35 @@
   
 
   
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'xQrki4l2bmKSXWKVxyFMR3Na-gzGzoHsz',
+      appKey     : '4zBxvfis1YCt0Rj3ihm0g6o4',
+      placeholder: "欢迎留言",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : 'zh-cn' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
 
 </body>
 </html>

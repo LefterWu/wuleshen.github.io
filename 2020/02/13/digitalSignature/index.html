@@ -24,7 +24,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="数字签名和数字证书">
 <meta property="og:url" content="http://www.wuleshen.com/2020/02/13/digitalSignature/index.html">
-<meta property="og:site_name" content="吴乐申的技术博客">
+<meta property="og:site_name" content="吴乐申的博客">
 <meta property="og:description" content="本文介绍了RSA加密和数字签名的基本原理，以及数字证书的由来。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://www.wuleshen.com/2020/02/13/digitalSignature/clipboard-1550059824367.png">
@@ -52,7 +52,7 @@
   };
 </script>
 
-  <title>数字签名和数字证书 | 吴乐申的技术博客</title>
+  <title>数字签名和数字证书 | 吴乐申的博客</title>
   
 
 
@@ -103,7 +103,7 @@
 
     <a href="/" class="brand" rel="start">
       <span class="logo-line-before"><i></i></span>
-      <h1 class="site-title">吴乐申的技术博客</h1>
+      <h1 class="site-title">吴乐申的博客</h1>
       <span class="logo-line-after"><i></i></span>
     </a>
       <p class="site-subtitle" itemprop="description">Done is better than perfect</p>
@@ -184,7 +184,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="吴乐申的技术博客">
+      <meta itemprop="name" content="吴乐申的博客">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
@@ -218,6 +218,20 @@
             </span>
 
           
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/02/13/digitalSignature/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/13/digitalSignature/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
 
         </div>
       </header>
@@ -353,6 +367,7 @@
 
           </div>
           
+    <div class="comments" id="valine-comments"></div>
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -520,6 +535,35 @@
   
 
   
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'xQrki4l2bmKSXWKVxyFMR3Na-gzGzoHsz',
+      appKey     : '4zBxvfis1YCt0Rj3ihm0g6o4',
+      placeholder: "欢迎留言",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : 'zh-cn' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
 
 </body>
 </html>

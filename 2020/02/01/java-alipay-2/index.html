@@ -24,7 +24,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java对接支付宝功能（二）当面付预下单">
 <meta property="og:url" content="http://www.wuleshen.com/2020/02/01/java-alipay-2/index.html">
-<meta property="og:site_name" content="吴乐申的技术博客">
+<meta property="og:site_name" content="吴乐申的博客">
 <meta property="og:description" content="支付宝当面付预下单流程介绍以及生成二维码核心代码的源码分析">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://www.wuleshen.com/2020/02/01/java-alipay-2/0dd5f9ae0c3da01ce2b9d6019efde979.png">
@@ -51,7 +51,7 @@
   };
 </script>
 
-  <title>Java对接支付宝功能（二）当面付预下单 | 吴乐申的技术博客</title>
+  <title>Java对接支付宝功能（二）当面付预下单 | 吴乐申的博客</title>
   
 
 
@@ -102,7 +102,7 @@
 
     <a href="/" class="brand" rel="start">
       <span class="logo-line-before"><i></i></span>
-      <h1 class="site-title">吴乐申的技术博客</h1>
+      <h1 class="site-title">吴乐申的博客</h1>
       <span class="logo-line-after"><i></i></span>
     </a>
       <p class="site-subtitle" itemprop="description">Done is better than perfect</p>
@@ -183,7 +183,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="吴乐申的技术博客">
+      <meta itemprop="name" content="吴乐申的博客">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
@@ -217,6 +217,20 @@
             </span>
 
           
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/02/01/java-alipay-2/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/01/java-alipay-2/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
 
         </div>
       </header>
@@ -333,6 +347,7 @@
 
           </div>
           
+    <div class="comments" id="valine-comments"></div>
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -500,6 +515,35 @@
   
 
   
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'xQrki4l2bmKSXWKVxyFMR3Na-gzGzoHsz',
+      appKey     : '4zBxvfis1YCt0Rj3ihm0g6o4',
+      placeholder: "欢迎留言",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : 'zh-cn' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
 
 </body>
 </html>

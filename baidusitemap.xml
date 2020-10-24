@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://www.wuleshen.com/2020/10/24/duplicate-list/</loc>
+    <lastmod>2020-10-24</lastmod>
+  </url>
+  <url>
     <loc>http://www.wuleshen.com/2020/07/17/springboot-security/</loc>
     <lastmod>2020-09-25</lastmod>
   </url>

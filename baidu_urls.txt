@@ -1,5 +1,5 @@
+http://www.wuleshen.com/2020/10/24/duplicate-list/
 http://www.wuleshen.com/2020/07/17/springboot-security/
 http://www.wuleshen.com/2020/07/07/mybatis-generator-config/
 http://www.wuleshen.com/2020/06/28/ClassNotFoundException-and-NoClassDefFoundError/
 http://www.wuleshen.com/2020/03/13/druid-quick-start/
-http://www.wuleshen.com/2020/03/07/install-under-linux/
